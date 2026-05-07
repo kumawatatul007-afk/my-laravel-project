@@ -1,0 +1,316 @@
+import { useEffect, useRef, useState } from 'react';
+import { Link } from '@inertiajs/react';
+
+export default function PortfolioPage() {
+  const [portfolios, setPortfolios] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/portfolio')
+      .then(res => res.json())
+      .then(data => {
+        setPortfolios(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+  /* ── Intersection Observer for scroll-in animations ── */
+  const headerRef = useRef(null);
+  const gridRef   = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('port-visible');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (headerRef.current) observer.observe(headerRef.current);
+
+    const items = gridRef.current?.querySelectorAll('.port-item');
+    items?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [portfolios]);
+
+  return (
+    <div className="portfolio-page-wrapper">
+      <section className="port-section">
+
+        {/* ── Header block: "Portfolio" stroke + big heading stacked ── */}
+        <div className="port-header" ref={headerRef}>
+          {/* "Portfolio" — outline/stroke gray text, top */}
+          <span className="port-stroke-label">Portfolio</span>
+
+          {/* Big bold uppercase heading below */}
+          <h2 className="port-big-title">
+            BLENDING INNOVATIVE<br />
+            DESIGN WITH<br />
+            FUNCTIONALITY
+          </h2>
+        </div>
+
+        {/* Loading state */}
+        {loading && (
+          <div style={{ textAlign: 'center', padding: '3rem', color: '#9ca3af', fontFamily: "'Space Grotesk', sans-serif" }}>
+            Loading portfolio...
+          </div>
+        )}
+
+        {/* ── Portfolio Grid ── */}
+        {!loading && (
+          <div className="port-grid" ref={gridRef}>
+            {portfolios.map((project, i) => (
+              <Link
+                key={project.id}
+                href={`/portfolio/${project.id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <div
+                  className="port-item"
+                  style={{ transitionDelay: `${i * 0.08}s` }}
+                >
+                  <div className="port-img-wrap">
+                    {project.is_featured && (
+                      <span className="port-badge">Featured</span>
+                    )}
+                    <img
+                      src={project.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/project-5.jpg'}
+                      alt={project.title}
+                      className="port-img"
+                      loading="lazy"
+                    />
+                    <div className="port-overlay">
+                      <div className="port-overlay-content">
+                        <p className="port-overlay-cat">{project.category}</p>
+                        <h4 className="port-overlay-title">{project.title}</h4>
+                        {project.type && <p className="port-overlay-type">{project.type}</p>}
+                        {project.project_url && (
+                          <a
+                            className="port-link"
+                            href={project.project_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            View Project
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap');
+
+        .portfolio-page-wrapper {
+          background-color: #f8fafb;
+          min-height: 100vh;
+          font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .port-section {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 3vw, 2rem);
+        }
+
+        /* ── Header block ── */
+        .port-header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 3rem;
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                      transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .port-header.port-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .port-stroke-label {
+          display: block;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+          font-weight: 700;
+          color: transparent;
+          -webkit-text-stroke: 1.5px #9ca3af;
+          text-stroke: 1.5px #9ca3af;
+          line-height: 1.1;
+          letter-spacing: -0.01em;
+        }
+
+        .port-big-title {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+          font-weight: 900;
+          color: #131313;
+          text-transform: uppercase;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          margin: 0;
+        }
+
+        .port-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.25rem;
+        }
+
+        @media (min-width: 640px) {
+          .port-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+          .port-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .port-item {
+          cursor: pointer;
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                      transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .port-item.port-visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .port-img-wrap {
+          position: relative;
+          overflow: hidden;
+          background: #e5e7eb;
+          clip-path: inset(0px);
+          transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .port-item:hover .port-img-wrap {
+          clip-path: inset(10px);
+        }
+
+        .port-img {
+          width: 100%;
+          height: 260px;
+          object-fit: cover;
+          display: block;
+          transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .port-item:hover .port-img {
+          transform: scale(1.06) rotate(0.001deg);
+        }
+
+        .port-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to top,
+            rgba(248, 250, 251, 0.95) 0%,
+            transparent 55%
+          );
+          opacity: 0;
+          transition: opacity 0.5s ease;
+          display: flex;
+          align-items: flex-end;
+          padding: 1.5rem;
+        }
+
+        .port-item:hover .port-overlay {
+          opacity: 1;
+        }
+
+        .port-overlay-content {
+          transform: translateY(8px);
+          transition: transform 0.5s ease;
+        }
+
+        .port-item:hover .port-overlay-content {
+          transform: translateY(0);
+        }
+
+        .port-overlay-cat {
+          font-size: 0.72rem;
+          color: #6b7280;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          margin-bottom: 0.2rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-weight: 500;
+        }
+
+        .port-overlay-title {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #131313;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          font-family: 'Space Grotesk', sans-serif;
+          margin: 0;
+        }
+
+        .port-overlay-type {
+          margin: 0.35rem 0 0;
+          color: #dbeafe;
+          font-size: 0.78rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+        }
+
+        .port-badge {
+          position: absolute;
+          top: 1rem;
+          left: 1rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.25rem 0.65rem;
+          border-radius: 999px;
+          background: rgba(59, 130, 246, 0.95);
+          color: white;
+          font-size: 0.72rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          z-index: 2;
+        }
+
+        .port-link {
+          display: inline-flex;
+          align-items: center;
+          margin-top: 0.75rem;
+          font-size: 0.82rem;
+          color: #93c5fd;
+          text-decoration: underline;
+          font-weight: 700;
+        }
+
+        @media (max-width: 639px) {
+          .port-big-title {
+            font-size: 2rem;
+          }
+          .port-img {
+            height: 220px;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
