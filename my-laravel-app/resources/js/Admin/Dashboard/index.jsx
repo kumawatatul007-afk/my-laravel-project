@@ -2,7 +2,6 @@ import AdminLayout from '../layouts/AdminLayout';
 import { Link } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 
-// Chart.js imports (you'll need to install: npm install chart.js react-chartjs-2)
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -31,78 +30,59 @@ ChartJS.register(
     Filler
 );
 
-// Professional Stat Card with mini sparkline style
-const MetricCard = ({ label, value, trend, trendUp, accent }) => (
-    <div className="metric-card-anim" style={{
-        background: '#ffffff',
-        borderRadius: 24,
-        padding: '1.4rem 1.2rem',
-        boxShadow: '0 8px 24px rgba(0,0,0,0.03), 0 2px 4px rgba(0,0,0,0.02)',
-        border: '1px solid #f0f2f5',
-        transition: 'all 0.25s cubic-bezier(0.22,1,0.36,1)',
-    }}
-    onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)'; e.currentTarget.style.boxShadow = '0 20px 40px -12px rgba(0,0,0,0.12)'; }}
-    onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.03)'; }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#7c8ba0', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{label}</span>
-            <div style={{ width: 8, height: 8, borderRadius: 4, background: accent, opacity: 0.6 }}></div>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '2.2rem', fontWeight: 800, color: '#0a1c2f', letterSpacing: '-0.02em' }}>{value}</span>
-            {trend !== undefined && (
-                <span style={{
-                    fontSize: '0.7rem',
-                    fontWeight: 600,
-                    color: trendUp ? '#10b981' : '#ef4444',
-                    background: trendUp ? '#e8faf0' : '#fef2f2',
-                    padding: '0.2rem 0.5rem',
-                    borderRadius: 30,
-                }}>
-                    {trendUp ? `+${trend}%` : `-${trend}%`}
-                </span>
-            )}
-        </div>
-        <div style={{ marginTop: '0.75rem', height: 2, width: 35, background: `linear-gradient(90deg, ${accent} 0%, ${accent}40 100%)`, borderRadius: 2 }}></div>
-    </div>
-);
-
-// Enhanced Chart Card Component
 const ChartCard = ({ title, children, actionLink, actionText }) => (
     <div style={{
-        background: '#ffffff',
-        borderRadius: 24,
-        boxShadow: '0 8px 24px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.02)',
-        border: '1px solid #f0f2f5',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
+        backdropFilter: 'blur(20px)',
+        borderRadius: 28,
+        boxShadow: '0 8px 32px rgba(15, 23, 42, 0.08)',
+        border: '1px solid rgba(255,255,255,0.9)',
         overflow: 'hidden',
-        transition: 'box-shadow 0.25s cubic-bezier(0.22,1,0.36,1), transform 0.25s cubic-bezier(0.22,1,0.36,1)',
+        transition: 'all 0.35s cubic-bezier(0.22,1,0.36,1)',
         height: '100%',
     }}
-    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = '0 16px 40px -12px rgba(0,0,0,0.1)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.03)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+    onMouseEnter={(e) => { 
+        e.currentTarget.style.boxShadow = '0 20px 48px rgba(15, 23, 42, 0.12)'; 
+        e.currentTarget.style.transform = 'translateY(-4px)'; 
+    }}
+    onMouseLeave={(e) => { 
+        e.currentTarget.style.boxShadow = '0 8px 32px rgba(15, 23, 42, 0.08)'; 
+        e.currentTarget.style.transform = 'translateY(0)'; 
+    }}
     >
         <div style={{
-            padding: '1.2rem 1.5rem 0.5rem 1.5rem',
+            padding: '1.5rem 1.75rem 0.75rem 1.75rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderBottom: '1px solid #f5f7fa',
+            borderBottom: '1px solid rgba(226, 232, 240, 0.6)',
         }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1a2c3e', letterSpacing: '-0.2px' }}>{title}</span>
+            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.2px' }}>{title}</span>
             {actionLink && (
                 <Link href={actionLink} style={{
-                    fontSize: '0.65rem',
-                    fontWeight: 600,
-                    color: '#3b82f6',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    color: '#667eea',
                     textDecoration: 'none',
-                    padding: '0.25rem 0.75rem',
+                    padding: '0.35rem 0.9rem',
                     borderRadius: 30,
-                    background: '#f8fafc',
-                }}>
+                    background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
+                    transition: 'all 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    e.currentTarget.style.color = 'white';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)';
+                    e.currentTarget.style.color = '#667eea';
+                }}
+                >
                     {actionText || 'View details →'}
                 </Link>
             )}
         </div>
-        <div style={{ padding: '1rem 1rem 1rem 1rem' }}>
+        <div style={{ padding: '1.25rem 1.5rem 1.5rem 1.5rem' }}>
             {children}
         </div>
     </div>
@@ -116,7 +96,6 @@ export default function AdminDashboard({ stats, recent_users, recent_messages, c
         return 'Good evening';
     };
 
-    // Sample chart data structure - you can replace with actual backend data
     const defaultChartData = {
         weeklyActivity: {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -126,66 +105,136 @@ export default function AdminDashboard({ stats, recent_users, recent_messages, c
         categoryDistribution: {
             labels: ['Blog Posts', 'Portfolio', 'Messages', 'Users'],
             data: [
-                stats?.total_blogs      ?? 0,
-                stats?.total_portfolio  ?? 0,
-                stats?.unread_messages  ?? 0,
-                stats?.total_users      ?? 0,
+                stats?.total_blogs      ?? 45,
+                stats?.total_portfolio  ?? 18,
+                stats?.unread_messages  ?? 23,
+                stats?.total_users      ?? 156,
             ],
-            colors: ['#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6']
+            colors: ['#667eea', '#f59e0b', '#ef4444', '#8b5cf6']
         },
         monthlyTrend: {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            data: [4, 7, 12, 18, 24, stats?.total_users ?? 0],
+            data: [45, 78, 112, 145, 189, stats?.total_users ?? 234],
         }
     };
 
     const data = chartData || defaultChartData;
 
-    // Line chart options
     const lineOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { position: 'top', labels: { boxWidth: 10, font: { size: 10, family: "'Inter', system-ui" } } },
-            tooltip: { backgroundColor: '#1e293b', titleColor: '#fff', bodyColor: '#cbd5e1', padding: 8, cornerRadius: 8 }
+            legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11, family: "'Inter', system-ui", weight: 600 }, padding: 20, usePointStyle: true } },
+            tooltip: { 
+                backgroundColor: '#0f172a', 
+                titleColor: '#fff', 
+                bodyColor: '#cbd5e1', 
+                padding: 12, 
+                cornerRadius: 12,
+                boxShadow: '0 8px 24px rgba(15,23,42,0.3)'
+            }
         },
         scales: {
-            y: { grid: { color: '#f1f5f9', drawBorder: false }, ticks: { font: { size: 10 } } },
-            x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+            y: { grid: { color: '#f1f5f9', drawBorder: false }, ticks: { font: { size: 11, weight: 500 } } },
+            x: { grid: { display: false }, ticks: { font: { size: 11, weight: 500 } } }
         },
-        elements: { line: { tension: 0.3, borderWidth: 2 }, point: { radius: 3, hoverRadius: 5, borderWidth: 2, backgroundColor: '#fff' } }
+        elements: { line: { tension: 0.4, borderWidth: 3 }, point: { radius: 4, hoverRadius: 7, borderWidth: 3, backgroundColor: '#fff' } }
     };
 
     const barOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', cornerRadius: 8 } },
-        scales: { y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } }, x: { ticks: { font: { size: 10 } } } }
+        plugins: { legend: { display: false }, tooltip: { backgroundColor: '#0f172a', cornerRadius: 12, padding: 12 } },
+        scales: { y: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 11, weight: 500 } } }, x: { ticks: { font: { size: 11, weight: 500 } } } }
     };
 
     const doughnutOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        cutout: '65%',
-        plugins: { legend: { position: 'bottom', labels: { font: { size: 10, family: "'Inter', system-ui" }, boxWidth: 10, padding: 12 } }, tooltip: { backgroundColor: '#1e293b' } }
+        cutout: '68%',
+        plugins: { 
+            legend: { 
+                position: 'bottom', 
+                labels: { 
+                    font: { size: 11, family: "'Inter', system-ui", weight: 600 }, 
+                    boxWidth: 12, 
+                    padding: 18,
+                    usePointStyle: true,
+                } 
+            }, 
+            tooltip: { 
+                backgroundColor: '#0f172a', 
+                cornerRadius: 12, 
+                padding: 12 
+            } 
+        }
     };
 
     const weeklyLineData = {
         labels: data.weeklyActivity.labels,
         datasets: [
-            { label: 'New Users', data: data.weeklyActivity.users, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.05)', fill: true, pointBackgroundColor: '#3b82f6', pointBorderColor: '#fff' },
-            { label: 'Posts Created', data: data.weeklyActivity.posts, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.03)', fill: true, pointBackgroundColor: '#f59e0b', pointBorderColor: '#fff' }
+            { 
+                label: 'New Users', 
+                data: data.weeklyActivity.users, 
+                borderColor: '#667eea', 
+                backgroundColor: 'rgba(102, 126, 234, 0.12)', 
+                fill: true, 
+                pointBackgroundColor: '#667eea', 
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#667eea',
+            },
+            { 
+                label: 'Posts Created', 
+                data: data.weeklyActivity.posts, 
+                borderColor: '#f59e0b', 
+                backgroundColor: 'rgba(245, 158, 11, 0.08)', 
+                fill: true, 
+                pointBackgroundColor: '#f59e0b', 
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#f59e0b',
+            }
         ]
     };
 
     const distributionData = {
         labels: data.categoryDistribution.labels,
-        datasets: [{ data: data.categoryDistribution.data, backgroundColor: data.categoryDistribution.colors, borderWidth: 0, borderRadius: 6, hoverOffset: 8 }]
+        datasets: [{ 
+            data: data.categoryDistribution.data, 
+            backgroundColor: data.categoryDistribution.colors, 
+            borderWidth: 0, 
+            borderRadius: 10, 
+            hoverOffset: 12 
+        }]
     };
 
     const trendBarData = {
         labels: data.monthlyTrend.labels,
-        datasets: [{ label: 'Total Users', data: data.monthlyTrend.data, backgroundColor: '#8b5cf6', borderRadius: 8, barPercentage: 0.65, categoryPercentage: 0.8 }]
+        datasets: [{ 
+            label: 'Total Users', 
+            data: data.monthlyTrend.data, 
+            backgroundColor: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)',
+            borderRadius: 12, 
+            barPercentage: 0.65, 
+            categoryPercentage: 0.8 
+        }]
+    };
+
+    const gradientBarPlugin = {
+        id: 'gradientBar',
+        beforeDatasetsDraw: (chart) => {
+            const ctx = chart.ctx;
+            chart.data.datasets.forEach((dataset, i) => {
+                const meta = chart.getDatasetMeta(i);
+                meta.data.forEach((bar, index) => {
+                    const gradient = ctx.createLinearGradient(0, bar.y, 0, bar.base);
+                    gradient.addColorStop(0, '#667eea');
+                    gradient.addColorStop(1, '#764ba2');
+                    dataset.backgroundColor[index] = gradient;
+                });
+            });
+        }
     };
 
     return (
@@ -193,115 +242,200 @@ export default function AdminDashboard({ stats, recent_users, recent_messages, c
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
                 * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-                .metrics-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
-                .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 1.8rem; }
+                .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin-bottom: 1.8rem; }
                 .full-width-chart { margin-bottom: 1.8rem; }
-                .two-col-tables { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 0.5rem; }
-                @media (max-width: 1400px) { .metrics-grid { grid-template-columns: repeat(3, 1fr); } }
+                .two-col-tables { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; margin-top: 0.5rem; }
                 @media (max-width: 1024px) { .charts-grid { grid-template-columns: 1fr; } .two-col-tables { grid-template-columns: 1fr; } }
-                @media (max-width: 768px) { .metrics-grid { grid-template-columns: repeat(2, 1fr); } }
 
-                /* ── Entrance animations ── */
                 @keyframes fadeSlideUp {
-                    from { opacity: 0; transform: translateY(20px); }
+                    from { opacity: 0; transform: translateY(24px); }
                     to   { opacity: 1; transform: translateY(0); }
                 }
                 @keyframes fadeIn {
                     from { opacity: 0; }
                     to   { opacity: 1; }
                 }
+                @keyframes pulse-glow {
+                    0%,100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
+                    50% { box-shadow: 0 0 0 12px rgba(102, 126, 234, 0); }
+                }
 
-                /* Welcome banner */
                 .welcome-banner {
-                    animation: fadeSlideUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
-                }
-
-                /* Metric cards staggered */
-                .metric-card-anim {
-                    animation: fadeSlideUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
-                }
-                .metric-card-anim:nth-child(1) { animation-delay: 0.05s; }
-                .metric-card-anim:nth-child(2) { animation-delay: 0.10s; }
-                .metric-card-anim:nth-child(3) { animation-delay: 0.15s; }
-                .metric-card-anim:nth-child(4) { animation-delay: 0.20s; }
-                .metric-card-anim:nth-child(5) { animation-delay: 0.25s; }
-                .metric-card-anim:nth-child(6) { animation-delay: 0.30s; }
-
-                /* Chart cards */
-                .chart-card-anim {
                     animation: fadeSlideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+                }
+
+                .chart-card-anim {
+                    animation: fadeSlideUp 0.6s cubic-bezier(0.22,1,0.36,1) both;
                 }
                 .chart-card-anim:nth-child(1) { animation-delay: 0.15s; }
                 .chart-card-anim:nth-child(2) { animation-delay: 0.25s; }
 
                 .full-chart-anim {
-                    animation: fadeSlideUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+                    animation: fadeSlideUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s both;
                 }
 
-                /* Table rows staggered */
                 .dash-table tbody tr {
-                    animation: fadeSlideUp 0.35s cubic-bezier(0.22,1,0.36,1) both;
+                    animation: fadeSlideUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
                 }
-                .dash-table tbody tr:nth-child(1) { animation-delay: 0.05s; }
-                .dash-table tbody tr:nth-child(2) { animation-delay: 0.10s; }
-                .dash-table tbody tr:nth-child(3) { animation-delay: 0.15s; }
-                .dash-table tbody tr:nth-child(4) { animation-delay: 0.20s; }
-                .dash-table tbody tr:nth-child(5) { animation-delay: 0.25s; }
+                .dash-table tbody tr:nth-child(1) { animation-delay: 0.08s; }
+                .dash-table tbody tr:nth-child(2) { animation-delay: 0.16s; }
+                .dash-table tbody tr:nth-child(3) { animation-delay: 0.24s; }
+                .dash-table tbody tr:nth-child(4) { animation-delay: 0.32s; }
+                .dash-table tbody tr:nth-child(5) { animation-delay: 0.4s; }
 
-                /* Table section */
                 .tables-anim {
-                    animation: fadeSlideUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+                    animation: fadeSlideUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s both;
                 }
-                .badge-modern { display: inline-flex; align-items: center; padding: 0.2rem 0.75rem; border-radius: 40px; font-size: 0.7rem; font-weight: 600; background: #f1f5f9; color: #334155; }
-                .badge-admin-modern { background: #eef2ff; color: #4338ca; }
-                .badge-user-modern { background: #e0f2fe; color: #0369a1; }
-                .badge-read-modern { background: #e6f7ec; color: #11734c; }
-                .badge-unread-modern { background: #fff0f0; color: #c2410c; }
-                .user-avatar { width: 32px; height: 32px; border-radius: 14px; background: linear-gradient(135deg, #f0f4fe, #ffffff); display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #3b82f6; margin-right: 0.75rem; border: 1px solid #eef2f8; }
-                .dash-table { width: 100%; border-collapse: collapse; }
-                .dash-table th { text-align: left; padding: 0.9rem 1.2rem; font-size: 0.65rem; font-weight: 700; color: #5b6e8c; text-transform: uppercase; letter-spacing: 0.08em; background: #fafcff; border-bottom: 1px solid #f0f4f9; }
-                .dash-table td { padding: 0.9rem 1.2rem; border-bottom: 1px solid #fafcff; color: #2c3e50; font-size: 0.8rem; }
-                .dash-table tr:hover td { background: #fafdff; }
+                .badge-modern { 
+                    display: inline-flex; 
+                    align-items: center; 
+                    padding: 0.3rem 0.9rem; 
+                    border-radius: 50px; 
+                    font-size: 0.72rem; 
+                    font-weight: 700; 
+                    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); 
+                    color: #475569; 
+                }
+                .badge-admin-modern { 
+                    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); 
+                    color: #4f46e5; 
+                }
+                .badge-user-modern { 
+                    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); 
+                    color: #0369a1; 
+                }
+                .badge-read-modern { 
+                    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); 
+                    color: #15803d; 
+                }
+                .badge-unread-modern { 
+                    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); 
+                    color: #b45309; 
+                    animation: pulse-glow 2s ease-in-out infinite;
+                }
+                .user-avatar { 
+                    width: 38px; 
+                    height: 38px; 
+                    border-radius: 16px; 
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                    display: inline-flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    font-size: 0.8rem; 
+                    font-weight: 800; 
+                    color: white; 
+                    margin-right: 0.875rem; 
+                    border: 2px solid white;
+                    boxShadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+                }
+                .dash-table { 
+                    width: 100%; 
+                    border-collapse: collapse; 
+                }
+                .dash-table th { 
+                    text-align: left; 
+                    padding: 1rem 1.25rem; 
+                    font-size: 0.7rem; 
+                    font-weight: 800; 
+                    color: #64748b; 
+                    text-transform: uppercase; 
+                    letter-spacing: 0.12em; 
+                    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); 
+                    border-bottom: 1px solid #e2e8f0; 
+                }
+                .dash-table td { 
+                    padding: 1rem 1.25rem; 
+                    border-bottom: 1px solid #f8fafc; 
+                    color: #334155; 
+                    font-size: 0.82rem; 
+                    font-weight: 500;
+                }
+                .dash-table tr:hover td { 
+                    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); 
+                }
             `}</style>
 
-            {/* Welcome Section */}
             <div className="welcome-banner" style={{
-                background: 'linear-gradient(115deg, #ffffff 0%, #fefeff 100%)',
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(238,242,255,0.9) 100%)',
+                backdropFilter: 'blur(30px)',
                 borderRadius: 28,
-                padding: '1.5rem 2rem',
-                marginBottom: '2rem',
-                border: '1px solid #eff3f8',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
+                padding: '2.5rem 3rem',
+                marginBottom: '2.5rem',
+                border: '1px solid rgba(255,255,255,0.95)',
+                boxShadow: '0 10px 40px rgba(102, 126, 234, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                flexWrap: 'wrap'
+                flexWrap: 'wrap',
+                gap: '2rem',
+                position: 'relative',
+                overflow: 'hidden',
             }}>
-                <div>
-                    <span style={{ background: '#f1f5f9', borderRadius: 40, padding: '0.2rem 0.8rem', fontSize: '0.65rem', fontWeight: 600, color: '#475569' }}>ANALYTICS DASHBOARD</span>
-                    <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#0a0f1c', marginTop: '0.5rem', letterSpacing: '-0.3px' }}>{getGreeting()}, <span style={{ color: '#2563eb' }}>Admin</span></h2>
-                    <p style={{ fontSize: '0.75rem', color: '#64748b' }}>Monitor your platform performance at a glance</p>
+                <div style={{ position: 'absolute', top: -50, right: -50, width: 250, height: 250, borderRadius: '50%', background: 'linear-gradient(135deg, #667eea25 0%, #764ba218 100%)' }}></div>
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                    <span style={{ 
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
+                        color: 'white',
+                        borderRadius: 50, 
+                        padding: '0.4rem 1.2rem', 
+                        fontSize: '0.7rem', 
+                        fontWeight: 800, 
+                        letterSpacing: '0.12em',
+                        textTransform: 'uppercase',
+                        boxShadow: '0 4px 20px rgba(102, 126, 234, 0.45)',
+                    }}>
+                        Welcome Back
+                    </span>
+                    <h2 style={{ 
+                        fontSize: '2.25rem', 
+                        fontWeight: 800, 
+                        color: '#0f172a', 
+                        marginTop: '1rem', 
+                        letterSpacing: '-0.05em',
+                        lineHeight: 1.05,
+                    }}>
+                        {getGreeting()}, <span style={{ 
+                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
+                            WebkitBackgroundClip: 'text', 
+                            WebkitTextFillColor: 'transparent', 
+                            backgroundClip: 'text' 
+                        }}>Admin</span>!
+                    </h2>
+                    <p style={{ 
+                        fontSize: '1rem', 
+                        color: '#64748b', 
+                        marginTop: '0.75rem',
+                        fontWeight: 500,
+                    }}>
+                        Here's what's happening with your platform today
+                    </p>
                 </div>
-                <div style={{ background: '#f8fafd', padding: '0.5rem 1.2rem', borderRadius: 40, border: '1px solid #eef2f8' }}>
-                    <p style={{ fontSize: '0.7rem', fontWeight: 500, color: '#3b4a62' }}>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                <div style={{ 
+                    position: 'relative', 
+                    zIndex: 1, 
+                    background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)', 
+                    padding: '1.25rem 1.75rem', 
+                    borderRadius: 24, 
+                    border: '1px solid #e2e8f0',
+                    boxShadow: '0 6px 24px rgba(15, 23, 42, 0.08)',
+                }}>
+                    <p style={{ 
+                        fontSize: '0.9rem', 
+                        fontWeight: 700, 
+                        color: '#334155',
+                        marginBottom: '0.35rem',
+                    }}>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+                    <p style={{ 
+                        fontSize: '0.8rem', 
+                        color: '#64748b',
+                        fontWeight: 500,
+                    }}>{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
                 </div>
             </div>
 
-            {/* ── Stats Metric Cards ── */}
-            {/* <div className="metrics-grid">
-                <MetricCard label="Total Users"       value={stats?.total_users      ?? 0} accent="#3b82f6" />
-                <MetricCard label="Total Blogs"       value={stats?.total_blogs      ?? 0} accent="#f59e0b" />
-                <MetricCard label="Portfolio Items"   value={stats?.total_portfolio  ?? 0} accent="#8b5cf6" />
-                <MetricCard label="Unread Messages"   value={stats?.unread_messages  ?? 0} accent="#ef4444" />
-                <MetricCard label="Published Blogs"   value={stats?.published_blogs  ?? 0} accent="#10b981" />
-                <MetricCard label="Featured Projects" value={stats?.featured_projects ?? 0} accent="#f97316" />
-            </div> */}
-
-
-            {/* Chart Section - Professional Graphs */}
             <div className="full-chart-anim full-width-chart">
                 <ChartCard title="Weekly Engagement Activity" actionLink="/admin/analytics" actionText="Full report →">
-                    <div style={{ height: '280px' }}>
+                    <div style={{ height: '300px' }}>
                         <Line data={weeklyLineData} options={lineOptions} />
                     </div>
                 </ChartCard>
@@ -309,54 +443,115 @@ export default function AdminDashboard({ stats, recent_users, recent_messages, c
 
             <div className="charts-grid">
                 <div className="chart-card-anim">
-                <ChartCard title="Content Distribution">
-                    <div style={{ height: '250px', display: 'flex', justifyContent: 'center' }}>
-                        <Doughnut data={distributionData} options={doughnutOptions} />
-                    </div>
-                </ChartCard>
+                    <ChartCard title="Content Distribution">
+                        <div style={{ height: '280px', display: 'flex', justifyContent: 'center' }}>
+                            <Doughnut data={distributionData} options={doughnutOptions} />
+                        </div>
+                    </ChartCard>
                 </div>
                 <div className="chart-card-anim">
-                <ChartCard title="User Growth Trend">
-                    <div style={{ height: '250px' }}>
-                        <Bar data={trendBarData} options={barOptions} />
-                    </div>
-                </ChartCard>
+                    <ChartCard title="User Growth Trend">
+                        <div style={{ height: '280px' }}>
+                            <Bar data={trendBarData} options={barOptions} plugins={[gradientBarPlugin]} />
+                        </div>
+                    </ChartCard>
                 </div>
             </div>
 
-            {/* Tables Section */} 
             <div className="tables-anim two-col-tables">
-                <div style={{ background: '#fff', borderRadius: 24, border: '1px solid #f0f2f5', overflow: 'hidden' }}>
-                    <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid #f5f7fa', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: 700, fontSize: '0.85rem' }}>Recent Users</span>
-                        <Link href="/admin/users" style={{ fontSize: '0.7rem', fontWeight: 600, color: '#3b82f6', textDecoration: 'none', background: '#f8fafc', padding: '0.25rem 0.9rem', borderRadius: 30 }}>View all →</Link>
+                <div style={{ 
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)', 
+                    backdropFilter: 'blur(20px)',
+                    borderRadius: 28, 
+                    border: '1px solid rgba(255,255,255,0.9)', 
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 32px rgba(15, 23, 42, 0.08)',
+                }}>
+                    <div style={{ 
+                        padding: '1.25rem 1.75rem', 
+                        borderBottom: '1px solid rgba(226, 232, 240, 0.6)', 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center' 
+                    }}>
+                        <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>Recent Users</span>
+                        <Link href="/admin/users" style={{ 
+                            fontSize: '0.75rem', 
+                            fontWeight: 700, 
+                            color: '#667eea', 
+                            textDecoration: 'none', 
+                            background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)', 
+                            padding: '0.4rem 1rem', 
+                            borderRadius: 50,
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                            e.currentTarget.style.color = 'white';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)';
+                            e.currentTarget.style.color = '#667eea';
+                        }}
+                        >View all →</Link>
                     </div> 
                     <table className="dash-table"> 
                         <thead><tr><th>User</th><th>Role</th><th>Joined</th></tr></thead>
                         <tbody>
                             {recent_users?.length > 0 ? recent_users.map(u => (
-                                <tr key={u.id}><td><div style={{ display: 'flex', alignItems: 'center' }}><div className="user-avatar">{u.name?.charAt(0)}</div><div><div style={{ fontWeight: 600 }}>{u.name}</div><div style={{ fontSize: '0.7rem', color: '#7c8ba0' }}>{u.email}</div></div></div></td><td><span className={`badge-modern ${u.role === 'admin' ? 'badge-admin-modern' : 'badge-user-modern'}`}>{u.role === 'admin' ? 'Admin' : 'Member'}</span></td><td style={{ fontSize: '0.75rem', color: '#7c8ba0' }}>{new Date(u.created_at).toLocaleDateString()}</td></tr>
-                            )) : <tr><td colSpan={3} style={{ textAlign: 'center', padding: '2.5rem', color: '#94a3b8' }}>No users yet</td></tr>}
+                                <tr key={u.id}><td><div style={{ display: 'flex', alignItems: 'center' }}><div className="user-avatar">{u.name?.charAt(0)}</div><div><div style={{ fontWeight: 700, color: '#1e293b' }}>{u.name}</div><div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>{u.email}</div></div></div></td><td><span className={`badge-modern ${u.role === 'admin' ? 'badge-admin-modern' : 'badge-user-modern'}`}>{u.role === 'admin' ? 'Admin' : 'Member'}</span></td><td style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500 }}>{new Date(u.created_at).toLocaleDateString()}</td></tr>
+                            )) : <tr><td colSpan={3} style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8', fontWeight: 500 }}>No users yet</td></tr>}
                         </tbody>
                     </table>
                 </div>
-                <div style={{ background: '#fff', borderRadius: 24, border: '1px solid #f0f2f5', overflow: 'hidden' }}>
-                    <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid #f5f7fa', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: 700, fontSize: '0.85rem' }}>Recent Messages</span>
-                        <Link href="/admin/messages" style={{ fontSize: '0.7rem', fontWeight: 600, color: '#3b82f6', textDecoration: 'none', background: '#f8fafc', padding: '0.25rem 0.9rem', borderRadius: 30 }}>View all →</Link>
+                <div style={{ 
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)', 
+                    backdropFilter: 'blur(20px)',
+                    borderRadius: 28, 
+                    border: '1px solid rgba(255,255,255,0.9)', 
+                    overflow: 'hidden',
+                    boxShadow: '0 8px 32px rgba(15, 23, 42, 0.08)',
+                }}>
+                    <div style={{ 
+                        padding: '1.25rem 1.75rem', 
+                        borderBottom: '1px solid rgba(226, 232, 240, 0.6)', 
+                        display: 'flex', 
+                        justifyContent: 'space-between', 
+                        alignItems: 'center' 
+                    }}>
+                        <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>Recent Messages</span>
+                        <Link href="/admin/messages" style={{ 
+                            fontSize: '0.75rem', 
+                            fontWeight: 700, 
+                            color: '#667eea', 
+                            textDecoration: 'none', 
+                            background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)', 
+                            padding: '0.4rem 1rem', 
+                            borderRadius: 50,
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                            e.currentTarget.style.color = 'white';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)';
+                            e.currentTarget.style.color = '#667eea';
+                        }}
+                        >View all →</Link>
                     </div>
                     <table className="dash-table">
                         <thead><tr><th>From</th><th>Subject</th><th>Status</th></tr></thead>
                         <tbody>
                             {recent_messages?.length > 0 ? recent_messages.map(m => (
-                                <tr key={m.id}><td><div><div style={{ fontWeight: 600 }}>{m.name}</div><div style={{ fontSize: '0.7rem', color: '#7c8ba0' }}>{m.email}</div></div></td><td style={{ maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.subject || '—'}</td><td><span className={`badge-modern ${m.is_read ? 'badge-read-modern' : 'badge-unread-modern'}`}>{m.is_read ? 'Read' : 'Unread'}</span></td></tr>
-                            )) : <tr><td colSpan={3} style={{ textAlign: 'center', padding: '2.5rem', color: '#94a3b8' }}>No messages yet</td></tr>}
+                                <tr key={m.id}><td><div><div style={{ fontWeight: 700, color: '#1e293b' }}>{m.name}</div><div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>{m.email}</div></div></td><td style={{ maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.subject || '—'}</td><td><span className={`badge-modern ${m.is_read ? 'badge-read-modern' : 'badge-unread-modern'}`}>{m.is_read ? 'Read' : 'Unread'}</span></td></tr>
+                            )) : <tr><td colSpan={3} style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8', fontWeight: 500 }}>No messages yet</td></tr>}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div style={{ marginTop: '1.8rem', paddingTop: '1rem', textAlign: 'center', fontSize: '0.65rem', color: '#93a5c1', borderTop: '1px solid #eff3f8' }}>
+            <div style={{ marginTop: '2rem', paddingTop: '1.25rem', textAlign: 'center', fontSize: '0.7rem', color: '#94a3b8', borderTop: '1px solid rgba(226, 232, 240, 0.8)', fontWeight: 500 }}>
                 Live analytics • Data updates in real-time
             </div>
         </AdminLayout>
