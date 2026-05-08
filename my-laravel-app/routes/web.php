@@ -17,8 +17,8 @@ use App\Http\Controllers\Admin\AdminSettingController;
 
 // ─── Public / Portfolio Site ────────────────────────────────────────────────
 
-Route::get('/', fn () => Inertia::render('Dashboard/index'));
-Route::get('/dashboard', fn () => Inertia::render('Dashboard/index'));
+Route::get('/', fn () => Inertia::render('home/index'));
+Route::get('/dashboard', fn () => Inertia::render('home/index'));
 Route::get('/about', fn () => Inertia::render('About/index'));
 Route::get('/blog', fn () => Inertia::render('Blog/index'));
 Route::get('/blog/{id}', fn ($id) => Inertia::render('Blog/BlogDetail/index', ['id' => $id]));

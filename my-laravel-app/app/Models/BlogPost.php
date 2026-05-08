@@ -10,22 +10,21 @@ class BlogPost extends Model
 {
     use HasFactory;
 
-    // Point to the actual imported table
     protected $table = 'blogs';
 
     protected $fillable = [
-        'category_id',
         'title',
         'slug',
         'description',
         'image',
+        'created_by',
+        'category_id',
         'meta_title',
         'og_title',
         'og_description',
         'meta_keyword',
         'image_alt',
         'meta_description',
-        'created_by',
     ];
 
     /**

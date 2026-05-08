@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import './index.css';
 
-export default function DashboardPage () {
+export default function DashboardPage() {
   const [totalPosts] = useState(0);
 
   // Blog posts from database
@@ -518,33 +519,7 @@ export default function DashboardPage () {
         </div>
       </section>
 
-      {/* Keywords and Services Highlights */}
-      <section className="highlights-section" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-        <div className="container">
-          <div className="highlights-grid">
-            <div className="highlight-column">
-              <p className="highlight-section-title">KEYWORD</p>
-              <div className="highlight-chip-row">
-                {keywordHighlights.map((label) => (
-                  <span key={label} className="highlight-chip">
-                    {label}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="highlight-column">
-              <p className="highlight-section-title">SERVICES</p>
-              <div className="highlight-chip-row">
-                {serviceHighlights.map((label) => (
-                  <span key={label} className="highlight-chip highlight-chip--accent">
-                    {label}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Services Section */}
       <section className="services-section" ref={svcRef}>
@@ -1035,6 +1010,47 @@ export default function DashboardPage () {
         </div>
       </section>
 
+      {/* Keywords & Services Section (Side-by-Side) */}
+      <section className="keywords-section" data-aos="fade-up" data-aos-delay="100">
+        <div className="keywords-container">
+          <div className="keywords-grid-row">
+            {/* Keywords Column */}
+            <div className="keywords-content">
+              <p className="keywords-title">#KEYWORD</p>
+              <div className="keywords-chips">
+                {keywordHighlights.map((label, idx) => (
+                  <span 
+                    key={idx} 
+                    className="keyword-chip"
+                    data-aos="fade-up"
+                    data-aos-delay={150 + idx * 50}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Services Column */}
+            <div className="keywords-content">
+              <p className="keywords-title">#SERVICES</p>
+              <div className="keywords-chips">
+                {serviceHighlights.map((label, idx) => (
+                  <span 
+                    key={idx} 
+                    className="keyword-chip"
+                    data-aos="fade-up"
+                    data-aos-delay={200 + idx * 50}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Video Modal */}
       {videoOpen && (
         <div className="video-modal-overlay" onClick={() => setVideoOpen(false)}>
@@ -1368,97 +1384,18 @@ export default function DashboardPage () {
           }
         }
 
-        .highlights-section {
-          background-color: #edf2ff;
-          padding: 3rem 0 2rem;
-          border-radius: 2rem;
-          box-shadow: inset 0 0 0 1px rgba(30, 58, 138, 0.08);
-          margin: 2rem 0 3rem;
-        }
-
-        .highlights-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 1.5rem;
-          align-items: flex-start;
-        }
-
-        .highlight-column {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .highlight-section-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.3em;
-          text-transform: uppercase;
-          color: #1e3a8a;
-          margin: 0;
-        }
-
-        .highlight-chip-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-        }
-
-        .highlight-chip {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0.85rem 1.15rem;
-          border-radius: 999px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: #111827;
-          background: rgba(79, 70, 229, 0.08);
-          border: 1px solid rgba(79, 70, 229, 0.14);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .highlight-chip:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(79, 70, 229, 0.12);
-        }
-
-        .highlight-chip--accent {
-          background: #1e3a8a;
-          color: #ffffff;
-          border-color: rgba(255, 255, 255, 0.18);
-        }
-
-        @media (max-width: 900px) {
-          .highlights-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .highlights-section {
-            margin: 1.5rem 0 2rem;
-            padding: 2rem 0 1.5rem;
-          }
-          .highlight-chip {
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-          }
-        }
-
         /* ---------- SERVICES SECTION ---------- */
         .services-section {
           background-color: #f5f7f8;
-          padding: 5rem 0;
+          padding: 3rem 0;
           margin-bottom: 0 !important;
         }
 
         .svc-header {
           display: flex;
           align-items: flex-start;
-          gap: 3rem;
-          margin-bottom: 4rem;
+          gap: 2.2rem;
+          margin-bottom: 2rem;
         }
 
         .svc-header-visible {
@@ -1505,7 +1442,7 @@ export default function DashboardPage () {
         .svc-card {
           border: 1.5px solid #2d2d2d;
           background: #ffffff;
-          padding: 2.5rem 2rem 2.5rem;
+          padding: 1.9rem 1.5rem 1.9rem;
           transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -1522,7 +1459,7 @@ export default function DashboardPage () {
         .svc-card-icon {
           width: 2.75rem;
           height: 2.75rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           color: #2d2d2d;
         }
 
@@ -2710,6 +2647,93 @@ export default function DashboardPage () {
           background: #0A3981;
           transform: translateY(-2px);
           box-shadow: 4px 4px 0 rgba(10, 57, 129, 0.2);
+        }
+
+        /* ---------- KEYWORDS & SERVICES SECTIONS ---------- */
+        .keywords-section {
+          background: #f5f7f8;
+          padding: 1.5rem 0;
+        }
+
+        .keywords-container {
+          max-width: 1600px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+        }
+
+        .keywords-grid-row {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.25rem;
+        }
+
+        .keywords-content {
+          background: #ffffff;
+          border-radius: 1.5rem;
+          padding: 1.6rem 1.4rem;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+          border: 1px solid #e5e7eb;
+        }
+
+        .keywords-title {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1rem;
+          font-weight: 700;
+          color: #6b7280;
+          margin: 0 0 1rem 0;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+
+        .keywords-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.6rem;
+        }
+
+        .keyword-chip {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #1f2937;
+          background: rgba(30, 58, 138, 0.08);
+          border: 1px solid rgba(30, 58, 138, 0.15);
+          padding: 0.55rem 0.95rem;
+          border-radius: 999px;
+          transition: all 0.25s ease;
+        }
+
+        .keyword-chip:hover {
+          background: rgba(30, 58, 138, 0.12);
+          border-color: rgba(30, 58, 138, 0.25);
+          transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+          .keywords-grid-row {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .keywords-section {
+            padding: 1.5rem 0;
+          }
+
+          .keywords-container {
+            padding: 0 1rem;
+          }
+
+          .keywords-content {
+            padding: 1.5rem 1.25rem;
+            border-radius: 1.5rem;
+          }
+
+          .keyword-chip {
+            font-size: 0.85rem;
+            padding: 0.6rem 1rem;
+          }
         }
 
         /* ---------- VIDEO MODAL ---------- */

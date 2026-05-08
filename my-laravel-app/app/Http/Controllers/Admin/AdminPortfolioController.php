@@ -11,17 +11,6 @@ class AdminPortfolioController extends Controller
 {
     public function index(Request $request)
     {
-        // Only show results when user has explicitly searched
-        $hasSearched = $request->has('searched');
-
-        if (!$hasSearched) {
-            return Inertia::render('Admin/Portfolio/index', [
-                'items'       => null,
-                'filters'     => ['search' => ''],
-                'hasSearched' => false,
-            ]);
-        }
-
         $query = PortfolioItem::query();
 
         if ($request->filled('search')) {

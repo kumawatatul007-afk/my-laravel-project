@@ -88,7 +88,7 @@ const ChartCard = ({ title, children, actionLink, actionText }) => (
     </div>
 );
 
-export default function AdminDashboard({ stats, recent_users, recent_messages, chartData }) {
+export default function AdminDashboard({ stats, recent_users, recent_messages, recent_blogs, chartData }) {
     const getGreeting = () => {
         const hour = new Date().getHours();
         if (hour < 12) return 'Good morning';
@@ -549,6 +549,53 @@ export default function AdminDashboard({ stats, recent_users, recent_messages, c
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
+                backdropFilter: 'blur(20px)',
+                borderRadius: 28,
+                border: '1px solid rgba(255,255,255,0.9)',
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(15, 23, 42, 0.08)',
+                marginTop: '2rem',
+            }}>
+                <div style={{
+                    padding: '1.25rem 1.75rem',
+                    borderBottom: '1px solid rgba(226, 232, 240, 0.6)',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <span style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>Recent Blog Posts</span>
+                    <Link href="/admin/blog" style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        color: '#667eea',
+                        textDecoration: 'none',
+                        background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)',
+                        padding: '0.4rem 1rem',
+                        borderRadius: 50,
+                        transition: 'all 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                        e.currentTarget.style.color = 'white';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)';
+                        e.currentTarget.style.color = '#667eea';
+                    }}
+                    >View all →</Link>
+                </div>
+                <table className="dash-table">
+                    <thead><tr><th>Title</th><th>Author</th><th>Published</th></tr></thead>
+                    <tbody>
+                        {recent_blogs?.length > 0 ? recent_blogs.map(blog => (
+                            <tr key={blog.id}><td style={{ maxWidth: 240, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{blog.title}</td><td>{blog.created_by}</td><td style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 500 }}>{new Date(blog.created_at).toLocaleDateString()}</td></tr>
+                        )) : <tr><td colSpan={3} style={{ textAlign: 'center', padding: '3rem', color: '#94a3b8', fontWeight: 500 }}>No blog posts yet</td></tr>}
+                    </tbody>
+                </table>
             </div>
 
             <div style={{ marginTop: '2rem', paddingTop: '1.25rem', textAlign: 'center', fontSize: '0.7rem', color: '#94a3b8', borderTop: '1px solid rgba(226, 232, 240, 0.8)', fontWeight: 500 }}>
