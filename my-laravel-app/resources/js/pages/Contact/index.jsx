@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
 import './index.css';
+import SEO from '../../components/SEO';
 
 const ContactPage = () => {
   const { flash } = usePage().props;
@@ -37,7 +38,12 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="contact-page-wrapper">
+    <main className="contact-page-wrapper">
+      <SEO 
+        title="Contact Nikhil Sharma | Hire a Professional Web Developer"
+        description="Get in touch with Nikhil Sharma for your next web development project. Professional services for small businesses and entrepreneurs."
+        keywords="Contact Web Developer, Hire React Developer, Jaipur Software Services"
+      />
       <div className="container mx-auto">
         <div className="contact-layout">
 
@@ -170,7 +176,7 @@ const ContactPage = () => {
 
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

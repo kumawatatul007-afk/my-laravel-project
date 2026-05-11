@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, usePage } from '@inertiajs/react'
-import AlbertSEO from '../AlbertSEO'
+import SEO from '../SEO'
 
 export default function MainLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -42,7 +42,8 @@ export default function MainLayout({ children }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fafc', fontFamily: "'Space Grotesk', sans-serif" }}>
-      <AlbertSEO />
+      <SEO />
+      
       {/* Custom Cursor */}
       <div ref={dotRef}  className="cursor-dot"  />
       <div ref={ringRef} className="cursor-ring" />
@@ -82,8 +83,8 @@ export default function MainLayout({ children }) {
         }
         .mora-brand {
           font-family: 'Space Grotesk', sans-serif;
-          font-weight: 800; font-size: 1.6rem; color: #1e3a8a;
-          letter-spacing: 2px; text-transform: uppercase;
+          font-weight: 800; font-size: 1.4rem; color: #1e3a8a;
+          letter-spacing: 1px; text-transform: uppercase;
           text-decoration: none; user-select: none; flex-shrink: 0;
         }
         .mora-links {
@@ -259,7 +260,7 @@ export default function MainLayout({ children }) {
       <nav className="mora-nav">
         <div className="mora-nav-inner">
 
-          <Link href="/" className="mora-brand">MORA</Link>
+          <Link href="/" className="mora-brand">Nikhil Sharma</Link>
 
           <div className="mora-links">
             <Link href="/"        className={`mora-link${currentPath === '/' || currentPath === '/dashboard' ? ' active' : ''}`}>Home</Link>
@@ -270,8 +271,6 @@ export default function MainLayout({ children }) {
 
             {/* Portfolio link */}
             <Link href="/portfolio" className={`mora-link${currentPath.startsWith('/portfolio') ? ' active' : ''}`}>Portfolio</Link>
-
-            <Link href="/seo" className={`mora-link${currentPath === '/seo' ? ' active' : ''}`}>SEO</Link>
 
             <Link href="/contact" className={`mora-link${currentPath === '/contact' ? ' active' : ''}`}>Contact</Link>
           </div>
@@ -301,7 +300,6 @@ export default function MainLayout({ children }) {
             <Link href="/about"   className={`mora-mobile-link${currentPath === '/about' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>About</Link>
             <Link href="/blog"    className={`mora-mobile-link${currentPath.startsWith('/blog') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Blog</Link>
             <Link href="/portfolio" className={`mora-mobile-link${currentPath.startsWith('/portfolio') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Portfolio</Link>
-            <Link href="/seo" className={`mora-mobile-link${currentPath === '/seo' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>SEO</Link>
             <Link href="/contact" className={`mora-mobile-link${currentPath === '/contact' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Contact</Link>
 
             <div className="mora-mobile-footer">

@@ -2,6 +2,7 @@ import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { createRoot } from 'react-dom/client';
 import { router } from '@inertiajs/react';
+import { HelmetProvider } from 'react-helmet-async';
 import MainLayout from './components/layouts/MainLayout';
 
 // ── Professional Page Loader ──────────────────────────────────────────────────
@@ -93,7 +94,7 @@ function mountLoader() {
         <div class="kpl-card">
             <div class="kpl-logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 3L3 21h3.5l1.5-4h8l1.5 4H21L12 3z" fill="white" opacity="0.95"/>
+                    <path d="M6 4h3l6 10V4h3v16h-3l-6-10v10H6V4z" fill="white" opacity="0.95"/>
                 </svg>
             </div>
             <div class="kpl-dots">
@@ -179,7 +180,11 @@ createInertiaApp({
         return page;
     },
     setup({ el, App, props }) {
-        createRoot(el).render(<App {...props} />);
+        createRoot(el).render(
+            <HelmetProvider>
+                <App {...props} />
+            </HelmetProvider>
+        );
     },
     progress: false,   // default blue bar band kar diya
 });

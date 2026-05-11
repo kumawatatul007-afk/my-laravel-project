@@ -250,7 +250,7 @@ export default function AdminSettingsPermission({ permissions }) {
                             >
                                 {i + 1}
                             </button>
-                        ))}
+                        ))} 
                         <button
                             className="pagination-btn"
                             disabled={currentPage === totalPages || totalPages === 0}

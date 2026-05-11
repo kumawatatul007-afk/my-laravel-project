@@ -7,6 +7,8 @@ import 'swiper/css/navigation'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import './index.css'
+import SEO from '../../components/SEO'
+import OptimizedImage from '../../components/OptimizedImage'
 
 const SKILLS = [
   { label: 'HTML',       pct: 85 },
@@ -61,7 +63,12 @@ export default function AboutPage() {
   const lastName  = nameParts.slice(1).join(' ') || ''
 
   return (
-    <div className="ap-root">
+    <main className="ap-root">
+      <SEO 
+        title="About Nikhil Sharma | Experienced Software Architect"
+        description="Learn more about Nikhil Sharma, a Jaipur-based Full Stack Developer & Database architect with 8+ years of experience in Software and Web development."
+        keywords="About Nikhil Sharma, Software Architect Jaipur, Web Development Expert, Database Design"
+      />
 
       {/* ══════════════════════════════════════
           SECTION 1 — ABOUT HERO
@@ -128,9 +135,9 @@ export default function AboutPage() {
             >
               <div className="ap-img-circle-bg" />
               <div className="ap-img-blob">
-                <img
+                <OptimizedImage
                   src="https://www.thenikhilsharma.in/public/admin/nikhil_sharma/nikhil_.png"
-                  alt="Profile"
+                  alt="Nikhil Sharma - Full Stack Developer in Jaipur"
                 />
               </div>
             </div>
@@ -290,6 +297,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-    </div>
+    </main>
   )
 }

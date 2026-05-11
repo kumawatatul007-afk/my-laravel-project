@@ -16,7 +16,6 @@ use App\Http\Controllers\Admin\AdminBlogCommentController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminNewsletterController;
-use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SitemapController;
 
 // ─── Public / Portfolio Site ────────────────────────────────────────────────
@@ -30,7 +29,6 @@ Route::get('/about', fn () => Inertia::render('About/index'));
 Route::get('/blog', fn () => Inertia::render('Blog/index'));
 Route::get('/blog/{id}', fn ($id) => Inertia::render('Blog/BlogDetail/index', ['id' => $id]));
 Route::get('/blog/{id}/sidebar', fn ($id) => Inertia::render('Blog/BlogDetailSidebar/index', ['id' => $id]));
-Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
 Route::get('/contact', fn () => Inertia::render('Contact/index'));
 Route::get('/portfolio', fn () => Inertia::render('Portfolio/index'));
 Route::get('/portfolio/list', fn () => Inertia::render('Portfolio/PortfolioList/index'));
@@ -100,10 +98,6 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminMid
     Route::get('/settings/email', [AdminSettingController::class, 'email'])->name('settings.email');
     Route::put('/settings/email', [AdminSettingController::class, 'updateEmail'])->name('settings.email.update');
     Route::post('/settings/email/test', [AdminSettingController::class, 'testEmail'])->name('settings.email.test');
-    Route::get('/settings/seo', [AdminSettingController::class, 'seo'])->name('settings.seo');
-    Route::post('/settings/seo', [AdminSettingController::class, 'storeSeo'])->name('settings.seo.store');
-    Route::put('/settings/seo/{id}', [AdminSettingController::class, 'updateSeo'])->name('settings.seo.update');
-    Route::delete('/settings/seo/{id}', [AdminSettingController::class, 'destroySeo'])->name('settings.seo.destroy');
     Route::get('/settings/scripts', [AdminSettingController::class, 'scripts'])->name('settings.scripts');
     Route::post('/settings/scripts', [AdminSettingController::class, 'storeScript'])->name('settings.scripts.store');
     Route::put('/settings/script/{id}', [AdminSettingController::class, 'updateScript'])->name('settings.script.update');

@@ -37,7 +37,25 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $currentRoute = $request->path() === '/' ? 'home' : $request->path();
-        $seo = SeoPage::where('route', $currentRoute)->first();
+        
+        $seo = null;
+        try {
+            $seo = SeoPage::where('route', $currentRoute)->first();
+            
+            // Default SEO data if not found in database
+            if (!$seo) {
+                if ($currentRoute === 'home' || $currentRoute === '/') {
+                    $seo = [
+                        'title' => 'Best Web Developer & Digital Marketer in Jaipur | Nikhil Sharma',
+                        'description' => 'Nikhil Sharma is a top-rated Web Developer and Full Stack expert in Jaipur, helping small businesses grow with high-quality websites.',
+                        'keywords' => 'Web Developer Jaipur, Software Developer Jaipur, Nikhil Sharma, Portfolio',
+                    ];
+                }
+            }
+        } catch (\Exception $e) {
+            // Database not ready or table missing
+            \Log::warning("SEO data could not be loaded: " . $e->getMessage());
+        }
 
         return [
             ...parent::share($request),

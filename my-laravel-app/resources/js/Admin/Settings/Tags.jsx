@@ -3,7 +3,7 @@ import { router } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 
 export default function AdminSettingsTags() {
-    const [tags, setTags] = useState(['Design', 'Development', 'Marketing', 'SEO', 'Social Media']);
+    const [tags, setTags] = useState(['Design', 'Development', 'Marketing', 'Social Media']);
     const [input, setInput] = useState('');
     const inputRef = useRef(null);
 

@@ -91,10 +91,10 @@ export default function AdminLayout({ children }) {
         <div style={{ padding: '1.5rem 1.5rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href="/admin/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
             <div style={{ width: '36px', height: '36px', background: '#4f46e5', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-              M
+              N
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff', letterSpacing: '0.05em' }}>MORA</div>
+              <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff', letterSpacing: '0.05em' }}>Nikhil Sharma</div>
               <div style={{ fontSize: '0.7rem', color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Admin Panel</div>
             </div>
           </Link>

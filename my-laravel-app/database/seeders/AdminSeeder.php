@@ -46,7 +46,10 @@ class AdminSeeder extends Seeder
         ];
 
         foreach ($portfolioItems as $item) {
-            PortfolioItem::create($item);
+            PortfolioItem::updateOrCreate(
+                ['title' => $item['title']],
+                $item
+            );
         }
 
         // Sample blog posts
@@ -87,7 +90,10 @@ class AdminSeeder extends Seeder
         ];
 
         foreach ($blogPosts as $post) {
-            BlogPost::create($post);
+            BlogPost::updateOrCreate(
+                ['slug' => $post['slug']],
+                $post
+            );
         }
     }
 }

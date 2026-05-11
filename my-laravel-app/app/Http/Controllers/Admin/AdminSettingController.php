@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\EmailSetting;
-use App\Models\SeoPage;
 use App\Models\Script;
 use App\Models\Role;
 use App\Models\Permission;
@@ -90,17 +89,6 @@ class AdminSettingController extends Controller
             ->with('success', 'Test email sent successfully!');
     }
 
-    public function seo()
-    {
-        $seoPages = SeoPage::all();
-        $scripts = Script::all();
-
-        return Inertia::render('Admin/Settings/SEO', [
-            'seoPages' => $seoPages,
-            'scripts' => $scripts,
-        ]);
-    }
-
     public function scripts()
     {
         $scripts = Script::all();
@@ -125,62 +113,6 @@ class AdminSettingController extends Controller
             ->with('success', 'Script added successfully.');
     }
 
-    public function storeSeo(Request $request)
-    {
-        $validated = $request->validate([
-            'route'               => 'required|string|max:255|unique:seo_pages,route',
-            'meta_title'          => 'nullable|string|max:255',
-            'meta_description'    => 'nullable|string',
-            'meta_keyword'        => 'nullable|string',
-            'canonical_url'       => 'nullable|url|max:255',
-            'og_title'            => 'nullable|string|max:255',
-            'og_description'      => 'nullable|string',
-            'og_image'            => 'nullable|string|max:255',
-            'twitter_title'       => 'nullable|string|max:255',
-            'twitter_description' => 'nullable|string',
-            'twitter_image'       => 'nullable|string|max:255',
-            'schema_markup'       => 'nullable|string',
-        ]);
-
-        SeoPage::create($validated);
-
-        return redirect()->route('admin.settings.seo')
-            ->with('success', 'SEO page added successfully.');
-    }
-
-    public function updateSeo(Request $request, $id)
-    {
-        $validated = $request->validate([
-            'route'               => 'required|string|max:255|unique:seo_pages,route,'.$id,
-            'meta_title'          => 'nullable|string|max:255',
-            'meta_description'    => 'nullable|string',
-            'meta_keyword'        => 'nullable|string',
-            'canonical_url'       => 'nullable|url|max:255',
-            'og_title'            => 'nullable|string|max:255',
-            'og_description'      => 'nullable|string',
-            'og_image'            => 'nullable|string|max:255',
-            'twitter_title'       => 'nullable|string|max:255',
-            'twitter_description' => 'nullable|string',
-            'twitter_image'       => 'nullable|string|max:255',
-            'schema_markup'       => 'nullable|string',
-        ]);
-
-        $seoPage = SeoPage::findOrFail($id);
-        $seoPage->update($validated);
-
-        return redirect()->route('admin.settings.seo')
-            ->with('success', 'SEO page updated successfully.');
-    }
-
-    public function destroySeo($id)
-    {
-        $seoPage = SeoPage::findOrFail($id);
-        $seoPage->delete();
-
-        return redirect()->route('admin.settings.seo')
-            ->with('success', 'SEO page deleted successfully.');
-    }
-
     public function updateScript(Request $request, $id)
     {
         $validated = $request->validate([
@@ -193,7 +125,7 @@ class AdminSettingController extends Controller
         $script = Script::findOrFail($id);
         $script->update($validated);
 
-        return redirect()->route('admin.settings.seo')
+        return redirect()->route('admin.settings.scripts')
             ->with('success', 'Script updated successfully.');
     }
 

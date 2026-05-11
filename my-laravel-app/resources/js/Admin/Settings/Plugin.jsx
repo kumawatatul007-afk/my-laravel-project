@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export default function AdminSettingsPlugin() {
     const [plugins, setPlugins] = useState([
-        { id: 1, name: 'SEO Optimizer', description: 'Optimize your website for search engines', active: true },
         { id: 2, name: 'Contact Form', description: 'Add contact forms to your website', active: false },
         { id: 3, name: 'Analytics', description: 'Track website visitors and analytics', active: true },
         { id: 4, name: 'Social Media', description: 'Integrate social media sharing', active: false },

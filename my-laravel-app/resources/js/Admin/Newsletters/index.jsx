@@ -18,7 +18,7 @@ export default function AdminNewslettersIndex({ newsletters, filters }) {
 
     return (
         <AdminLayout title="Newsletters">
-            <style>{`
+            <style>{` 
                 .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
                 .page-title { font-size: 1.1rem; font-weight: 700; color: #0f172a; }
                 .btn-primary {
@@ -122,7 +122,7 @@ export default function AdminNewslettersIndex({ newsletters, filters }) {
 
             <div className="page-header">
                 <h2 className="page-title">Newsletter Subscriptions</h2>
-            </div>
+            </div> 
 
             <div className="filters">
                 <input

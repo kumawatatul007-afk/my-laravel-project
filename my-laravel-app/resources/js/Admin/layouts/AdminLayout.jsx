@@ -73,12 +73,6 @@ const Icons = {
             <polyline points="12 5 19 12 12 19"/>
         </svg>
     ),
-    SEO: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
-        </svg>
-    ),
     UserManagement: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
@@ -209,7 +203,6 @@ const NAV_ITEMS = [
         children: [
             { label: 'General', href: '/admin/settings', icon: Icons.General, animation: 'rotate' },
             { label: 'Email', href: '/admin/settings/email', icon: Icons.Email, animation: 'bounce' },
-            { label: 'SEO', href: '/admin/settings/seo', icon: Icons.SEO, animation: 'pulse' },
             {
                 label: 'User Management',
                 href: '/admin/settings/user-management',

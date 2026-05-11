@@ -1,2 +1,6 @@
+# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemaps
+Sitemap: https://nikhilsharma.com/sitemap.xml
