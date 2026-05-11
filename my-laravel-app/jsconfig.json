@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
-        "ignoreDeprecations": "6.0",
-        "baseUrl": "resources/js",
+        "baseUrl": ".",
         "paths": {
-            "@/*": ["./*"]
+            "@/*": ["resources/js/*"]
         },
         "jsx": "react-jsx",
         "module": "ESNext",
-        "moduleResolution": "bundler",
+        "moduleResolution": "node",
         "checkJs": false,
         "noEmit": true,
         "allowSyntheticDefaultImports": true,

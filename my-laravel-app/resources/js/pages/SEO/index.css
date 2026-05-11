@@ -1,0 +1,154 @@
+.seo-root {
+    background-color: #f8fafc;
+    min-height: 100vh;
+}
+
+.seo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+}
+
+/* Hero Section */
+.seo-hero-section {
+    padding: 100px 0 60px;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+}
+
+.seo-hero-content {
+    max-width: 800px;
+}
+
+.seo-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1e3a8a;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.seo-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.seo-desc {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* Data Section */
+.seo-data-section {
+    padding: 80px 0;
+}
+
+.seo-section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.seo-section-header h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+}
+
+.seo-section-header p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    color: #64748b;
+}
+
+.seo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.seo-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 4px solid #1e3a8a;
+}
+
+.seo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.seo-card-badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1.25rem;
+}
+
+.seo-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.seo-card-desc {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.seo-card-meta {
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1.25rem;
+}
+
+.seo-meta-item {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+}
+
+.seo-meta-item strong {
+    color: #1e3a8a;
+}
+
+.seo-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .seo-title {
+        font-size: 2.5rem;
+    }
+    .seo-container {
+        padding: 0 1.5rem;
+    }
+    .seo-grid {
+        grid-template-columns: 1fr;
+    }
+}

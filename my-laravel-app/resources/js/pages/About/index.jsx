@@ -129,7 +129,7 @@ export default function AboutPage() {
               <div className="ap-img-circle-bg" />
               <div className="ap-img-blob">
                 <img
-                  src="https://www.thenikhilsharma.in/public/front/design/images/slider/nikhil_sharma.jpg"
+                  src="https://www.thenikhilsharma.in/public/admin/nikhil_sharma/nikhil_.png"
                   alt="Profile"
                 />
               </div>

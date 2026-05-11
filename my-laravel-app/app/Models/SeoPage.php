@@ -16,5 +16,10 @@ class SeoPage extends Model
         'canonical_url',
         'og_title',
         'og_description',
+        'og_image',
+        'twitter_title',
+        'twitter_description',
+        'twitter_image',
+        'schema_markup',
     ];
 }

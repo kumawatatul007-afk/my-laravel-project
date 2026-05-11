@@ -128,13 +128,18 @@ class AdminSettingController extends Controller
     public function storeSeo(Request $request)
     {
         $validated = $request->validate([
-            'route'            => 'required|string|max:255|unique:seo_pages,route',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keyword'     => 'nullable|string',
-            'canonical_url'    => 'nullable|url|max:255',
-            'og_title'         => 'nullable|string|max:255',
-            'og_description'   => 'nullable|string',
+            'route'               => 'required|string|max:255|unique:seo_pages,route',
+            'meta_title'          => 'nullable|string|max:255',
+            'meta_description'    => 'nullable|string',
+            'meta_keyword'        => 'nullable|string',
+            'canonical_url'       => 'nullable|url|max:255',
+            'og_title'            => 'nullable|string|max:255',
+            'og_description'      => 'nullable|string',
+            'og_image'            => 'nullable|string|max:255',
+            'twitter_title'       => 'nullable|string|max:255',
+            'twitter_description' => 'nullable|string',
+            'twitter_image'       => 'nullable|string|max:255',
+            'schema_markup'       => 'nullable|string',
         ]);
 
         SeoPage::create($validated);
@@ -146,13 +151,18 @@ class AdminSettingController extends Controller
     public function updateSeo(Request $request, $id)
     {
         $validated = $request->validate([
-            'route'            => 'required|string|max:255|unique:seo_pages,route,'.$id,
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keyword'     => 'nullable|string',
-            'canonical_url'    => 'nullable|url|max:255',
-            'og_title'         => 'nullable|string|max:255',
-            'og_description'   => 'nullable|string',
+            'route'               => 'required|string|max:255|unique:seo_pages,route,'.$id,
+            'meta_title'          => 'nullable|string|max:255',
+            'meta_description'    => 'nullable|string',
+            'meta_keyword'        => 'nullable|string',
+            'canonical_url'       => 'nullable|url|max:255',
+            'og_title'            => 'nullable|string|max:255',
+            'og_description'      => 'nullable|string',
+            'og_image'            => 'nullable|string|max:255',
+            'twitter_title'       => 'nullable|string|max:255',
+            'twitter_description' => 'nullable|string',
+            'twitter_image'       => 'nullable|string|max:255',
+            'schema_markup'       => 'nullable|string',
         ]);
 
         $seoPage = SeoPage::findOrFail($id);

@@ -13,9 +13,16 @@ use App\Http\Controllers\Admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminMessageController;
 use App\Http\Controllers\Admin\AdminGalleryController;
 use App\Http\Controllers\Admin\AdminBlogCommentController;
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminNewsletterController;
+use App\Http\Controllers\SeoController;
+use App\Http\Controllers\SitemapController;
 
 // ─── Public / Portfolio Site ────────────────────────────────────────────────
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::get('/robots.txt', [SitemapController::class, 'robots']);
 
 Route::get('/', fn () => Inertia::render('home/index'));
 Route::get('/dashboard', fn () => Inertia::render('home/index'));
@@ -23,6 +30,7 @@ Route::get('/about', fn () => Inertia::render('About/index'));
 Route::get('/blog', fn () => Inertia::render('Blog/index'));
 Route::get('/blog/{id}', fn ($id) => Inertia::render('Blog/BlogDetail/index', ['id' => $id]));
 Route::get('/blog/{id}/sidebar', fn ($id) => Inertia::render('Blog/BlogDetailSidebar/index', ['id' => $id]));
+Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
 Route::get('/contact', fn () => Inertia::render('Contact/index'));
 Route::get('/portfolio', fn () => Inertia::render('Portfolio/index'));
 Route::get('/portfolio/list', fn () => Inertia::render('Portfolio/PortfolioList/index'));
@@ -83,6 +91,9 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminMid
     Route::put('/blog/{blog}', [AdminBlogController::class, 'update'])->name('blog.update');
     Route::delete('/blog/{blog}', [AdminBlogController::class, 'destroy'])->name('blog.destroy');
 
+    // Categories
+    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+
     // Settings
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
@@ -117,4 +128,8 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminMid
     Route::get('/messages/{message}', [AdminMessageController::class, 'show'])->name('messages.show');
     Route::patch('/messages/{message}/read', [AdminMessageController::class, 'markRead'])->name('messages.read');
     Route::delete('/messages/{message}', [AdminMessageController::class, 'destroy'])->name('messages.destroy');
+
+    // Newsletters
+    Route::get('/newsletters', [AdminNewsletterController::class, 'index'])->name('newsletters.index');
+    Route::delete('/newsletters/{newsletter}', [AdminNewsletterController::class, 'destroy'])->name('newsletters.destroy');
 });

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, usePage } from '@inertiajs/react'
+import AlbertSEO from '../AlbertSEO'
 
 export default function MainLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -41,7 +42,7 @@ export default function MainLayout({ children }) {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fafc', fontFamily: "'Space Grotesk', sans-serif" }}>
-
+      <AlbertSEO />
       {/* Custom Cursor */}
       <div ref={dotRef}  className="cursor-dot"  />
       <div ref={ringRef} className="cursor-ring" />
@@ -270,6 +271,8 @@ export default function MainLayout({ children }) {
             {/* Portfolio link */}
             <Link href="/portfolio" className={`mora-link${currentPath.startsWith('/portfolio') ? ' active' : ''}`}>Portfolio</Link>
 
+            <Link href="/seo" className={`mora-link${currentPath === '/seo' ? ' active' : ''}`}>SEO</Link>
+
             <Link href="/contact" className={`mora-link${currentPath === '/contact' ? ' active' : ''}`}>Contact</Link>
           </div>
 
@@ -298,6 +301,7 @@ export default function MainLayout({ children }) {
             <Link href="/about"   className={`mora-mobile-link${currentPath === '/about' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>About</Link>
             <Link href="/blog"    className={`mora-mobile-link${currentPath.startsWith('/blog') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Blog</Link>
             <Link href="/portfolio" className={`mora-mobile-link${currentPath.startsWith('/portfolio') ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Portfolio</Link>
+            <Link href="/seo" className={`mora-mobile-link${currentPath === '/seo' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>SEO</Link>
             <Link href="/contact" className={`mora-mobile-link${currentPath === '/contact' ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>Contact</Link>
 
             <div className="mora-mobile-footer">

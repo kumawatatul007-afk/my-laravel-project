@@ -17,6 +17,11 @@ export default function AdminSettingsSEO({ seoPages }) {
         canonical_url: '',
         og_title: '',
         og_description: '',
+        og_image: '',
+        twitter_title: '',
+        twitter_description: '',
+        twitter_image: '',
+        schema_markup: '',
     });
     const [addLoading, setAddLoading] = useState(false);
 
@@ -48,6 +53,11 @@ export default function AdminSettingsSEO({ seoPages }) {
             canonical_url: '',
             og_title: '',
             og_description: '',
+            og_image: '',
+            twitter_title: '',
+            twitter_description: '',
+            twitter_image: '',
+            schema_markup: '',
         });
         setAddModal(true);
     };
@@ -574,6 +584,49 @@ export default function AdminSettingsSEO({ seoPages }) {
                                         onChange={(e) => setAddForm(f => ({ ...f, og_description: e.target.value }))}
                                     />
                                 </div>
+                                <div className="form-group">
+                                    <label className="form-label">OG Image URL</label>
+                                    <input
+                                        className="form-control"
+                                        value={addForm.og_image}
+                                        onChange={(e) => setAddForm(f => ({ ...f, og_image: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Title</label>
+                                    <input
+                                        className="form-control"
+                                        value={addForm.twitter_title}
+                                        onChange={(e) => setAddForm(f => ({ ...f, twitter_title: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Description</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows={2}
+                                        value={addForm.twitter_description}
+                                        onChange={(e) => setAddForm(f => ({ ...f, twitter_description: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Image URL</label>
+                                    <input
+                                        className="form-control"
+                                        value={addForm.twitter_image}
+                                        onChange={(e) => setAddForm(f => ({ ...f, twitter_image: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Schema Markup (JSON-LD)</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows={5}
+                                        value={addForm.schema_markup}
+                                        onChange={(e) => setAddForm(f => ({ ...f, schema_markup: e.target.value }))}
+                                        placeholder='{"@context": "https://schema.org", "@type": "WebPage", ...}'
+                                    />
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn-cancel" onClick={() => setAddModal(false)}>Cancel</button>
@@ -652,6 +705,48 @@ export default function AdminSettingsSEO({ seoPages }) {
                                         rows={2}
                                         value={editForm.og_description || ''}
                                         onChange={(e) => setEditForm(f => ({ ...f, og_description: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">OG Image URL</label>
+                                    <input
+                                        className="form-control"
+                                        value={editForm.og_image || ''}
+                                        onChange={(e) => setEditForm(f => ({ ...f, og_image: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Title</label>
+                                    <input
+                                        className="form-control"
+                                        value={editForm.twitter_title || ''}
+                                        onChange={(e) => setEditForm(f => ({ ...f, twitter_title: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Description</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows={2}
+                                        value={editForm.twitter_description || ''}
+                                        onChange={(e) => setEditForm(f => ({ ...f, twitter_description: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Twitter Image URL</label>
+                                    <input
+                                        className="form-control"
+                                        value={editForm.twitter_image || ''}
+                                        onChange={(e) => setEditForm(f => ({ ...f, twitter_image: e.target.value }))}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Schema Markup (JSON-LD)</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows={5}
+                                        value={editForm.schema_markup || ''}
+                                        onChange={(e) => setEditForm(f => ({ ...f, schema_markup: e.target.value }))}
                                     />
                                 </div>
                             </div>

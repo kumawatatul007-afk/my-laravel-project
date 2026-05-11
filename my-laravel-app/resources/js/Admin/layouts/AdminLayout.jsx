@@ -9,6 +9,11 @@ const Icons = {
             <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
         </svg>
     ),
+    Category: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+    ),
     Blog: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -54,6 +59,14 @@ const Icons = {
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
         </svg>
     ),
+    General: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="7" width="18" height="12" rx="2"/>
+            <path d="M3 11h18"/>
+            <path d="M8 11v8"/>
+            <path d="M16 11v8"/>
+        </svg>
+    ),
     Arrow: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/>
@@ -72,6 +85,21 @@ const Icons = {
             <circle cx="9" cy="7" r="4"/>
             <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+    ),
+    Role: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>
+            <path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+            <path d="M20 8v4"/>
+            <path d="M22 10h-4"/>
+        </svg>
+    ),
+    Permission: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L4 5v6c0 5 3.58 9.74 8 11 4.42-1.26 8-6 8-11V5l-8-3z"/>
+            <path d="M9 11h6"/>
+            <path d="M12 14v-6"/>
         </svg>
     ),
     Plugin: (
@@ -94,6 +122,13 @@ const Icons = {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9 2-2V6c0-1.1.9-2 2-2z"/>
             <polyline points="22,6 12,13 2,6"/>
+        </svg>
+    ),
+    Newsletter: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9 2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+            <path d="M4 10h16"/>
         </svg>
     ),
 };
@@ -157,6 +192,7 @@ const AdminLogo = ({ collapsed }) => (
 
 const NAV_ITEMS = [
     { label: 'Dashboard', href: '/admin/dashboard', icon: Icons.Dashboard, animation: 'pulse' },
+    { label: 'Categories', href: '/admin/categories', icon: Icons.Category, animation: 'bounce' },
     {
         label: 'Blog', href: '/admin/blog', icon: Icons.Blog, animation: 'wiggle',
         children: [
@@ -167,10 +203,11 @@ const NAV_ITEMS = [
     },
     { label: 'Portfolio', href: '/admin/portfolio', icon: Icons.Portfolio, animation: 'pop' },
     { label: 'Messages', href: '/admin/messages', icon: Icons.Messages, animation: 'shake' },
+    { label: 'Newsletters', href: '/admin/newsletters', icon: Icons.Newsletter, animation: 'pulse' },
     {
         label: 'Settings', href: '/admin/settings', icon: Icons.Settings, animation: 'rotate',
         children: [
-            { label: 'General', href: '/admin/settings', icon: Icons.Settings, animation: 'rotate' },
+            { label: 'General', href: '/admin/settings', icon: Icons.General, animation: 'rotate' },
             { label: 'Email', href: '/admin/settings/email', icon: Icons.Email, animation: 'bounce' },
             { label: 'SEO', href: '/admin/settings/seo', icon: Icons.SEO, animation: 'pulse' },
             {
@@ -179,9 +216,9 @@ const NAV_ITEMS = [
                 icon: Icons.UserManagement,
                 animation: 'pop',
                 children: [
-                    { label: 'Add Role', href: '/admin/settings/user-management/add-role', icon: Icons.Settings, animation: 'rotate' },
+                    { label: 'Add Role', href: '/admin/settings/user-management/add-role', icon: Icons.Role, animation: 'rotate' },
                     { label: 'Add Users', href: '/admin/users', icon: Icons.Users, animation: 'wiggle' },
-                    { label: 'Permission', href: '/admin/settings/user-management/permission', icon: Icons.SEO, animation: 'shake' },
+                    { label: 'Permission', href: '/admin/settings/user-management/permission', icon: Icons.Permission, animation: 'shake' },
                 ],
             },
             {
@@ -320,11 +357,21 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                 }
 
                 .nav-icon {
-                    display: inline-flex; 
-                    align-items: center; 
+                    display: inline-flex;
+                    align-items: center;
                     justify-content: center;
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 14px;
+                    background: rgba(255,255,255,0.08);
+                    color: #f8fafc;
                     flex-shrink: 0;
                     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                }
+
+                .nav-icon svg {
+                    width: 20px;
+                    height: 20px;
                 }
 
                 .admin-nav-item:hover .nav-icon,

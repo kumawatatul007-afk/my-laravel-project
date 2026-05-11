@@ -120,8 +120,28 @@ function unmountLoader() {
 }
 
 // Hook into Inertia navigation events
-router.on('start',  () => mountLoader());
-router.on('finish', () => unmountLoader());
+let loaderTimer = null;
+router.on('start', () => {
+    // Only show the loading overlay if navigation takes longer than 120ms.
+    loaderTimer = setTimeout(() => {
+        mountLoader();
+        loaderTimer = null;
+    }, 120);
+});
+router.on('finish', () => {
+    if (loaderTimer) {
+        clearTimeout(loaderTimer);
+        loaderTimer = null;
+    }
+    unmountLoader();
+});
+router.on('error', () => {
+    if (loaderTimer) {
+        clearTimeout(loaderTimer);
+        loaderTimer = null;
+    }
+    unmountLoader();
+});
 // ─────────────────────────────────────────────────────────────────────────────
 
 createInertiaApp({

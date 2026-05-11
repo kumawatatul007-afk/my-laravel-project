@@ -7,7 +7,7 @@ import {
     CategoryScale,
     LinearScale,
     PointElement,
-    LineElement,
+    LineElement,  
     BarElement,
     ArcElement,
     Title,
@@ -30,7 +30,7 @@ ChartJS.register(
     Filler
 );
 
-const ChartCard = ({ title, children, actionLink, actionText }) => (
+const ChartCard = ({ title, children, actionLink, actionText }) => ( 
     <div style={{
         background: 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
         backdropFilter: 'blur(20px)',
