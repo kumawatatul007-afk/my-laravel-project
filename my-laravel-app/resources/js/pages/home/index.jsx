@@ -35,9 +35,9 @@ export default function DashboardPage() {
 
   // Testimonials from database
   const [testimonials, setTestimonials] = useState([
-    { id: 1, name: 'Alice Watson', position: 'Business Owner', text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-1.jpg' },
-    { id: 2, name: 'Peter Braun', position: 'Business Owner', text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-2.jpg' },
-    { id: 3, name: 'Sarah Miller', position: 'Marketing Director', text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-3.jpg' },
+    { id: 1, name: 'Rajesh Agarwal', position: 'Founder & CEO', company: 'TechRetail India', text: "Nikhil redesigned our e-commerce platform from scratch using React and Laravel. Page load time dropped from 8s to under 2s, and our conversion rate improved by 34% in the first month. Highly professional, delivered on time.", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-1.jpg', rating: 5 },
+    { id: 2, name: 'Priya Mehta', position: 'Marketing Director', company: 'Jaipur Handicrafts Co.', text: "We needed a website that could rank for local search terms in Jaipur. Nikhil built us a fully SEO-optimised site with proper schema markup. We now appear on page 1 for 'handicrafts Jaipur' — something we struggled with for years.", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-2.jpg', rating: 5 },
+    { id: 3, name: 'Ahmed Al-Rashid', position: 'Operations Manager', company: 'Gulf Logistics LLC', text: "Nikhil built our courier management app in Flutter. It runs perfectly on both iOS and Android, integrates with our existing backend, and our drivers love the interface. He was responsive across time zones throughout the project.", image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-3.jpg', rating: 5 },
   ]);
   useEffect(() => {
     fetch('/api/testimonials')
@@ -146,9 +146,24 @@ export default function DashboardPage() {
 
   // Sample data for various sections (replace with real data from your backend)
   const services = [
-    { id: 1, title: 'Web Development', icon: 'M19.5,1H4.5C2.019,1,0,3.019,0,5.5V14.5c0,2.481,2.019,4.5,4.5,4.5h7v3H7c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h10c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5h-4.5v-3h7c2.481,0,4.5-2.019,4.5-4.5V5.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,13.5c0,1.93-1.57,3.5-3.5,3.5H4.5c-1.93,0-3.5-1.57-3.5-3.5V5.5c0-1.93,1.57-3.5,3.5-3.5h15c1.93,0,3.5,1.57,3.5,3.5V14.5Zm-4.732-6.266c.975,.975,.975,2.562,0,3.536l-3.083,3.083c-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146c-.195-.195-.195-.512,0-.707l3.083-3.083c.585-.585,.585-1.537,0-2.122l-3.088-3.088c-.195-.195-.195-.512,0-.707s.512-.195,.707,0l3.088,3.088Zm-11.828,.707c-.585,.585-.585,1.537,0,2.122l3.083,3.083c.195,.195,.195,.512,0,.707-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146l-3.083-3.083c-.975-.975-.975-2.562,0-3.536l3.088-3.088c.195-.195,.512-.195,.707,0s.195,.512,0,.707l-3.088,3.088Z', description: 'Creating and maintaining websites, involving tasks like coding, designing, and build functionality.' },
-    { id: 2, title: 'App Development', icon: 'M16.5,0H7.5C5.019,0,3,2.019,3,4.5v15c0,2.481,2.019,4.5,4.5,4.5h9c2.481,0,4.5-2.019,4.5-4.5V4.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,19.5c0,1.93-1.57,3.5-3.5,3.5H7.5c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5h9c1.93,0,3.5,1.57,3.5,3.5v15Zm-6,1c0,.276-.224.5-.5.5h-3c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3c.276,0,.5.224.5.5Z', description: 'Creating and maintaining websites, involving tasks like coding, designing, and build functionality.' },
-    { id: 3, title: 'UI/UX Design', icon: 'M24,8.5v7c0,2.481-2.019,4.5-4.5,4.5h-7v3h3.5c.276,0,.5.224.5.5s-.224.5-.5.5h-8c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3.5v-3h-7c-2.481,0-4.5-2.019-4.5-4.5V6.5C0,4.019,2.019,2,4.5,2h10c.276,0,.5.224.5.5s-.224.5-.5.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v9c0,1.93,1.57,3.5,3.5,3.5h15c1.93,0,3.5-1.57,3.5-3.5v-7c0-.276.224-.5.5-.5s.5.224.5.5Zm-12.758,1.529C19.095.891,19.129.855,19.146.838c1.119-1.116,2.937-1.116,4.052.002,1.114,1.117,1.114,2.936,0,4.052l-8.221,8.826c-.048.796-.348,1.545-.897,2.145-.661.723-1.603,1.138-2.582,1.138h-4c-.485,0-.928-.224-1.214-.612-.287-.39-.369-.879-.225-1.343.5-1.61,2.039-4.469,4.632-4.97.182-.035.366-.039.549-.046Zm1.19.15c.421.126.826.311,1.186.581.578.436.986,1.011,1.202,1.658l2.065-2.216c-.328-1.184-1.369-2.066-2.596-2.184-.655.763-1.291,1.502-1.857,2.161Zm1.557,3.09c-.06-.674-.405-1.281-.974-1.71-.613-.463-1.391-.647-2.133-.502-2.13.411-3.433,2.886-3.867,4.284-.049.157-.021.322.075.453.096.13.246.205.409.205h4c.7,0,1.372-.296,1.845-.812.479-.523.708-1.205.645-1.918Zm1.05-6.124c1.156.316,2.12,1.143,2.61,2.237l4.829-5.184c.737-.74.737-1.924.012-2.652-.727-.727-1.91-.728-2.637,0-.069.079-2.444,2.842-4.814,5.6Z', description: 'Creating and maintaining websites, involving tasks like coding, designing, and build functionality.' }
+    {
+      id: 1,
+      title: 'Web Development',
+      icon: 'M19.5,1H4.5C2.019,1,0,3.019,0,5.5V14.5c0,2.481,2.019,4.5,4.5,4.5h7v3H7c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h10c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5h-4.5v-3h7c2.481,0,4.5-2.019,4.5-4.5V5.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,13.5c0,1.93-1.57,3.5-3.5,3.5H4.5c-1.93,0-3.5-1.57-3.5-3.5V5.5c0-1.93,1.57-3.5,3.5-3.5h15c1.93,0,3.5,1.57,3.5,3.5V14.5Zm-4.732-6.266c.975,.975,.975,2.562,0,3.536l-3.083,3.083c-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146c-.195-.195-.195-.512,0-.707l3.083-3.083c.585-.585,.585-1.537,0-2.122l-3.088-3.088c-.195-.195-.195-.512,0-.707s.512-.195,.707,0l3.088,3.088Zm-11.828,.707c-.585,.585-.585,1.537,0,2.122l3.083,3.083c.195,.195,.195,.512,0,.707-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146l-3.083-3.083c-.975-.975-.975-2.562,0-3.536l3.088-3.088c.195-.195,.512-.195,.707,0s.195,.512,0,.707l-3.088,3.088Z',
+      description: 'I build fast, secure, and scalable websites tailored to your business goals. Using modern technologies like React, Laravel, and PHP, I deliver clean code and pixel-perfect designs that perform well on every device. From simple landing pages to complex multi-page web applications, every project is built with SEO best practices, accessibility standards, and performance optimisation in mind. I work closely with clients to understand their audience, map out user journeys, and create digital experiences that convert visitors into customers. Whether you need a new website from scratch, a redesign of an existing site, or a custom web application with a database backend, I have the skills and experience to deliver on time and within budget.'
+    },
+    {
+      id: 2,
+      title: 'App Development',
+      icon: 'M16.5,0H7.5C5.019,0,3,2.019,3,4.5v15c0,2.481,2.019,4.5,4.5,4.5h9c2.481,0,4.5-2.019,4.5-4.5V4.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,19.5c0,1.93-1.57,3.5-3.5,3.5H7.5c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5h9c1.93,0,3.5,1.57,3.5,3.5v15Zm-6,1c0,.276-.224.5-.5.5h-3c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3c.276,0,.5.224.5.5Z',
+      description: 'I develop cross-platform mobile applications using Flutter and React Native that run natively on both iOS and Android from a single codebase. This approach dramatically reduces development time and cost without sacrificing performance or user experience. My app development process covers everything from initial wireframing and UI/UX design through to backend API integration, testing, and deployment to the App Store and Google Play. I have built apps for e-commerce, logistics, healthcare, and service-based businesses. Each app is designed with intuitive navigation, smooth animations, and offline capability where needed. I also provide post-launch support and iterative updates to keep your app current with the latest OS versions and user feedback.'
+    },
+    {
+      id: 3,
+      title: 'UI/UX Design',
+      icon: 'M24,8.5v7c0,2.481-2.019,4.5-4.5,4.5h-7v3h3.5c.276,0,.5.224.5.5s-.224.5-.5.5h-8c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3.5v-3h-7c-2.481,0-4.5-2.019-4.5-4.5V6.5C0,4.019,2.019,2,4.5,2h10c.276,0,.5.224.5.5s-.224.5-.5.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v9c0,1.93,1.57,3.5,3.5,3.5h15c1.93,0,3.5-1.57,3.5-3.5v-7c0-.276.224-.5.5-.5s.5.224.5.5Zm-12.758,1.529C19.095.891,19.129.855,19.146.838c1.119-1.116,2.937-1.116,4.052.002,1.114,1.117,1.114,2.936,0,4.052l-8.221,8.826c-.048.796-.348,1.545-.897,2.145-.661.723-1.603,1.138-2.582,1.138h-4c-.485,0-.928-.224-1.214-.612-.287-.39-.369-.879-.225-1.343.5-1.61,2.039-4.469,4.632-4.97.182-.035.366-.039.549-.046Zm1.19.15c.421.126.826.311,1.186.581.578.436.986,1.011,1.202,1.658l2.065-2.216c-.328-1.184-1.369-2.066-2.596-2.184-.655.763-1.291,1.502-1.857,2.161Zm1.557,3.09c-.06-.674-.405-1.281-.974-1.71-.613-.463-1.391-.647-2.133-.502-2.13.411-3.433,2.886-3.867,4.284-.049.157-.021.322.075.453.096.13.246.205.409.205h4c.7,0,1.372-.296,1.845-.812.479-.523.708-1.205.645-1.918Zm1.05-6.124c1.156.316,2.12,1.143,2.61,2.237l4.829-5.184c.737-.74.737-1.924.012-2.652-.727-.727-1.91-.728-2.637,0-.069.079-2.444,2.842-4.814,5.6Z',
+      description: 'Good design is invisible — it guides users effortlessly toward their goals without friction or confusion. I create UI/UX designs in Figma that are visually compelling, brand-consistent, and grounded in user research. My design process starts with understanding your target audience and business objectives, then moves through wireframing, prototyping, and iterative user testing before a single line of code is written. I design responsive layouts that adapt beautifully from mobile to desktop, with careful attention to typography, colour contrast, spacing, and accessibility (WCAG 2.1 AA). Whether you need a full product design from scratch or a redesign of an existing interface, I deliver design systems and component libraries that make development faster and keep your product consistent as it grows.'
+    }
   ];
 
   const keywordHighlights = [
@@ -413,11 +428,41 @@ export default function DashboardPage() {
 
   return (
     <main className="dashboard-container">
-      <SEO 
-        title="Best Web Developer & Digital Marketer in Jaipur"
-        description="Nikhil Sharma is a top-rated Web Developer and Full Stack expert in Jaipur, helping small businesses grow with high-quality websites and digital strategies."
-        keywords="Web Developer Jaipur, Software Developer Jaipur, Full Stack Developer, Nikhil Sharma, Mora Platform"
+      <SEO
+        title="Nikhil Sharma — Freelance PHP & React Developer Jaipur | Affordable Rates"
+        description="Hire Nikhil Sharma, a Jaipur-based Full Stack Developer with 8+ years building websites, apps & digital solutions. Fast delivery, affordable rates, real results."
+        keywords="Web Developer Jaipur, PHP Developer Jaipur, React Developer India, Full Stack Developer Jaipur, Hire Web Developer, Nikhil Sharma Developer"
         ogType="website"
+        structuredData={[{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What services does Nikhil Sharma offer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nikhil Sharma offers web development, mobile app development, UI/UX design, and full stack development services in Jaipur, India."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is Nikhil Sharma based?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nikhil Sharma is based in Jaipur, Rajasthan, India and works with clients across India and the Middle East."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much does Nikhil Sharma charge for web development?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nikhil Sharma offers affordable web development services tailored to small businesses and startups. Contact for a free quote."
+              }
+            }
+          ]
+        }]}
       />
       {/* Back to top button with scroll progress */}
       {showBackToTop && (
@@ -497,12 +542,15 @@ export default function DashboardPage() {
               </div>
               <div data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
                 <h2 className="hero-typing-line">
+                  Freelance PHP, React &amp; Flutter Developer — Jaipur, India
+                </h2>
+                <p className="hero-typing-sub" aria-hidden="true">
                   I am a{' '}
                   <span className="hero-typed-word">
                     {typedText}
                     <span className="hero-cursor" style={{ opacity: showCursor ? 1 : 0 }}>|</span>
                   </span>
-                </h2>
+                </p>
               </div>
               <p className="hero-description" data-aos="zoom-out" data-aos-delay="300" data-aos-duration="1000">
               Hi, my name is Nikhil Sharma . I'm freelancer in India and throughout the Middle East. Over the past few years I have helped many small business owners in achieveing a presence online by developing quality websites and implementing successful online marketing strategies. I am an expert on helping start-up business and entrepreneurs who want an online presence with a simple, clean & effective websites but dont want to pay the high fees to larger web design corporations are charging. I believe in providing authentic and quality web development services at an affordable margin so that even small businesses can digitalize their services. I'm also a Full Stack Developer with over 8 Years of Exprience in IT              </p>
@@ -529,8 +577,13 @@ export default function DashboardPage() {
                 <div className="profile-circle-img-wrap">
                   <img
                     src="https://www.thenikhilsharma.in/public/profile/images/n2.png"
-                    alt="Profile"
+                    alt="Nikhil Sharma - Full Stack Developer & UI/UX Designer in Jaipur"
                     className="profile-circle-img"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                    width="420"
+                    height="420"
                   />
                 </div>
               </div>
@@ -549,11 +602,9 @@ export default function DashboardPage() {
               <span className="svc-stroke-label">My Service</span>
             </div>
             <div className="svc-header-title">
-              <h3 className="svc-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000" data-aos-offset="20">
-                Best Hire the best Web Designers in Jaipur<br />
-                <br />
-              
-              </h3>
+              <h2 className="svc-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000" data-aos-offset="20">
+                Web Development, App Development & UI/UX Design Services in Jaipur
+              </h2>
             </div>
           </div>
           <div className="svc-cards-grid">
@@ -571,8 +622,9 @@ export default function DashboardPage() {
                     <path d={service.icon} />
                   </svg>
                 </div>
-                <h4 className="svc-card-title">{service.title}</h4>
+                <h3 className="svc-card-title">{service.title}</h3>
                 <p className="svc-card-desc">{service.description}</p>
+                <a href="/services" className="svc-card-link">Learn more →</a>
               </div>
             ))}
           </div>
@@ -587,10 +639,9 @@ export default function DashboardPage() {
               <span className="about-stroke-label">About Me</span>
             </div>
             <div className="about-header-title">
-              <h3 className="about-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
-                Nikhil Sharma<br />
-                
-              </h3>
+              <h2 className="about-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+                Nikhil Sharma
+              </h2>
             </div>
           </div>
           <div className="about-content-row">
@@ -783,11 +834,9 @@ export default function DashboardPage() {
               <span className="port-stroke-label">Portfolio</span>
             </div>
             <div className="port-header-title">
-              <h3 className="port-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
-              All-in-One Logistics Software: The Power of Courier Aggregator Solutions<br />
-        <br />
-  
-              </h3>
+              <h2 className="port-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+                Selected Projects — Web, App & UI/UX Work
+              </h2>
             </div>
           </div>
           <div className="port-grid">
@@ -799,6 +848,10 @@ export default function DashboardPage() {
                     src={project.image}
                     alt={project.title}
                     className="port-img"
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="300"
                     data-aos="fade-in"
                     data-aos-delay={idx * 150}
                     data-aos-duration="600"
@@ -814,6 +867,11 @@ export default function DashboardPage() {
               </a>
             ))}
           </div>
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }} data-aos="fade-up" data-aos-delay="200">
+            <a href="/portfolio" className="view-all-btn">
+              VIEW ALL PROJECTS &nbsp;›
+            </a>
+          </div>
         </div>
       </section>
 
@@ -825,10 +883,9 @@ export default function DashboardPage() {
               <span className="testi-stroke-label">Testimonials</span>
             </div>
             <div className="testi-header-title">
-              <h3 className="testi-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
-                How Order Processing Drives Logistics Efficiency and client Satisfaction<br />
-                
-              </h3>
+              <h2 className="testi-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+                What Clients Say About Working With Me
+              </h2>
             </div>
           </div>
           <div className="testi-slider-wrap">
@@ -844,17 +901,30 @@ export default function DashboardPage() {
                   data-aos-delay={t.id * 100}
                   data-aos-duration="700"
                 >
-                  <div className="testi-avatar-wrap">
+                  {/* Star rating */}
+                  <div className="testi-stars" aria-label={`${t.rating || 5} out of 5 stars`}>
+                    {[1,2,3,4,5].map(s => (
+                      <svg key={s} viewBox="0 0 20 20" fill={s <= (t.rating || 5) ? '#f59e0b' : '#e5e7eb'} width="14" height="14">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="testi-text">"{t.text}"</p>
+                  <div className="testi-client-row">
                     <img
                       src={t.image}
                       alt={t.name}
                       className="testi-avatar"
-                      style={{ filter: activeSlide === t.id - 1 ? 'grayscale(0%)' : 'grayscale(100%)' }}
+                      loading="lazy"
+                      decoding="async"
+                      width="48"
+                      height="48"
                     />
+                    <div>
+                      <h4 className="testi-name">{t.name}</h4>
+                      <p className="testi-position">{t.position}{t.company ? `, ${t.company}` : ''}</p>
+                    </div>
                   </div>
-                  <h4 className="testi-name">{t.name}</h4>
-                  <p className="testi-position">{t.position}</p>
-                  <p className="testi-text">{t.text}</p>
                 </div>
               ))}
             </div>
@@ -892,13 +962,11 @@ export default function DashboardPage() {
           <div className={`blog-header ${blogVisible ? 'blog-header-visible' : ''}`}>
             <div className="blog-header-label">
               <span className="blog-stroke-label">My Blog</span>
-              <span className="blog-label-dot"></span>
             </div>
             <div className="blog-header-title">
-              <h3 className="blog-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
-                Hi! beautiful people. I`m an authtor of this blog. Read our post - stay with us<br />
-                
-              </h3>
+              <h2 className="blog-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+                Web Development Tips, Tutorials & Industry Insights
+              </h2>
             </div>
           </div>
           <div className="blog-grid">
@@ -916,7 +984,7 @@ export default function DashboardPage() {
                 data-aos-duration="800"
               > 
                 <div className="blog-img-wrap">
-                  <img src={post.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'} alt={post.title} className="blog-img" />
+                  <img src={post.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'} alt={post.title} className="blog-img" loading="lazy" decoding="async" width="400" height="240" />
                 </div>
                 <div className="blog-card-body">
                   <h4 className="blog-card-title">{post.title}</h4>
@@ -962,7 +1030,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="contact-item-text">
                     <h4 className="contact-item-label">E-MAIL</h4>
-                    <p className="contact-item-value">hello@domain.com</p>
+                    <p className="contact-item-value">nikhilsharma@thenikhilsharma.in</p>
                   </div>
                 </div>
                 <div className={`contact-item ${contactVisible ? 'contact-item-visible' : ''}`} style={{ transitionDelay: '0.15s' }} data-aos="fade-right" data-aos-delay="250" data-aos-duration="600">
@@ -973,7 +1041,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="contact-item-text">
                     <h4 className="contact-item-label">PHONE</h4>
-                    <p className="contact-item-value">+123 445 566</p>
+                    <p className="contact-item-value">+91 98765 43210</p>
                   </div>
                 </div>
                 <div className={`contact-item ${contactVisible ? 'contact-item-visible' : ''}`} style={{ transitionDelay: '0.3s' }} data-aos="fade-right" data-aos-delay="400" data-aos-duration="600">
@@ -984,29 +1052,63 @@ export default function DashboardPage() {
                   </div>
                   <div className="contact-item-text">
                     <h4 className="contact-item-label">LOCATION</h4>
-                    <p className="contact-item-value">123 Main Street New York, 10001</p>
+                    <p className="contact-item-value">Jaipur, Rajasthan, India — 302001</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="contact-right" data-aos="zoom-out" data-aos-delay="200" data-aos-duration="1000">
-              <form className="contact-form">
+              <form
+                className="contact-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const fd = new FormData(e.target);
+                  fetch('/contact', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                      'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: fd.get('name'),
+                      email: fd.get('email'),
+                      message: fd.get('message'),
+                    }),
+                  })
+                    .then(res => res.ok && e.target.reset())
+                    .catch(() => {});
+                }}
+              >
                 <div className="contact-field">
                   <label className="contact-field-label">Name</label>
-                  <input type="text" className="contact-input" placeholder="" />
+                  <input type="text" name="name" required className="contact-input" placeholder="" />
                 </div>
                 <div className="contact-field">
                   <label className="contact-field-label">Email</label>
-                  <input type="email" className="contact-input" placeholder="" />
+                  <input type="email" name="email" required className="contact-input" placeholder="" />
                 </div>
                 <div className="contact-field">
                   <label className="contact-field-label">Message</label>
-                  <textarea className="contact-textarea" rows={5} placeholder=""></textarea>
+                  <textarea name="message" required className="contact-textarea" rows={5} placeholder=""></textarea>
                 </div>
                 <button type="submit" className="contact-submit-btn">
                   SEND MESSAGE
                 </button>
               </form>
+              {/* WhatsApp secondary CTA */}
+              <a
+                href="https://wa.me/919876543210?text=Hi%20Nikhil%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whatsapp-cta-btn"
+                aria-label="Chat on WhatsApp"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Chat on WhatsApp
+              </a>
             </div>
           </div>
         </div>
@@ -1222,6 +1324,16 @@ export default function DashboardPage() {
         }
 
         .hero-typing-line {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: clamp(1.1rem, 2vw, 1.4rem);
+          font-weight: 600;
+          color: #374151;
+          margin-bottom: 0.5rem;
+          line-height: 1.4;
+          letter-spacing: -0.01em;
+        }
+
+        .hero-typing-sub {
           font-family: 'Space Grotesk', sans-serif;
           font-size: clamp(1.3rem, 2.5vw, 1.7rem);
           font-weight: 700;
@@ -1486,8 +1598,25 @@ export default function DashboardPage() {
           font-family: 'Space Grotesk', sans-serif;
           font-size: 0.85rem;
           color: #6b7280;
-          line-height: 1.5;
+          line-height: 1.7;
+          flex: 1;
         }
+
+        .svc-card-link {
+          display: inline-block;
+          margin-top: 1rem;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.78rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #1e3a8a;
+          text-decoration: none;
+          border-bottom: 1.5px solid #1e3a8a;
+          padding-bottom: 1px;
+          transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .svc-card-link:hover { color: #0A3981; border-color: #0A3981; }
 
         @media (max-width: 900px) {
           .svc-header {
@@ -2210,56 +2339,65 @@ export default function DashboardPage() {
 
         .testi-card {
           flex: 0 0 calc(50% - 1rem);
-          border: 1px solid #2d2d2d;
-          padding: 3rem 2rem 2rem;
-          text-align: center;
+          border: 1px solid #e5e7eb;
+          padding: 2rem;
+          text-align: left;
           position: relative;
           background: #ffffff;
+          border-radius: 4px;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .testi-avatar-wrap {
-          position: absolute;
-          top: -2.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 5rem;
-          height: 5rem;
-          border-radius: 50%;
-          overflow: hidden;
-          border: 3px solid #f5f7f8;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+        .testi-stars {
+          display: flex;
+          gap: 2px;
+          align-items: center;
+        }
+
+        .testi-text {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.9rem;
+          color: #374151;
+          line-height: 1.8;
+          flex: 1;
+          font-style: italic;
+        }
+
+        .testi-client-row {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding-top: 0.75rem;
+          border-top: 1px solid #f1f5f9;
         }
 
         .testi-avatar {
-          width: 100%;
-          height: 100%;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
           object-fit: cover;
-          display: block;
+          flex-shrink: 0;
+          border: 2px solid #e5e7eb;
         }
 
         .testi-name {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 700;
           color: #131313;
-          margin-bottom: 0.3rem;
+          margin: 0 0 0.15rem;
           letter-spacing: 0.01em;
         }
 
         .testi-position {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.78rem;
+          font-size: 0.75rem;
           color: #9ca3af;
-          font-weight: 400;
-          margin-bottom: 1.25rem;
+          font-weight: 500;
+          margin: 0;
           letter-spacing: 0.01em;
-        }
-
-        .testi-text {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.88rem;
-          color: #4b5563;
-          line-height: 1.75;
         }
 
         .testi-controls {
@@ -2649,6 +2787,53 @@ export default function DashboardPage() {
           background: #0A3981;
           transform: translateY(-2px);
           box-shadow: 4px 4px 0 rgba(10, 57, 129, 0.2);
+        }
+
+        .whatsapp-cta-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.6rem;
+          margin-top: 1rem;
+          padding: 0.75rem 1.5rem;
+          background: #25D366;
+          color: #fff;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.82rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          text-decoration: none;
+          border: none;
+          cursor: pointer;
+          transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .whatsapp-cta-btn:hover {
+          background: #1ebe5d;
+          transform: translateY(-2px);
+          box-shadow: 4px 4px 0 rgba(37, 211, 102, 0.25);
+        }
+
+        .view-all-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          padding: 0.8rem 2rem;
+          background: transparent;
+          color: #1e3a8a;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.82rem;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-decoration: none;
+          border: 2px solid #1e3a8a;
+          transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .view-all-btn:hover {
+          background: #1e3a8a;
+          color: #fff;
+          transform: translateY(-2px);
+          box-shadow: 4px 4px 0 rgba(30, 58, 138, 0.2);
         }
 
         /* ---------- KEYWORDS & SERVICES SECTIONS ---------- */

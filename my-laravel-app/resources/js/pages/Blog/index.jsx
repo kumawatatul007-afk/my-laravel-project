@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from '@inertiajs/react'
 import './index.css'
+import SEO from '../../components/SEO'
 
 export default function BlogPage() {
   const [posts, setPosts] = useState([])
@@ -24,12 +25,17 @@ export default function BlogPage() {
 
   return (
     <div className="blogpage-root">
+      <SEO
+        title="Blog | Nikhil Sharma - Web Development Articles & Insights"
+        description="Read articles on web development, UI/UX design, and software engineering by Nikhil Sharma — Full Stack Developer based in Jaipur, Rajasthan."
+        keywords="Web Development Blog, React JS Tips, PHP Laravel, UI UX Design, Nikhil Sharma Blog"
+      />
       <div className="container mx-auto">
 
         {/* Header */}
         <div className="blogpage-section-header">
           <span className="blogpage-stroke-label">My Blog</span>
-          <h3 className="blogpage-big-title">Latest Articles & Insights</h3>
+          <h1 className="blogpage-big-title">Latest Articles & Insights</h1>
         </div>
 
         {/* Loading state */}

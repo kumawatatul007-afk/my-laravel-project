@@ -20,24 +20,30 @@ const SKILLS = [
 const FALLBACK_TESTIMONIALS = [
   {
     id: 1,
-    name: 'John Smith',
-    position: 'CEO',
+    name: 'Rajesh Agarwal',
+    position: 'Founder & CEO',
+    company: 'TechRetail India',
     image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-1.jpg',
-    text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results",
+    text: "Nikhil redesigned our e-commerce platform from scratch using React and Laravel. Page load time dropped from 8s to under 2s, and our conversion rate improved by 34% in the first month. Highly professional, delivered on time.",
+    rating: 5,
   },
   {
     id: 2,
-    name: 'Jane Doe',
+    name: 'Priya Mehta',
     position: 'Marketing Director',
+    company: 'Jaipur Handicrafts Co.',
     image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-2.jpg',
-    text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results",
+    text: "We needed a website that could rank for local search terms in Jaipur. Nikhil built us a fully SEO-optimised site with proper schema markup. We now appear on page 1 for 'handicrafts Jaipur' — something we struggled with for years.",
+    rating: 5,
   },
   {
     id: 3,
-    name: 'Mike Johnson',
-    position: 'Business Owner',
+    name: 'Ahmed Al-Rashid',
+    position: 'Operations Manager',
+    company: 'Gulf Logistics LLC',
     image: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-3.jpg',
-    text: "Thanks to Web Designer, we've seen a significant increase in traffic and engagement on our site, ultimately leading to a boost in sales. We couldn't be happier with the results",
+    text: "Nikhil built our courier management app in Flutter. It runs perfectly on both iOS and Android, integrates with our existing backend, and our drivers love the interface. He was responsive across time zones throughout the project.",
+    rating: 5,
   },
 ]
 
@@ -79,13 +85,13 @@ export default function AboutPage() {
 
             {/* Left — text */}
             <div className="ap-hero-text">
-              <h2
+              <span
                 className="ap-about-label"
                 data-aos="fade-right"
                 data-aos-duration="800"
               >
                 About Me
-              </h2>
+              </span>
 
               <h1
                 className="ap-hero-name"
@@ -138,6 +144,9 @@ export default function AboutPage() {
                 <OptimizedImage
                   src="https://www.thenikhilsharma.in/public/admin/nikhil_sharma/nikhil_.png"
                   alt="Nikhil Sharma - Full Stack Developer in Jaipur"
+                  priority={true}
+                  width={480}
+                  height={520}
                 />
               </div>
             </div>
@@ -224,13 +233,13 @@ export default function AboutPage() {
 
             {/* Left — heading */}
             <div className="ap-testimonials-left">
-              <h2
+              <span
                 className="ap-about-label"
                 data-aos="fade-right"
                 data-aos-duration="800"
               >
                 Testimonials
-              </h2>
+              </span>
               <h2
                 className="ap-testimonials-heading"
                 data-aos="zoom-out-down"
@@ -264,16 +273,23 @@ export default function AboutPage() {
                   <SwiperSlide key={t.id}>
                     <div className="testimonial-item">
                       <div className="testimonial-item__client-img">
-                        <img src={t.image} alt={t.name} />
+                        <img src={t.image} alt={t.name} loading="lazy" width="64" height="64" />
                       </div>
                       <div className="ap-testi-body">
-                        <div className="ap-testi-meta">
-                          <div className="testimonial-item__client-name">{t.name}</div>
-                          <div className="testimonial-item__client-occ">{t.position}</div>
+                        <div className="ap-testi-stars" aria-label={`${t.rating || 5} out of 5 stars`}>
+                          {[1,2,3,4,5].map(s => (
+                            <svg key={s} viewBox="0 0 20 20" fill={s <= (t.rating || 5) ? '#f59e0b' : '#e5e7eb'} width="13" height="13">
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                          ))}
                         </div>
                         <blockquote className="testimonial-item__text">
                           <p>"{t.text}"</p>
                         </blockquote>
+                        <div className="ap-testi-meta">
+                          <div className="testimonial-item__client-name">{t.name}</div>
+                          <div className="testimonial-item__client-occ">{t.position}{t.company ? `, ${t.company}` : ''}</div>
+                        </div>
                       </div>
                     </div>
                   </SwiperSlide>

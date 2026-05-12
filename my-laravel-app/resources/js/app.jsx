@@ -146,7 +146,7 @@ router.on('error', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 createInertiaApp({
-    title: (title) => `${title} - Mora`,
+    title: (title) => title, // Title is fully managed by the SEO component per page
     resolve: (name) => {
         // Admin pages alag folder se load karo
         const adminPages = import.meta.glob('./Admin/**/*.jsx', { eager: true });

@@ -88,14 +88,16 @@ export default function AdminLayout({ children }) {
       }} className="admin-sidebar">
 
         {/* Logo */}
-        <div style={{ padding: '1.5rem 1.5rem 1rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href="/admin/dashboard" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-            <div style={{ width: '36px', height: '36px', background: '#4f46e5', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '1rem', color: '#fff' }}>
-              N
-            </div>
+            <img 
+              src="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png" 
+              alt="Logo" 
+              style={{ height: '32px', width: 'auto', filter: 'brightness(0) invert(1)' }} 
+            />
             <div>
-              <div style={{ fontWeight: 700, fontSize: '1rem', color: '#fff', letterSpacing: '0.05em' }}>Nikhil Sharma</div>
-              <div style={{ fontSize: '0.7rem', color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Admin Panel</div>
+              <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#fff', letterSpacing: '0.05em' }}>Nikhil Sharma</div>
+              <div style={{ fontSize: '0.65rem', color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Admin Panel</div>
             </div>
           </Link>
         </div>

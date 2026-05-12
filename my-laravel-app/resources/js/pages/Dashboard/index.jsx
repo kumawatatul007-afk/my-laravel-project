@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import SEO from '../../components/SEO';
 
 export default function DashboardPage () {
   const [totalPosts] = useState(0);
@@ -398,6 +399,11 @@ export default function DashboardPage () {
 
   return (
     <div className="dashboard-container">
+      <SEO
+        title="Nikhil Sharma | Full Stack Developer & UI/UX Designer in Jaipur"
+        description="Nikhil Sharma — Freelance Full Stack Developer & UI/UX Designer in Jaipur, India. 8+ years of experience building web apps, mobile apps, and digital experiences."
+        keywords="Full Stack Developer Jaipur, Web Developer Jaipur, React Developer India, Laravel Developer, UI UX Designer Jaipur, Nikhil Sharma"
+      />
       {/* Back to top button with scroll progress */}
       {showBackToTop && (
         <button className="back-to-top-btn" onClick={scrollToTop}>
@@ -508,7 +514,7 @@ export default function DashboardPage () {
                 <div className="profile-circle-img-wrap">
                   <img
                     src="https://www.thenikhilsharma.in/public/profile/images/n2.png"
-                    alt="Profile"
+                    alt="Nikhil Sharma - Full Stack Developer in Jaipur"
                     className="profile-circle-img"
                   />
                 </div>
@@ -554,11 +560,11 @@ export default function DashboardPage () {
               <span className="svc-stroke-label">My Service</span>
             </div>
             <div className="svc-header-title">
-              <h3 className="svc-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000" data-aos-offset="20">
+              <h2 className="svc-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000" data-aos-offset="20">
                 Best Hire the best Web Designers in Jaipur<br />
                 <br />
               
-              </h3>
+              </h2>
             </div>
           </div>
           <div className="svc-cards-grid">
@@ -610,10 +616,10 @@ export default function DashboardPage () {
               <span className="about-stroke-label">About Me</span>
             </div>
             <div className="about-header-title">
-              <h3 className="about-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+              <h2 className="about-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
                 Nikhil Sharma<br />
                 
-              </h3>
+              </h2>
             </div>
           </div>
           <div className="about-content-row">
@@ -806,11 +812,11 @@ export default function DashboardPage () {
               <span className="port-stroke-label">Portfolio</span>
             </div>
             <div className="port-header-title">
-              <h3 className="port-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+              <h2 className="port-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
               All-in-One Logistics Software: The Power of Courier Aggregator Solutions<br />
         <br />
   
-              </h3>
+              </h2>
             </div>
           </div>
           <div className="port-grid">
@@ -848,10 +854,10 @@ export default function DashboardPage () {
               <span className="testi-stroke-label">Testimonials</span>
             </div>
             <div className="testi-header-title">
-              <h3 className="testi-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+              <h2 className="testi-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
                 How Order Processing Drives Logistics Efficiency and client Satisfaction<br />
                 
-              </h3>
+              </h2>
             </div>
           </div>
           <div className="testi-slider-wrap">
@@ -918,10 +924,10 @@ export default function DashboardPage () {
               <span className="blog-label-dot"></span>
             </div>
             <div className="blog-header-title">
-              <h3 className="blog-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
+              <h2 className="blog-big-title" data-aos="zoom-out-down" data-aos-delay="200" data-aos-duration="1000">
                 Hi! beautiful people. I`m an authtor of this blog. Read our post - stay with us<br />
                 
-              </h3>
+              </h2>
             </div>
           </div>
           <div className="blog-grid">

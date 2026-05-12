@@ -31,6 +31,8 @@ Route::get('/blog/{id}', fn ($id) => Inertia::render('Blog/BlogDetail/index', ['
 Route::get('/blog/{id}/sidebar', fn ($id) => Inertia::render('Blog/BlogDetailSidebar/index', ['id' => $id]));
 Route::get('/contact', fn () => Inertia::render('Contact/index'));
 Route::get('/portfolio', fn () => Inertia::render('Portfolio/index'));
+Route::get('/services', fn () => Inertia::render('Services/index'));
+Route::get('/web-developer-jaipur', fn () => Inertia::render('LocalLanding/WebDeveloperJaipur'));
 Route::get('/portfolio/list', fn () => Inertia::render('Portfolio/PortfolioList/index'));
 Route::get('/portfolio/{id}', fn ($id) => Inertia::render('Portfolio/ProjectDetail/index', ['id' => $id]));
 

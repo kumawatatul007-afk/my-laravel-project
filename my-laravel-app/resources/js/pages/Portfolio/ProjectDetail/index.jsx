@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, router } from '@inertiajs/react';
+import SEO from '../../../components/SEO';
 
 export default function ProjectDetailPage({ id }) {
   const pathId = id ? Number(id) : Number(window.location.pathname.split('/').pop());
@@ -468,9 +469,101 @@ export default function ProjectDetailPage({ id }) {
           text-decoration: none;
         }
         .pd-back-all:hover { background: #131313; color: #ffffff; }
+
+        /* ── Case Study ── */
+        .pd-case-study { margin-top: 1rem; }
+
+        .pd-case-block {
+          margin-bottom: 2.5rem;
+        }
+
+        .pd-case-heading {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #131313;
+          font-family: 'Space Grotesk', sans-serif;
+          letter-spacing: -0.01em;
+          margin-bottom: 0.75rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 2px solid #e5e7eb;
+        }
+
+        .pd-case-text {
+          font-size: 0.95rem;
+          color: #4b5563;
+          line-height: 1.85;
+          font-family: 'Space Grotesk', sans-serif;
+          margin: 0;
+        }
+
+        .pd-tech-chips {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-top: 0.25rem;
+        }
+
+        .pd-tech-chip {
+          display: inline-block;
+          padding: 0.3rem 0.85rem;
+          background: #eff6ff;
+          color: #1e40af;
+          border: 1px solid #bfdbfe;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          font-family: 'Space Grotesk', sans-serif;
+          letter-spacing: 0.04em;
+        }
+
+        .pd-result-block {
+          background: #f0fdf4;
+          border: 1px solid #bbf7d0;
+          border-radius: 8px;
+          padding: 1.5rem;
+        }
+
+        .pd-result-block .pd-case-heading {
+          border-bottom-color: #bbf7d0;
+          color: #15803d;
+        }
+
+        .pd-result-block .pd-case-text {
+          color: #166534;
+        }
       `}</style>
 
       <div className="pd-page">
+
+        {/* SEO */}
+        {project && (
+          <SEO
+            title={`${project.title} | Portfolio Case Study`}
+            description={project.challenge
+              ? `${project.challenge.slice(0, 140)}...`
+              : project.description
+                ? project.description.replace(/<[^>]+>/g, '').slice(0, 155)
+                : `${project.title} — a ${project.category} project by Nikhil Sharma, Full Stack Developer in Jaipur.`
+            }
+            keywords={`${project.title}, ${project.category}, ${project.tech_stack || 'Web Development'}, Portfolio Case Study, Nikhil Sharma`}
+            ogType="article"
+            structuredData={[{
+              "@context": "https://schema.org",
+              "@type": "CreativeWork",
+              "name": project.title,
+              "description": project.description ? project.description.replace(/<[^>]+>/g, '') : project.title,
+              "url": typeof window !== 'undefined' ? window.location.href : '',
+              "image": project.image_url || '',
+              "creator": {
+                "@type": "Person",
+                "name": "Nikhil Sharma",
+                "url": "https://thenikhilsharma.in"
+              },
+              "genre": project.category,
+              ...(project.tech_stack ? { "keywords": project.tech_stack } : {})
+            }]}
+          />
+        )}
 
         {/* Hero Section */}
         <div className="pd-hero-outer">
@@ -542,6 +635,45 @@ export default function ProjectDetailPage({ id }) {
                 <p className="pd-description-text">
                   This project showcases creative design and development work. Check back for more details.
                 </p>
+              )}
+
+              {/* ── Case Study Sections ── */}
+              {(project.challenge || project.approach || project.tech_stack || project.result) && (
+                <div className="pd-case-study">
+                  <hr className="pd-divider" />
+
+                  {project.challenge && (
+                    <div className="pd-case-block">
+                      <h3 className="pd-case-heading">The Challenge</h3>
+                      <p className="pd-case-text">{project.challenge}</p>
+                    </div>
+                  )}
+
+                  {project.approach && (
+                    <div className="pd-case-block">
+                      <h3 className="pd-case-heading">Our Approach</h3>
+                      <p className="pd-case-text">{project.approach}</p>
+                    </div>
+                  )}
+
+                  {project.tech_stack && (
+                    <div className="pd-case-block">
+                      <h3 className="pd-case-heading">Tech Stack</h3>
+                      <div className="pd-tech-chips">
+                        {project.tech_stack.split(',').map((tech) => (
+                          <span key={tech.trim()} className="pd-tech-chip">{tech.trim()}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {project.result && (
+                    <div className="pd-case-block pd-result-block">
+                      <h3 className="pd-case-heading">Result</h3>
+                      <p className="pd-case-text">{project.result}</p>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           </div>

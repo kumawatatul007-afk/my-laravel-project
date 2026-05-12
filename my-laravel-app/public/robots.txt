@@ -1,6 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /login
+Disallow: /register
 
 # Sitemaps
-Sitemap: https://nikhilsharma.com/sitemap.xml
+Sitemap: https://thenikhilsharma.in/sitemap.xml

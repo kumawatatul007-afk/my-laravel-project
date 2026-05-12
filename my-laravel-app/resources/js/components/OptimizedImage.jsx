@@ -10,6 +10,9 @@ const OptimizedImage = ({
     className = "", 
     style = {}, 
     fallback = "https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/project-5.jpg",
+    priority = false,   // set true for above-the-fold / LCP images
+    width,
+    height,
     ...props 
 }) => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -57,7 +60,11 @@ const OptimizedImage = ({
                     transition: 'opacity 0.4s ease-in-out',
                     ...props.imgStyle
                 }}
-                loading="lazy"
+                loading={priority ? 'eager' : 'lazy'}
+                fetchpriority={priority ? 'high' : 'auto'}
+                decoding={priority ? 'sync' : 'async'}
+                width={width}
+                height={height}
                 {...props}
             />
             {!isLoaded && !error && (

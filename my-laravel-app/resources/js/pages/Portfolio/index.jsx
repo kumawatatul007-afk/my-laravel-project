@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@inertiajs/react';
+import SEO from '../../components/SEO';
 
 export default function PortfolioPage() {
   const [portfolios, setPortfolios] = useState([]);
@@ -40,6 +41,11 @@ export default function PortfolioPage() {
 
   return (
     <div className="portfolio-page-wrapper">
+      <SEO
+        title="Portfolio | Nikhil Sharma - Web & App Development Projects"
+        description="Explore Nikhil Sharma's portfolio of web development, app development, and UI/UX design projects for clients across India and the Middle East."
+        keywords="Web Development Portfolio, React Projects, Laravel Portfolio, UI UX Design Work, Nikhil Sharma Projects"
+      />
       <section className="port-section">
 
         {/* ── Header block: "Portfolio" stroke + big heading stacked ── */}
@@ -48,11 +54,11 @@ export default function PortfolioPage() {
           <span className="port-stroke-label">Portfolio</span>
 
           {/* Big bold uppercase heading below */}
-          <h2 className="port-big-title">
+          <h1 className="port-big-title">
             BLENDING INNOVATIVE<br />
             DESIGN WITH<br />
             FUNCTIONALITY
-          </h2>
+          </h1>
         </div>
 
         {/* Loading state */}

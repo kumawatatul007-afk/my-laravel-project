@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('portfolio_items', function (Blueprint $table) {
-            //
+            $table->text('challenge')->nullable()->after('description');
+            $table->text('approach')->nullable()->after('challenge');
+            $table->string('tech_stack')->nullable()->after('approach');
+            $table->text('result')->nullable()->after('tech_stack');
+            $table->string('client')->nullable()->after('result');
+            $table->string('duration')->nullable()->after('client');
         });
     }
 
@@ -22,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('portfolio_items', function (Blueprint $table) {
-            //
+            $table->dropColumn(['challenge', 'approach', 'tech_stack', 'result', 'client', 'duration']);
         });
     }
 };
