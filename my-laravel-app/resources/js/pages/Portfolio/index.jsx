@@ -2,18 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import SEO from '../../components/SEO';
 
-export default function PortfolioPage() {
-  const [portfolios, setPortfolios] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function PortfolioPage({ items: dbItems }) {
+  const [portfolios, setPortfolios] = useState(dbItems || []);
+  const [loading, setLoading] = useState(!dbItems || dbItems.length === 0);
 
   useEffect(() => {
-    fetch('/api/portfolio')
-      .then(res => res.json())
-      .then(data => {
-        setPortfolios(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // Sirf tab fetch karo jab Inertia se data nahi aaya
+    if (!dbItems || dbItems.length === 0) {
+      fetch('/api/portfolio')
+        .then(res => res.json())
+        .then(data => {
+          setPortfolios(data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    }
   }, []);
   /* ── Intersection Observer for scroll-in animations ── */
   const headerRef = useRef(null);

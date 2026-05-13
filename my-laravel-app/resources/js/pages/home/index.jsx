@@ -5,32 +5,84 @@ import './index.css';
 import SEO from '../../components/SEO';
 import OptimizedImage from '../../components/OptimizedImage';
 
-export default function DashboardPage() {
+export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPortfolios }) {
   const [totalPosts] = useState(0);
 
-  // Blog posts from database
-  const [blogPosts, setBlogPosts] = useState([]);
-  useEffect(() => {
-    fetch('/api/blog')
-      .then(res => res.json())
-      .then(data => setBlogPosts(data.slice(0, 3)))
-      .catch(() => {});
-  }, []);
+  function stripHtml(html) {
+    if (!html) return '';
+    const plain = html.replace(/<[^>]*>/g, '').trim();
+    return plain.length > 130 ? plain.slice(0, 130) + '...' : plain;
+  }
 
-  // Portfolio items from database
-  const [portfolios, setPortfolios] = useState([]);
+  function getBlogImage(image) {
+    if (!image) return 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg';
+    if (image.startsWith('http')) return image;
+    return `/images/blogs/${image}`;
+  }
+
+  const [blogPosts] = useState(
+    (dbBlogPosts && dbBlogPosts.length > 0) ? dbBlogPosts.map(p => ({
+      id: p.id,
+      slug: p.slug,
+      title: p.title,
+      excerpt: stripHtml(p.description),
+      image_url: getBlogImage(p.image),
+      author: p.created_by || 'Nikhil Sharma',
+      date: p.created_at ? new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Recent',
+    })) : [
+    {
+      id: 1,
+      title: 'How to Build a Portfolio Website with React & Laravel',
+      excerpt: 'Step-by-step guide to building a modern portfolio website using React for the frontend and Laravel for the backend.',
+      image_url: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg',
+      author: 'Nikhil Sharma',
+      date: 'May 2026',
+    },
+    {
+      id: 2,
+      title: 'Top 10 SEO Tips for Developers in 2026',
+      excerpt: 'Boost your website ranking with these actionable SEO tips tailored for developers and technical founders.',
+      image_url: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-2.jpg',
+      author: 'Nikhil Sharma',
+      date: 'May 2026',
+    },
+    {
+      id: 3,
+      title: 'Laravel vs Node.js: Which Backend Should You Choose?',
+      excerpt: 'A practical comparison of Laravel and Node.js for building scalable web applications in 2026.',
+      image_url: 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-3.jpg',
+      author: 'Nikhil Sharma',
+      date: 'May 2026',
+    },
+  ]);
+
+  // Portfolio items from database (Inertia props se)
+  const [portfolios, setPortfolios] = useState(
+    (dbPortfolios && dbPortfolios.length > 0) ? dbPortfolios.map(p => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      image: p.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/project-5.jpg',
+      type: p.type || 'image',
+      url: p.project_url || null,
+    })) : []
+  );
+
+  // Agar Inertia se data nahi aaya toh API fallback
   useEffect(() => {
-    fetch('/api/portfolio')
-      .then(res => res.json())
-      .then(data => setPortfolios(data.slice(0, 6).map(p => ({
-        id: p.id,
-        title: p.title,
-        category: p.category,
-        image: p.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/project-5.jpg',
-        type: p.type || 'image',
-        url: p.project_url || null,
-      }))))
-      .catch(() => {});
+    if (!dbPortfolios || dbPortfolios.length === 0) {
+      fetch('/api/portfolio')
+        .then(res => res.json())
+        .then(data => setPortfolios(data.slice(0, 6).map(p => ({
+          id: p.id,
+          title: p.title,
+          category: p.category,
+          image: p.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/project-5.jpg',
+          type: p.type || 'image',
+          url: p.project_url || null,
+        }))))
+        .catch(() => {});
+    }
   }, []);
 
   // Testimonials from database
@@ -555,12 +607,19 @@ export default function DashboardPage() {
               <p className="hero-description" data-aos="zoom-out" data-aos-delay="300" data-aos-duration="1000">
               Hi, my name is Nikhil Sharma . I'm freelancer in India and throughout the Middle East. Over the past few years I have helped many small business owners in achieveing a presence online by developing quality websites and implementing successful online marketing strategies. I am an expert on helping start-up business and entrepreneurs who want an online presence with a simple, clean & effective websites but dont want to pay the high fees to larger web design corporations are charging. I believe in providing authentic and quality web development services at an affordable margin so that even small businesses can digitalize their services. I'm also a Full Stack Developer with over 8 Years of Exprience in IT              </p>
               <div className="hero-buttons" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
-                <button className="hero-btn-cv">
-                  DOWNLOAD CV
-                  <svg className="hero-btn-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4v-2h14v2H5z"/>
+                {/* WhatsApp Button (Replacing DOWNLOAD CV) */}
+                <a
+                  href="https://wa.me/919876543210?text=Hi%20Nikhil%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whatsapp-hero-btn"
+                  aria-label="Chat on WhatsApp"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                   </svg>
-                </button>
+                  <span>Chat on WhatsApp</span>
+                </a>
                 <button className="hero-btn-watch" onClick={() => setVideoOpen(true)}>
                   <span className="hero-play-circle">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="hero-play-icon">
@@ -573,17 +632,16 @@ export default function DashboardPage() {
             </div>
             <div className="hero-image" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1200">
               <div className="profile-circle-wrapper">
-                <div className="profile-circle-outline"></div>
                 <div className="profile-circle-img-wrap">
                   <img
-                    src="https://www.thenikhilsharma.in/public/profile/images/n2.png"
+                    src="/images/Gemini_Generated_Image_s2k77gs2k77gs2k7.png"
                     alt="Nikhil Sharma - Full Stack Developer & UI/UX Designer in Jaipur"
                     className="profile-circle-img"
                     loading="eager"
                     fetchpriority="high"
                     decoding="async"
-                    width="420"
-                    height="420"
+                    width="500"
+                    height="500"
                   />
                 </div>
               </div>
@@ -647,11 +705,10 @@ export default function DashboardPage() {
           <div className="about-content-row">
             <div className="about-img-col" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
               <div className="about-circle-wrapper">
-                <div className="about-circle-outline"></div>
                 <div className="about-circle-img-wrap">
                   <img
-                    src="https://www.thenikhilsharma.in/public/admin/nikhil_sharma/nikhil_.png"
-                    alt="About"
+                    src="/images/Gemini_Generated_Image_ca27fpca27fpca27.png"
+                    alt="About Nikhil Sharma"
                     className="about-circle-img"
                   />
                 </div>
@@ -677,22 +734,38 @@ export default function DashboardPage() {
                   </div>
                 ))}
               </div>
-              <button className="about-resume-btn">RESUME</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Marquee Section */}
-      <div className="marquee-section">
-        <div className="marquee-track">
-          {['Web Developer', 'Designer', 'Web Developer', 'Designer', 'Web Developer', 'Designer'].map((text, idx) => (
-            <span key={idx} className="marquee-text">
+      {/* Services ticker — static crawlable HTML, visually animated via CSS */}
+      <div className="marquee-section" aria-label="Services offered">
+        <ul className="marquee-track" aria-hidden="false">
+          {[
+            'Custom Web Development',
+            'React JS Development',
+            'PHP Laravel Development',
+            'Mobile App Development',
+            'Flutter App Development',
+            'UI/UX Design',
+            'E-Commerce Development',
+            'SEO Optimisation',
+            'Custom Web Development',
+            'React JS Development',
+            'PHP Laravel Development',
+            'Mobile App Development',
+            'Flutter App Development',
+            'UI/UX Design',
+            'E-Commerce Development',
+            'SEO Optimisation',
+          ].map((text, idx) => (
+            <li key={idx} className="marquee-text">
               {text}
-              {idx % 2 === 0 && <span className="marquee-star">✦</span>}
-            </span>
+              {idx % 2 === 0 && <span className="marquee-star" aria-hidden="true">✦</span>}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
       {/* Resume/Experience Section */}
@@ -956,6 +1029,36 @@ export default function DashboardPage() {
         </div>
       </section>
 
+      {/* Client Logos / Trusted By strip */}
+      <section className="clients-section" data-aos="fade-up" aria-label="Clients and platforms">
+        <div className="container">
+          <p className="clients-label">TRUSTED BY CLIENTS & FEATURED ON</p>
+          <div className="clients-logos-row">
+            {[
+              { name: 'Upwork',     href: 'https://www.upwork.com/freelancers/nikhilsharma',          abbr: 'UW' },
+              { name: 'Clutch',     href: 'https://clutch.co/profile/nikhil-sharma-developer',        abbr: 'CL' },
+              { name: 'GoodFirms', href: 'https://www.goodfirms.co/company/nikhil-sharma',            abbr: 'GF' },
+              { name: 'Sulekha',   href: 'https://www.sulekha.com/nikhilsharma',                      abbr: 'SU' },
+              { name: 'Justdial',  href: 'https://www.justdial.com/nikhilsharma',                     abbr: 'JD' },
+              { name: 'LinkedIn',  href: 'https://www.linkedin.com/in/nikhil-sharma-jaipur',          abbr: 'LI' },
+              { name: 'GitHub',    href: 'https://github.com/nikhilsharma',                           abbr: 'GH' },
+            ].map((c) => (
+              <a
+                key={c.name}
+                href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="client-logo-pill"
+                aria-label={c.name}
+              >
+                <span className="client-logo-abbr">{c.abbr}</span>
+                <span className="client-logo-name">{c.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Blog Section */}
       <section className="blog-section" ref={blogRef}>
         <div className="container">
@@ -973,7 +1076,7 @@ export default function DashboardPage() {
             {blogPosts.map((post, i) => (
               <a
                 key={post.id}
-                href={`/blog/${post.id}`}
+                href={`/blog/${post.slug || post.id}`}
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
               <div
@@ -984,7 +1087,9 @@ export default function DashboardPage() {
                 data-aos-duration="800"
               > 
                 <div className="blog-img-wrap">
-                  <img src={post.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'} alt={post.title} className="blog-img" loading="lazy" decoding="async" width="400" height="240" />
+                  <img src={post.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'} alt={post.title} className="blog-img" loading="lazy" decoding="async" width="400" height="240"
+                    onError={e => { e.target.src = 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'; }}
+                  />
                 </div>
                 <div className="blog-card-body">
                   <h4 className="blog-card-title">{post.title}</h4>
@@ -999,9 +1104,7 @@ export default function DashboardPage() {
                       </div>
                       <span className="blog-card-author">{post.author}</span>
                     </div>
-                    <span className="blog-card-date">
-                      {post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}
-                    </span>
+                    <span className="blog-card-date">{post.date}</span>
                   </div>
                 </div>
               </div>
@@ -1123,14 +1226,16 @@ export default function DashboardPage() {
               <p className="keywords-title">#KEYWORD</p>
               <div className="keywords-chips">
                 {keywordHighlights.map((label, idx) => (
-                  <span 
-                    key={idx} 
+                  <a
+                    key={idx}
+                    href="/web-developer-jaipur"
                     className="keyword-chip"
                     data-aos="fade-up"
                     data-aos-delay={150 + idx * 50}
+                    style={{ textDecoration: 'none', cursor: 'pointer' }}
                   >
                     {label}
-                  </span>
+                  </a>
                 ))}
               </div>
             </div>
@@ -1140,14 +1245,16 @@ export default function DashboardPage() {
               <p className="keywords-title">#SERVICES</p>
               <div className="keywords-chips">
                 {serviceHighlights.map((label, idx) => (
-                  <span 
-                    key={idx} 
+                  <a
+                    key={idx}
+                    href="/services"
                     className="keyword-chip"
                     data-aos="fade-up"
                     data-aos-delay={200 + idx * 50}
+                    style={{ textDecoration: 'none', cursor: 'pointer' }}
                   >
                     {label}
-                  </span>
+                  </a>
                 ))}
               </div>
             </div>
@@ -1204,10 +1311,10 @@ export default function DashboardPage() {
         }
 
         /* Button hover effects */
-        .hero-btn-cv, .about-resume-btn, .contact-submit-btn {
+        .about-resume-btn, .contact-submit-btn, .whatsapp-hero-btn {
           transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
         }
-        .hero-btn-cv:hover, .about-resume-btn:hover, .contact-submit-btn:hover {
+        .about-resume-btn:hover, .contact-submit-btn:hover, .whatsapp-hero-btn:hover {
           transform: translateY(-2px);
           box-shadow: 6px 6px 0 0 rgba(30, 58, 138, 0.25);
         }
@@ -1369,30 +1476,30 @@ export default function DashboardPage() {
           flex-wrap: wrap;
         }
 
-        .hero-btn-cv {
+        /* New WhatsApp Hero Button */
+        .whatsapp-hero-btn {
           display: inline-flex;
           align-items: center;
           gap: 0.55rem;
-          background-color: #1e3a8a;
+          background-color: #25D366;
           color: #ffffff;
           padding: 0.9rem 2.1rem;
           font-family: 'Space Grotesk', sans-serif;
           font-size: 0.72rem;
           font-weight: 700;
-          letter-spacing: 0.18em;
+          letter-spacing: 0.1em;
           text-transform: uppercase;
           border: none;
           cursor: pointer;
           transition: all 0.28s ease;
+          text-decoration: none;
         }
-
-        .hero-btn-cv:hover {
-          background-color: #1e40af;
+        .whatsapp-hero-btn:hover {
+          background-color: #1ebe5d;
           transform: translateY(-2px);
-          box-shadow: 6px 6px 0 0 rgba(30, 58, 138, 0.25);
+          box-shadow: 6px 6px 0 0 rgba(37, 211, 102, 0.3);
         }
-
-        .hero-btn-icon {
+        .whatsapp-hero-btn svg {
           width: 1rem;
           height: 1rem;
         }
@@ -1440,27 +1547,21 @@ export default function DashboardPage() {
         /* ---------- PROFILE CIRCLE ---------- */
         .profile-circle-wrapper {
           position: relative;
-          width: 420px;
-          height: 420px;
+          width: 500px;
+          height: 500px;
         }
 
-        .profile-circle-outline {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          border: 1.5px solid #9ca3af;
-          top: 22px;
-          left: 22px;
-          z-index: 1;
-          pointer-events: none;
+        .profile-circle-wrapper::after {
+          display: none;
         }
 
         .profile-circle-img-wrap {
-              border-radius: 51% 49% 77% 23% / 65% 50% 50% 35%;
-            overflow: hidden;
-            position: relative;
-            z-index: 1;
+          width: 100%;
+          height: 100%;
+          border-radius: 51% 49% 77% 23% / 65% 50% 50% 35%;
+          overflow: hidden;
+          position: relative;
+          z-index: 1;
         }
 
         .profile-circle-img {
@@ -1480,8 +1581,8 @@ export default function DashboardPage() {
             flex: none;
           }
           .profile-circle-wrapper {
-            width: 320px;
-            height: 320px;
+            width: 380px;
+            height: 380px;
           }
           .hero-stroke-name {
             font-size: clamp(4rem, 14vw, 6rem);
@@ -1489,12 +1590,12 @@ export default function DashboardPage() {
         }
 
         @media (max-width: 640px) {
-          .profile-circle-outline {
-            display: none;
-          }
           .profile-circle-wrapper {
-            width: 260px;
-            height: 260px;
+            width: 290px;
+            height: 290px;
+          }
+          .profile-circle-wrapper::after {
+            display: none;
           }
         }
 
@@ -1694,27 +1795,21 @@ export default function DashboardPage() {
         /* About profile circle — same as hero */
         .about-circle-wrapper {
           position: relative;
-          width: 340px;
-          height: 340px;
+          width: 420px;
+          height: 420px;
         }
 
-        .about-circle-outline {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          border: 1.5px solid #9ca3af;
-          top: 14px;
-          left: 14px;
-          z-index: 1;
-          pointer-events: none;
+        .about-circle-wrapper::after {
+          display: none;
         }
 
         .about-circle-img-wrap {
-              border-radius: 51% 49% 77% 23% / 65% 50% 50% 35%;
-              overflow: hidden;
-              position: relative;
-              z-index: 1;
+          width: 100%;
+          height: 100%;
+          border-radius: 51% 49% 77% 23% / 65% 50% 50% 35%;
+          overflow: hidden;
+          position: relative;
+          z-index: 1;
         }
 
         .about-circle-img {
@@ -1802,8 +1897,8 @@ export default function DashboardPage() {
             flex: none;
           }
           .about-circle-wrapper {
-            width: 260px;
-            height: 260px;
+            width: 320px;
+            height: 320px;
           }
           .about-header {
             gap: 2rem;
@@ -1811,12 +1906,12 @@ export default function DashboardPage() {
         }
 
         @media (max-width: 640px) {
+          .about-circle-wrapper {
+            width: 260px;
+            height: 260px;
+          }
           .about-circle-outline {
             display: none;
-          }
-          .about-circle-wrapper {
-            width: 220px;
-            height: 220px;
           }
           .about-checklist {
             grid-template-columns: 1fr;
@@ -1837,16 +1932,22 @@ export default function DashboardPage() {
         }
 
         .marquee-track {
-          display: inline-block;
-          animation: marquee 20s linear infinite;
+          display: inline-flex;
+          align-items: center;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          animation: marquee 30s linear infinite;
         }
 
         .marquee-text {
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
           font-size: 2rem;
           font-weight: 900;
           text-transform: uppercase;
           margin: 0 1rem;
+          white-space: nowrap;
         }
 
         .marquee-star {
@@ -2470,6 +2571,70 @@ export default function DashboardPage() {
             flex: 0 0 calc(100% - 1rem);
           }
         }
+
+        /* ---------- CLIENTS / TRUSTED BY ---------- */
+        .clients-section {
+          background: #fff;
+          padding: 2.5rem 0;
+          border-top: 1px solid #e5e7eb;
+          border-bottom: 1px solid #e5e7eb;
+        }
+        .clients-label {
+          text-align: center;
+          font-size: 0.68rem;
+          font-weight: 700;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: #9ca3af;
+          margin-bottom: 1.5rem;
+          font-family: 'Space Grotesk', sans-serif;
+        }
+        .clients-logos-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+        .client-logo-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.55rem 1.1rem;
+          background: #f8fafb;
+          border: 1.5px solid #e5e7eb;
+          border-radius: 50px;
+          text-decoration: none;
+          transition: border-color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .client-logo-pill:hover {
+          border-color: #1e3a8a;
+          background: #eff6ff;
+          transform: translateY(-2px);
+        }
+        .client-logo-abbr {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          background: #1e3a8a;
+          color: #fff;
+          font-size: 0.6rem;
+          font-weight: 800;
+          border-radius: 4px;
+          font-family: 'Space Grotesk', sans-serif;
+          letter-spacing: 0.02em;
+          flex-shrink: 0;
+        }
+        .client-logo-name {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: #374151;
+          font-family: 'Space Grotesk', sans-serif;
+          letter-spacing: 0.02em;
+        }
+        .client-logo-pill:hover .client-logo-name { color: #1e3a8a; }
 
         /* ---------- BLOG ---------- */
         .blog-section {

@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function PortfolioListPage() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function PortfolioListPage({ items: dbItems }) {
+  const [projects, setProjects] = useState(dbItems || []);
+  const [loading, setLoading] = useState(!dbItems || dbItems.length === 0);
 
   useEffect(() => {
-    fetch('/api/portfolio')
-      .then(res => res.json())
-      .then(data => { setProjects(data); setLoading(false); })
-      .catch(() => setLoading(false));
+    if (!dbItems || dbItems.length === 0) {
+      fetch('/api/portfolio')
+        .then(res => res.json())
+        .then(data => { setProjects(data); setLoading(false); })
+        .catch(() => setLoading(false));
+    }
   }, []);
 
   const navigate  = (path) => { window.location.href = path; };

@@ -2,20 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import './index.css'
 
-export default function BlogDetailPage({ id }) {
-  const pathId = id ? Number(id) : Number(window.location.pathname.split('/').pop());
+export default function BlogDetailPage({ post: serverPost }) {
+  // Slug URL se extract karo (e.g. /blog/my-post-slug)
+  const pathSlug = window.location.pathname.split('/blog/')[1]?.split('/')[0] || '';
 
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState(serverPost || null);
+  const [loading, setLoading] = useState(!serverPost);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (serverPost) return; // Inertia se data aa gaya, API call ki zaroorat nahi
     setLoading(true);
-    fetch(`/api/blog/${pathId}`)
+    fetch(`/api/blog/${pathSlug}`)
       .then(res => res.json())
       .then(data => { setPost(data); setLoading(false); })
       .catch(() => setLoading(false));
-  }, [pathId]);
+  }, [pathSlug]);
 
   function formatDate(dateStr) {
     if (!dateStr) return ''
@@ -114,7 +116,7 @@ export default function BlogDetailPage({ id }) {
           <nav className="bd-post-nav">
             <div className="bd-post-nav-prev">
               {prevPost ? (
-                <Link href={`/blog/${prevPost.id}`}>
+                <Link href={`/blog/${prevPost.slug || prevPost.id}`}>
                   <span className="bd-nav-label">← Previous Post</span>
                   <span className="bd-nav-title">{prevPost.title}</span>
                 </Link>
@@ -122,7 +124,7 @@ export default function BlogDetailPage({ id }) {
             </div>
             <div className="bd-post-nav-next">
               {nextPost ? (
-                <Link href={`/blog/${nextPost.id}`}>
+                <Link href={`/blog/${nextPost.slug || nextPost.id}`}>
                   <span className="bd-nav-label">Next Post →</span>
                   <span className="bd-nav-title">{nextPost.title}</span>
                 </Link>

@@ -10,18 +10,27 @@ class BlogPost extends Model
 {
     use HasFactory;
 
-    protected $table = 'blog_posts';
+    protected $table = 'blogs';
 
     protected $fillable = [
+        'category_id',
         'title',
         'slug',
-        'excerpt',
-        'content',
-        'image_url',
-        'author',
-        'category',
-        'status',
-        'published_at',
+        'description',
+        'image',
+        'meta_title',
+        'og_title',
+        'og_description',
+        'meta_keyword',
+        'image_alt',
+        'meta_description',
+        'created_by',
+    ];
+
+    protected $casts = [
+        'description' => 'string',
+        'created_at'  => 'datetime',
+        'updated_at'  => 'datetime',
     ];
 
     /**

@@ -350,7 +350,6 @@ export default function AdminGalleryIndex({ items, filters }) {
                     </>
                 ) : (
                     <div className="empty-state">
-                        <div className="empty-icon">🖼️</div>
                         <div>No images in gallery yet</div>
                     </div>
                 )}
@@ -361,7 +360,6 @@ export default function AdminGalleryIndex({ items, filters }) {
                 <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setDeleteModal(false)}>
                     <div className="modal-box">
                         <div className="modal-body">
-                            <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🗑️</div>
                             <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0f172a', marginBottom: '0.5rem' }}>
                                 Delete Image?
                             </div>

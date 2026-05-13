@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, router } from '@inertiajs/react';
 import SEO from '../../../components/SEO';
 
-export default function ProjectDetailPage({ id }) {
+export default function ProjectDetailPage({ id, item: dbItem, related: dbRelated }) {
   const pathId = id ? Number(id) : Number(window.location.pathname.split('/').pop());
   const navigate = (path) => { router.visit(path); };
 
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState(dbItem || null);
   const [prevItem, setPrevItem] = useState(null);
   const [nextItem, setNextItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!dbItem);
 
   const heroRef    = useRef(null);
   const contentRef = useRef(null);
@@ -17,16 +17,28 @@ export default function ProjectDetailPage({ id }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setLoading(true);
-    fetch(`/api/portfolio/${pathId}`)
-      .then(res => res.json())
-      .then(data => {
-        setProject(data.item || data);
-        setPrevItem(data.prev_item || null);
-        setNextItem(data.next_item || null);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    // Sirf tab API call karo jab Inertia se data nahi aaya
+    if (!dbItem) {
+      setLoading(true);
+      fetch(`/api/portfolio/${pathId}`)
+        .then(res => res.json())
+        .then(data => {
+          setProject(data.item || data);
+          setPrevItem(data.prev_item || null);
+          setNextItem(data.next_item || null);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+    } else {
+      // Inertia se data aaya, prev/next API se lo
+      fetch(`/api/portfolio/${pathId}`)
+        .then(res => res.json())
+        .then(data => {
+          setPrevItem(data.prev_item || null);
+          setNextItem(data.next_item || null);
+        })
+        .catch(() => {});
+    }
   }, [pathId]);
 
   /* scroll-in animation */

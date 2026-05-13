@@ -148,7 +148,6 @@ export default function AdminPortfolioIndex({ items, filters, hasSearched }) {
             <div className="card">
                 {!hasSearched ? (
                     <div className="empty" style={{ padding: '4rem', color: '#94a3b8' }}>
-                        <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🔍</div>
                         <div style={{ fontWeight: 600, fontSize: '0.95rem', color: '#64748b', marginBottom: '0.35rem' }}>Use the search bar to find portfolio items</div>
                         <div style={{ fontSize: '0.82rem' }}>Filter by title or category and click <strong>Search</strong> to view results</div>
                     </div>

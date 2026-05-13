@@ -485,7 +485,7 @@ export default function WebDeveloperJaipurPage() {
               { label: 'Sulekha',   href: 'https://www.sulekha.com/nikhilsharma' },
               { label: 'Justdial',  href: 'https://www.justdial.com/nikhilsharma' },
               { label: 'Toptal',    href: 'https://www.toptal.com/resume/nikhil-sharma' },
-              { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/nikhilsharma' },
+              { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/nikhil-sharma-jaipur' },
               { label: 'GitHub',    href: 'https://github.com/nikhilsharma' },
             ].map(d => (
               <a

@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Admin\AdminBlogCommentController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminNewsletterController;
+use App\Http\Controllers\Admin\AdminServiceController;
 use App\Http\Controllers\SitemapController;
 
 // ─── Public / Portfolio Site ────────────────────────────────────────────────
@@ -23,18 +25,18 @@ use App\Http\Controllers\SitemapController;
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/robots.txt', [SitemapController::class, 'robots']);
 
-Route::get('/', fn () => Inertia::render('home/index'));
-Route::get('/dashboard', fn () => Inertia::render('home/index'));
+Route::get('/', [PublicController::class, 'home']);
+Route::get('/dashboard', [PublicController::class, 'home']);
 Route::get('/about', fn () => Inertia::render('About/index'));
-Route::get('/blog', fn () => Inertia::render('Blog/index'));
-Route::get('/blog/{id}', fn ($id) => Inertia::render('Blog/BlogDetail/index', ['id' => $id]));
-Route::get('/blog/{id}/sidebar', fn ($id) => Inertia::render('Blog/BlogDetailSidebar/index', ['id' => $id]));
+Route::get('/blog', [PublicController::class, 'blog']);
+Route::get('/blog/{slug}', [PublicController::class, 'blogDetail']);
+Route::get('/blog/{slug}/sidebar', [PublicController::class, 'blogDetailSidebar']);
 Route::get('/contact', fn () => Inertia::render('Contact/index'));
-Route::get('/portfolio', fn () => Inertia::render('Portfolio/index'));
-Route::get('/services', fn () => Inertia::render('Services/index'));
+Route::get('/portfolio/list', [PublicController::class, 'portfolioList']);
+Route::get('/portfolio/{id}', [PublicController::class, 'portfolioDetail']);
+Route::get('/portfolio', [PublicController::class, 'portfolio']);
+Route::get('/services', [PublicController::class, 'services']);
 Route::get('/web-developer-jaipur', fn () => Inertia::render('LocalLanding/WebDeveloperJaipur'));
-Route::get('/portfolio/list', fn () => Inertia::render('Portfolio/PortfolioList/index'));
-Route::get('/portfolio/{id}', fn ($id) => Inertia::render('Portfolio/ProjectDetail/index', ['id' => $id]));
 
 // Contact form submission
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -128,4 +130,12 @@ Route::prefix('admin')->name('admin.')->middleware(\App\Http\Middleware\AdminMid
     // Newsletters
     Route::get('/newsletters', [AdminNewsletterController::class, 'index'])->name('newsletters.index');
     Route::delete('/newsletters/{newsletter}', [AdminNewsletterController::class, 'destroy'])->name('newsletters.destroy');
+
+    // Services CRUD
+    Route::get('/services', [AdminServiceController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [AdminServiceController::class, 'create'])->name('services.create');
+    Route::post('/services', [AdminServiceController::class, 'store'])->name('services.store');
+    Route::get('/services/{service}/edit', [AdminServiceController::class, 'edit'])->name('services.edit');
+    Route::put('/services/{service}', [AdminServiceController::class, 'update'])->name('services.update');
+    Route::delete('/services/{service}', [AdminServiceController::class, 'destroy'])->name('services.destroy');
 });

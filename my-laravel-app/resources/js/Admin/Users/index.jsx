@@ -5,10 +5,9 @@ import { useState } from 'react';
 
 export default function AdminUsersIndex({ users, filters }) {
     const [search, setSearch] = useState(filters?.search ?? '');
-    const [role, setRole] = useState(filters?.role ?? '');
 
     const applyFilters = () => {
-        router.get('/admin/users', { search, role }, { preserveState: true, replace: true });
+        router.get('/admin/users', { search }, { preserveState: true, replace: true });
     };
 
     const handleDelete = (id) => {
@@ -153,15 +152,6 @@ export default function AdminUsersIndex({ users, filters }) {
                     onKeyDown={e => e.key === 'Enter' && applyFilters()}
                     style={{ flex: 1, minWidth: 200 }}
                 />
-                <select
-                    className="filter-input"
-                    value={role}
-                    onChange={e => { setRole(e.target.value); router.get('/admin/users', { search, role: e.target.value }, { preserveState: true, replace: true }); }}
-                >
-                    <option value="">All Roles</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                </select>
                 <button className="btn-primary" onClick={applyFilters}>Search</button>
             </div>
 
@@ -170,8 +160,7 @@ export default function AdminUsersIndex({ users, filters }) {
                     <thead>
                         <tr>
                             <th>User</th>
-                            <th>Role</th>
-                            <th>Phone</th>
+                            <th>Email Verified</th>
                             <th>Joined</th>
                             <th>Actions</th>
                         </tr>
@@ -188,8 +177,11 @@ export default function AdminUsersIndex({ users, filters }) {
                                         </div>
                                     </div>
                                 </td>
-                                <td><span className={`badge badge-${user.role}`}>{user.role}</span></td>
-                                <td style={{ color: '#94a3b8' }}>{user.phone || '—'}</td>
+                                <td>
+                                    <span className={`badge ${user.email_verified_at ? 'badge-admin' : 'badge-user'}`}>
+                                        {user.email_verified_at ? 'Verified' : 'Unverified'}
+                                    </span>
+                                </td>
                                 <td style={{ color: '#94a3b8', fontSize: '0.8rem' }}>{new Date(user.created_at).toLocaleDateString()}</td>
                                 <td>
                                     <div style={{ display: 'flex', gap: '0.4rem' }}>
@@ -199,7 +191,7 @@ export default function AdminUsersIndex({ users, filters }) {
                                 </td>
                             </tr>
                         )) : (
-                            <tr><td colSpan={5} className="empty">No users found</td></tr>
+                            <tr><td colSpan={4} className="empty">No users found</td></tr>
                         )}
                     </tbody>
                 </table>

@@ -2,31 +2,32 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from '@inertiajs/react'
 import './index.css'
 
-export default function BlogDetailSidebarPage({ id }) {
-  const pathId = id ? Number(id) : Number(window.location.pathname.split('/').pop());
+export default function BlogDetailSidebarPage({ post: serverPost, recentPosts: serverRecentPosts }) {
+  const pathSlug = window.location.pathname.split('/blog/')[1]?.split('/')[0] || '';
 
-  const [post, setPost] = useState(null);
-  const [recentPosts, setRecentPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState(serverPost || null);
+  const [recentPosts, setRecentPosts] = useState(serverRecentPosts || []);
+  const [loading, setLoading] = useState(!serverPost);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setLoading(true);
+    if (serverPost) return; // Inertia se data aa gaya
 
+    setLoading(true);
     Promise.all([
-      fetch(`/api/blog/${pathId}`).then(r => r.json()),
+      fetch(`/api/blog/${pathSlug}`).then(r => r.json()),
       fetch('/api/blog').then(r => r.json()),
     ])
       .then(([postData, allPosts]) => {
         setPost(postData);
         const recent = allPosts
-          .filter(p => p.id !== pathId)
+          .filter(p => p.slug !== pathSlug)
           .slice(0, 3);
         setRecentPosts(recent);
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, [pathId]);
+  }, [pathSlug]);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return ''
@@ -123,7 +124,7 @@ export default function BlogDetailSidebarPage({ id }) {
               <nav className="bds-post-nav">
                 <div className="bds-post-nav-prev">
                   {prevPost ? (
-                    <Link href={`/blog/${prevPost.id}/sidebar`}>
+                    <Link href={`/blog/${prevPost.slug || prevPost.id}/sidebar`}>
                       <span className="bds-nav-label">← Previous Post</span>
                       <span className="bds-nav-title">{prevPost.title}</span>
                     </Link>
@@ -131,7 +132,7 @@ export default function BlogDetailSidebarPage({ id }) {
                 </div>
                 <div className="bds-post-nav-next">
                   {nextPost ? (
-                    <Link href={`/blog/${nextPost.id}/sidebar`}>
+                    <Link href={`/blog/${nextPost.slug || nextPost.id}/sidebar`}>
                       <span className="bds-nav-label">Next Post →</span>
                       <span className="bds-nav-title">{nextPost.title}</span>
                     </Link>
@@ -222,7 +223,7 @@ export default function BlogDetailSidebarPage({ id }) {
                     <ul className="bds-recent-posts">
                       {recentPosts.map((rp) => (
                         <li key={rp.id}>
-                          <Link href={`/blog/${rp.id}/sidebar`} className="bds-recent-link">
+                          <Link href={`/blog/${rp.slug || rp.id}/sidebar`} className="bds-recent-link">
                             <div className="bds-recent-img">
                               <img
                                 src={rp.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'}

@@ -147,7 +147,7 @@ const AdminLogo = ({ collapsed }) => (
             boxShadow: '0 8px 24px rgba(102, 126, 234, 0.4)',
         }}>
             <img 
-                src="https://th.bing.com/th/id/OIP.SZtZhCfXEELYGPvKWWc2IQHaHa?w=225&h=220&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3" 
+                src="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png" 
                 alt="Logo" 
                 style={{
                     width: 36,
@@ -167,7 +167,7 @@ const AdminLogo = ({ collapsed }) => (
                     backgroundClip: 'text',
                     letterSpacing: '-0.5px',
                 }}>
-                    Nexus
+                    Nikhil Sharma
                 </span>
                 <span style={{
                     fontSize: '0.68rem',
@@ -196,6 +196,7 @@ const NAV_ITEMS = [
         ],
     },
     { label: 'Portfolio', href: '/admin/portfolio', icon: Icons.Portfolio, animation: 'pop' },
+    { label: 'Services', href: '/admin/services', icon: Icons.General, animation: 'pop' },
     { label: 'Messages', href: '/admin/messages', icon: Icons.Messages, animation: 'shake' },
     { label: 'Newsletters', href: '/admin/newsletters', icon: Icons.Newsletter, animation: 'pulse' },
     {
@@ -616,7 +617,6 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                         onClick={() => setOpen(o => !o)}
                                         style={{ width: '100%' }}
                                     >
-                                        <span className={`nav-icon ${getAnimationClass(item.animation)}`}>{item.icon}</span>
                                         {sidebarOpen && <span>{item.label}</span>}
                                         {sidebarOpen && (
                                             <span style={{ marginLeft: 'auto', fontSize: '0.75rem', transition: 'transform 0.3s', display: 'inline-block', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
@@ -641,7 +641,6 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                                                 onClick={() => toggleOpen(o => !o)}
                                                                 style={{ fontSize: '0.82rem', paddingLeft: '1rem', width: '100%' }}
                                                             >
-                                                                <span className={`nav-icon ${getAnimationClass(child.animation)}`}>{child.icon}</span>
                                                                 <span>{child.label}</span>
                                                                 <span style={{ marginLeft: 'auto', fontSize: '0.7rem', transition: 'transform 0.3s', display: 'inline-block', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                                                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -660,7 +659,6 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                                                                 className={`admin-nav-item${subActive ? ' active' : ''}`}
                                                                                 style={{ fontSize: '0.78rem', paddingLeft: '1.5rem' }}
                                                                             >
-                                                                                <span className={`nav-icon ${getAnimationClass(sub.animation)}`}>{sub.icon}</span>
                                                                                 <span>{sub.label}</span>
                                                                                 {subActive && <span className="nav-indicator"></span>}
                                                                             </Link>
@@ -680,7 +678,6 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                                         className={`admin-nav-item${childActive ? ' active' : ''}`}
                                                         style={{ fontSize: '0.82rem', paddingLeft: '1rem' }}
                                                     >
-                                                        <span className={`nav-icon ${getAnimationClass(child.animation)}`}>{child.icon}</span>
                                                         <span>{child.label}</span>
                                                         {childActive && <span className="nav-indicator"></span>}
                                                     </Link>
@@ -698,7 +695,6 @@ export default function AdminLayout({ children, title = 'Admin Panel' }) {
                                 href={item.href}
                                 className={`admin-nav-item${isActive ? ' active' : ''}`}
                             >
-                                <span className={`nav-icon ${getAnimationClass(item.animation)}`}>{item.icon}</span>
                                 {sidebarOpen && <span>{item.label}</span>}
                                 {isActive && sidebarOpen && <span className="nav-indicator"></span>}
                             </Link>

@@ -24,7 +24,7 @@ class AdminDashboardController extends Controller
 
         $recent_users = User::latest()
             ->take(5)
-            ->get(['id', 'name', 'email', 'role', 'created_at']);
+            ->get(['id', 'name', 'email', 'created_at']);
 
         $recent_messages = ContactMessage::latest()
             ->take(5)

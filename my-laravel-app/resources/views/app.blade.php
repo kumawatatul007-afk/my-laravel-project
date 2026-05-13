@@ -60,8 +60,8 @@
     <link rel="preload" as="image" href="https://www.thenikhilsharma.in/public/profile/images/n2.png" fetchpriority="high">
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+    <link rel="icon" href="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png">
 
     @if(isset($seo['structured_data']))
         <script type="application/ld+json">

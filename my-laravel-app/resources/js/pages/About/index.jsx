@@ -71,9 +71,9 @@ export default function AboutPage() {
   return (
     <main className="ap-root">
       <SEO 
-        title="About Nikhil Sharma | Experienced Software Architect"
-        description="Learn more about Nikhil Sharma, a Jaipur-based Full Stack Developer & Database architect with 8+ years of experience in Software and Web development."
-        keywords="About Nikhil Sharma, Software Architect Jaipur, Web Development Expert, Database Design"
+        title="About Nikhil Sharma | Full Stack Developer & UI/UX Designer — Jaipur"
+        description="8+ years building PHP, React & Flutter apps. Nikhil Sharma is a Jaipur-based Full Stack Developer specialising in web apps, mobile apps, and UI/UX design for startups and SMEs."
+        keywords="About Nikhil Sharma, Full Stack Developer Jaipur, PHP React Flutter Developer, Software Architect Jaipur, Web Development Expert India"
       />
 
       {/* ══════════════════════════════════════
@@ -139,10 +139,10 @@ export default function AboutPage() {
               data-aos-duration="1000"
               data-aos-delay="200"
             >
-              <div className="ap-img-circle-bg" />
+              {/* <div className="ap-img-circle-bg" /> */}
               <div className="ap-img-blob">
                 <OptimizedImage
-                  src="https://www.thenikhilsharma.in/public/admin/nikhil_sharma/nikhil_.png"
+                  src="/images/Gemini_Generated_Image_ca27fpca27fpca27.png"
                   alt="Nikhil Sharma - Full Stack Developer in Jaipur"
                   priority={true}
                   width={480}
@@ -309,6 +309,82 @@ export default function AboutPage() {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          SECTION 4 — CERTIFICATIONS & BADGES
+      ══════════════════════════════════════ */}
+      <section className="ap-certs-section">
+        <div className="ap-container">
+          <span className="ap-about-label" data-aos="fade-right" data-aos-duration="800">
+            Credentials
+          </span>
+          <h2 className="ap-certs-heading" data-aos="zoom-out-down" data-aos-duration="900" data-aos-delay="100">
+            Certifications &amp; Expertise
+          </h2>
+          <div className="ap-certs-grid" data-aos="fade-up" data-aos-delay="150">
+            {[
+              { title: 'PHP Development',        issuer: 'Self-certified · 8+ yrs',   icon: '🐘' },
+              { title: 'React.js Development',   issuer: 'Self-certified · 6+ yrs',   icon: '⚛️' },
+              { title: 'Laravel Framework',      issuer: 'Self-certified · 7+ yrs',   icon: '🔴' },
+              { title: 'Flutter & Dart',         issuer: 'Self-certified · 4+ yrs',   icon: '💙' },
+              { title: 'UI/UX Design (Figma)',   issuer: 'Self-certified · 5+ yrs',   icon: '🎨' },
+              { title: 'MySQL & Database Design',issuer: 'Self-certified · 8+ yrs',   icon: '🗄️' },
+              { title: 'Google Analytics',       issuer: 'Google · Verified',          icon: '📊' },
+              { title: 'Technical SEO',          issuer: 'Self-certified · 5+ yrs',   icon: '🔍' },
+            ].map((cert) => (
+              <div key={cert.title} className="ap-cert-card">
+                <span className="ap-cert-icon" aria-hidden="true">{cert.icon}</span>
+                <div>
+                  <p className="ap-cert-title">{cert.title}</p>
+                  <p className="ap-cert-issuer">{cert.issuer}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════
+          SECTION 5 — AS SEEN ON / DIRECTORIES
+      ══════════════════════════════════════ */}
+      <section className="ap-dirs-section">
+        <div className="ap-container">
+          <span className="ap-about-label" data-aos="fade-right" data-aos-duration="800">
+            Find Me Online
+          </span>
+          <h2 className="ap-dirs-heading" data-aos="zoom-out-down" data-aos-duration="900" data-aos-delay="100">
+            As Seen On
+          </h2>
+          <p className="ap-dirs-desc" data-aos="fade-up" data-aos-delay="150">
+            You can verify my work, read client reviews, and hire me through these trusted platforms and directories.
+          </p>
+          <div className="ap-dirs-grid" data-aos="fade-up" data-aos-delay="200">
+            {[
+              { name: 'Upwork',     href: 'https://www.upwork.com/freelancers/nikhilsharma',         desc: 'Freelance marketplace — verified profile & client reviews' },
+              { name: 'Clutch',     href: 'https://clutch.co/profile/nikhil-sharma-developer',       desc: 'B2B ratings platform — portfolio & verified client feedback' },
+              { name: 'GoodFirms', href: 'https://www.goodfirms.co/company/nikhil-sharma',           desc: 'Software company directory — listed & reviewed' },
+              { name: 'Sulekha',   href: 'https://www.sulekha.com/nikhilsharma',                     desc: 'India local services — web developer Jaipur listing' },
+              { name: 'Justdial',  href: 'https://www.justdial.com/nikhilsharma',                    desc: 'India business directory — local SEO presence' },
+              { name: 'LinkedIn',  href: 'https://www.linkedin.com/in/nikhil-sharma-jaipur',         desc: '8+ years experience, endorsements & recommendations' },
+              { name: 'GitHub',    href: 'https://github.com/nikhilsharma',                          desc: 'Open source contributions & public repositories' },
+              { name: 'Toptal',    href: 'https://www.toptal.com/resume/nikhil-sharma',              desc: 'Top 3% freelancer network — screened & verified' },
+            ].map((d) => (
+              <a
+                key={d.name}
+                href={d.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ap-dir-card"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <p className="ap-dir-name">{d.name} ↗</p>
+                <p className="ap-dir-desc">{d.desc}</p>
+              </a>
+            ))}
           </div>
         </div>
       </section>

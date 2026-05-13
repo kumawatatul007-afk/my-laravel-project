@@ -21,15 +21,11 @@ class AdminUserController extends Controller
             });
         }
 
-        if ($request->filled('role')) {
-            $query->where('role', $request->role);
-        }
-
         $users = $query->latest()->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Users/index', [
             'users'   => $users,
-            'filters' => $request->only(['search', 'role']),
+            'filters' => $request->only(['search']),
         ]);
     }
 
@@ -44,18 +40,12 @@ class AdminUserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role'     => 'required|in:admin,user',
-            'phone'    => 'nullable|string|max:20',
-            'is_active'=> 'boolean',
         ]);
 
         User::create([
-            'name'      => $validated['name'],
-            'email'     => $validated['email'],
-            'password'  => bcrypt($validated['password']),
-            'role'      => $validated['role'],
-            'phone'     => $validated['phone'] ?? null,
-            'is_active' => $validated['is_active'] ?? true,
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($validated['password']),
         ]);
 
         return redirect()->route('admin.users.index')
@@ -65,7 +55,7 @@ class AdminUserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Admin/Users/edit', [
-            'user' => $user->only(['id', 'name', 'email', 'role', 'phone', 'is_active', 'created_at']),
+            'user' => $user->only(['id', 'name', 'email', 'created_at']),
         ]);
     }
 
@@ -75,17 +65,11 @@ class AdminUserController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
-            'role'     => 'required|in:admin,user',
-            'phone'    => 'nullable|string|max:20',
-            'is_active'=> 'boolean',
         ]);
 
         $data = [
-            'name'      => $validated['name'],
-            'email'     => $validated['email'],
-            'role'      => $validated['role'],
-            'phone'     => $validated['phone'] ?? null,
-            'is_active' => $validated['is_active'] ?? true,
+            'name'  => $validated['name'],
+            'email' => $validated['email'],
         ];
 
         if (!empty($validated['password'])) {

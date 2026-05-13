@@ -63,7 +63,7 @@ const SEO = ({
         "email": "nikhilsharma@thenikhilsharma.in",
         "telephone": "+91-98765-43210",
         "sameAs": [
-            "https://www.linkedin.com/in/nikhilsharma",
+            "https://www.linkedin.com/in/nikhil-sharma-jaipur",
             "https://twitter.com/nikhilsharma_in",
             "https://github.com/nikhilsharma",
             "https://dribbble.com/nikhilsharma",
@@ -115,7 +115,7 @@ const SEO = ({
             "worstRating": "1"
         },
         "sameAs": [
-            "https://www.linkedin.com/in/nikhilsharma",
+            "https://www.linkedin.com/in/nikhil-sharma-jaipur",
             "https://twitter.com/nikhilsharma_in",
             "https://github.com/nikhilsharma",
             "https://www.upwork.com/freelancers/nikhilsharma",

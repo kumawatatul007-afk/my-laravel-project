@@ -1,26 +1,60 @@
 import { useState, useEffect } from 'react'
 import { Link } from '@inertiajs/react'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import './index.css'
 import SEO from '../../components/SEO'
 
-export default function BlogPage() {
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true)
+const POSTS_PER_PAGE = 6
 
+export default function BlogPage({ posts }) {
+
+  const allPosts = posts ?? []
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // AOS init
   useEffect(() => {
-    fetch('/api/blog')
-      .then(res => res.json())
-      .then(data => {
-        setPosts(data)
-        setLoading(false)
-      })
-      .catch(() => setLoading(false))
+    AOS.init({ duration: 800, once: true, offset: 50 })
   }, [])
+
+  // Re-init AOS when page changes
+  useEffect(() => {
+    AOS.refresh()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [currentPage])
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE)
+  const paginatedPosts = allPosts.slice(
+    (currentPage - 1) * POSTS_PER_PAGE,
+    currentPage * POSTS_PER_PAGE
+  )
 
   function formatDate(dateStr) {
     if (!dateStr) return ''
     const d = new Date(dateStr)
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  }
+
+  function getExcerpt(description) {
+    if (!description) return ''
+    const plain = description.replace(/<[^>]*>/g, '').trim()
+    return plain.length > 150 ? plain.slice(0, 150) + '...' : plain
+  }
+
+  function getImageUrl(image) {
+    if (!image) return 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'
+    if (image.startsWith('http')) return image
+    return `/images/blogs/${image}`
+  }
+
+  // Page number range to show
+  function getPageNumbers() {
+    const pages = []
+    const delta = 2
+    const left = Math.max(1, currentPage - delta)
+    const right = Math.min(totalPages, currentPage + delta)
+    for (let i = left; i <= right; i++) pages.push(i)
+    return pages
   }
 
   return (
@@ -30,61 +64,115 @@ export default function BlogPage() {
         description="Read articles on web development, UI/UX design, and software engineering by Nikhil Sharma — Full Stack Developer based in Jaipur, Rajasthan."
         keywords="Web Development Blog, React JS Tips, PHP Laravel, UI UX Design, Nikhil Sharma Blog"
       />
-      <div className="container mx-auto">
+
+      <div className="blogpage-container">
 
         {/* Header */}
-        <div className="blogpage-section-header">
+        <div className="blogpage-section-header" data-aos="fade-up" data-aos-duration="800">
           <span className="blogpage-stroke-label">My Blog</span>
           <h1 className="blogpage-big-title">Latest Articles & Insights</h1>
         </div>
 
-        {/* Loading state */}
-        {loading && (
-          <div style={{ textAlign: 'center', padding: '3rem', color: '#9ca3af', fontFamily: "'Space Grotesk', sans-serif" }}>
-            Loading posts...
-          </div>
-        )}
-
         {/* Empty state */}
-        {!loading && posts.length === 0 && (
+        {allPosts.length === 0 && (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#9ca3af', fontFamily: "'Space Grotesk', sans-serif" }}>
             No blog posts published yet.
           </div>
         )}
 
         {/* Blog Cards Grid */}
-        {!loading && posts.length > 0 && (
-          <div className="blog-grid">
-            {posts.map((post) => (
-              <Link key={post.id} href={`/blog/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <div className="blog-card">
-                  <div className="blog-img-wrap">
-                    <img
-                      src={post.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'}
-                      alt={post.title}
-                      className="blog-img"
-                    />
-                  </div>
-                  <div className="blog-card-body">
-                    <h4 className="blog-card-title">{post.title}</h4>
-                    <p className="blog-card-excerpt">{post.excerpt}</p>
-                    <div className="blog-card-meta">
-                      <div className="blog-card-author-wrap">
-                        <div className="blog-card-avatar">
-                          <img
-                            src="https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-1.jpg"
-                            alt={post.author}
-                          />
+        {allPosts.length > 0 && (
+          <>
+            <div className="blog-grid">
+              {paginatedPosts.map((post, index) => (
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                  data-aos-duration="700"
+                >
+                  <div className="blog-card">
+                    <div className="blog-img-wrap">
+                      <img
+                        src={getImageUrl(post.image)}
+                        alt={post.image_alt || post.title}
+                        className="blog-img"
+                        onError={e => { e.target.src = 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg' }}
+                      />
+                    </div>
+                    <div className="blog-card-body">
+                      <h4 className="blog-card-title">{post.title}</h4>
+                      <p className="blog-card-excerpt">{getExcerpt(post.description)}</p>
+                      <div className="blog-card-meta">
+                        <div className="blog-card-author-wrap">
+                          <div className="blog-card-avatar">
+                            <img
+                              src="https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/client-profile-1.jpg"
+                              alt={post.created_by || 'Author'}
+                            />
+                          </div>
+                          <span className="blog-card-author">{post.created_by || 'Nikhil Sharma'}</span>
                         </div>
-                        <span className="blog-card-author">{post.author}</span>
+                        <span className="blog-card-date">{formatDate(post.created_at)}</span>
                       </div>
-                      <span className="blog-card-date">{formatDate(post.published_at)}</span>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="blogpage-pagination" data-aos="fade-up" data-aos-duration="600">
+                {/* Prev */}
+                <button
+                  className="blogpage-page-btn"
+                  onClick={() => setCurrentPage(p => p - 1)}
+                  disabled={currentPage === 1}
+                >
+                  ← Prev
+                </button>
+
+                {/* First page + ellipsis */}
+                {getPageNumbers()[0] > 1 && (
+                  <>
+                    <button className={`blogpage-page-num ${currentPage === 1 ? 'active' : ''}`} onClick={() => setCurrentPage(1)}>1</button>
+                    {getPageNumbers()[0] > 2 && <span className="blogpage-ellipsis">…</span>}
+                  </>
+                )}
+
+                {/* Page numbers */}
+                {getPageNumbers().map(num => (
+                  <button
+                    key={num}
+                    className={`blogpage-page-num ${currentPage === num ? 'active' : ''}`}
+                    onClick={() => setCurrentPage(num)}
+                  >
+                    {num}
+                  </button>
+                ))}
+
+                {/* Last page + ellipsis */}
+                {getPageNumbers()[getPageNumbers().length - 1] < totalPages && (
+                  <>
+                    {getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1 && <span className="blogpage-ellipsis">…</span>}
+                    <button className={`blogpage-page-num ${currentPage === totalPages ? 'active' : ''}`} onClick={() => setCurrentPage(totalPages)}>{totalPages}</button>
+                  </>
+                )}
+
+                {/* Next */}
+                <button
+                  className="blogpage-page-btn"
+                  onClick={() => setCurrentPage(p => p + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next →
+                </button>
+              </div>
+            )}
+          </>
         )}
 
       </div>

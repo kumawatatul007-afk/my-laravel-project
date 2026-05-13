@@ -296,7 +296,6 @@ export default function AdminCommentsIndex({ comments, blogs, filters }) {
                             )) : (
                                 <tr className="empty-row">
                                     <td colSpan={7}>
-                                        <div style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>💬</div>
                                         No comments found
                                     </td>
                                 </tr>
@@ -321,7 +320,6 @@ export default function AdminCommentsIndex({ comments, blogs, filters }) {
                 <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setDeleteModal(false)}>
                     <div className="modal-box">
                         <div className="modal-body">
-                            <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>🗑️</div>
                             <div style={{ fontWeight: 700, fontSize: '1rem', color: '#0f172a', marginBottom: '0.5rem' }}>
                                 Delete Comment?
                             </div>

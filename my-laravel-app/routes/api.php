@@ -8,54 +8,52 @@ use App\Models\BlogComment;
 
 // ─── Blog API ────────────────────────────────────────────────────────────────
 
-// Get all blog posts (for public listing) — blogs table has no status column
+// Get all blog posts (for public listing)
 Route::get('/blog', function () {
     $posts = BlogPost::latest()
-        ->get(['id', 'title', 'slug', 'description', 'image', 'created_by', 'category_id', 'created_at']);
+        ->get(['id', 'title', 'slug', 'excerpt', 'content', 'image_url', 'author', 'created_by', 'category', 'status', 'published_at', 'created_at']);
 
-    // Normalize fields for frontend
     $posts = $posts->map(function ($p) {
         return [
             'id'           => $p->id,
             'title'        => $p->title,
             'slug'         => $p->slug,
-            'excerpt'      => $p->description ? \Illuminate\Support\Str::limit(strip_tags($p->description), 160) : null,
-            'image_url'    => $p->image,
-            'author'       => $p->created_by,
-            'category'     => $p->category_id,
-            'published_at' => $p->created_at,
+            'excerpt'      => $p->excerpt ?: ($p->content ? \Illuminate\Support\Str::limit(strip_tags($p->content), 160) : null),
+            'image_url'    => $p->image_url,
+            'author'       => $p->author ?: $p->created_by,
+            'category'     => $p->category,
+            'published_at' => $p->published_at ?: $p->created_at,
         ];
     });
 
     return response()->json($posts);
 });
 
-// Get single blog post by ID
-Route::get('/blog/{id}', function ($id) {
-    $post = BlogPost::findOrFail($id);
+// Get single blog post by slug
+Route::get('/blog/{slug}', function ($slug) {
+    $post = BlogPost::where('slug', $slug)->firstOrFail();
 
-    // Get comments for this post
     $comments = DB::table('blog_comments')
-        ->where('blog_id', $id)
+        ->where('blog_id', $post->id)
         ->orderBy('created_at', 'asc')
         ->get(['id', 'name', 'email', 'description as comment', 'created_at']);
 
-    // Get prev/next posts
-    $prev = BlogPost::where('id', '<', $id)->orderBy('id', 'desc')->first(['id', 'title', 'image']);
-    $next = BlogPost::where('id', '>', $id)->orderBy('id', 'asc')->first(['id', 'title', 'image']);
+    $prev = BlogPost::where('id', '<', $post->id)->orderBy('id', 'desc')->first(['id', 'title', 'slug', 'image_url']);
+    $next = BlogPost::where('id', '>', $post->id)->orderBy('id', 'asc')->first(['id', 'title', 'slug', 'image_url']);
 
     return response()->json([
         'id'           => $post->id,
         'title'        => $post->title,
         'slug'         => $post->slug,
-        'content'      => $post->description,
-        'image_url'    => $post->image,
-        'author'       => $post->created_by,
-        'category'     => $post->category_id,
-        'published_at' => $post->created_at,
+        'excerpt'      => $post->excerpt,
+        'content'      => $post->content,
+        'image_url'    => $post->image_url,
+        'author'       => $post->author ?: $post->created_by,
+        'category'     => $post->category,
+        'published_at' => $post->published_at ?: $post->created_at,
         'comments'     => $comments,
-        'prev_post'    => $prev ? ['id' => $prev->id, 'title' => $prev->title, 'image' => $prev->image] : null,
-        'next_post'    => $next ? ['id' => $next->id, 'title' => $next->title, 'image' => $next->image] : null,
+        'prev_post'    => $prev ? ['id' => $prev->id, 'slug' => $prev->slug, 'title' => $prev->title, 'image' => $prev->image_url] : null,
+        'next_post'    => $next ? ['id' => $next->id, 'slug' => $next->slug, 'title' => $next->title, 'image' => $next->image_url] : null,
     ]);
 });
 

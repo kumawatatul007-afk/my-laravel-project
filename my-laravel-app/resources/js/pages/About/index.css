@@ -97,17 +97,7 @@
   order: 2;
 }
 
-/* Decorative circle behind the image */
-.ap-img-circle-bg {
-  border: 1px solid #979797;
-  border-radius: 50%;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  right: 5%;
-  z-index: 0;
-}
+/* Decorative circle behind the image — removed */
 
 /* Blob-shaped image container */
 .ap-img-blob {
@@ -427,4 +417,125 @@
   .ap-hero-name {
     font-size: clamp(2.5rem, 12vw, 4rem);
   }
+}
+
+/* ============================================================
+   SECTION 4 — CERTIFICATIONS & BADGES
+   ============================================================ */
+.ap-certs-section {
+  padding: 4rem 0;
+  background: #fff;
+  border-top: 1px solid #e9e9e9;
+}
+
+.ap-certs-heading {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 2rem;
+}
+
+.ap-certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.ap-cert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: #f8fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ap-cert-card:hover {
+  border-color: #1e3a8a;
+  box-shadow: 0 4px 16px rgba(30, 58, 138, 0.08);
+}
+
+.ap-cert-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ap-cert-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.2rem;
+}
+
+.ap-cert-issuer {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECTION 5 — AS SEEN ON / DIRECTORIES
+   ============================================================ */
+.ap-dirs-section {
+  padding: 4rem 0 5rem;
+  background: #f8fafb;
+  border-top: 1px solid #e9e9e9;
+}
+
+.ap-dirs-heading {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.ap-dirs-desc {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  max-width: 560px;
+}
+
+.ap-dirs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.ap-dir-card {
+  display: block;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.ap-dir-card:hover {
+  border-color: #1e3a8a;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.1);
+}
+
+.ap-dir-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.ap-dir-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.55;
 }

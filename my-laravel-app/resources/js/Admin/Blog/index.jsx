@@ -245,17 +245,6 @@ export default function AdminBlogIndex({ posts, filters }) {
                     object-fit: cover; 
                     background: #f1f5f9;
                 }
-                
-                .thumb-placeholder { 
-                    width: 40px; 
-                    height: 40px; 
-                    border-radius: 8px; 
-                    background: #eff6ff;
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    font-size: 1.2rem;
-                }
 
                 @keyframes fadeSlideUp {
                     from { opacity: 0; transform: translateY(24px); }
@@ -535,7 +524,6 @@ export default function AdminBlogIndex({ posts, filters }) {
                     <thead>
                         <tr>
                             <th style={{ width: '60px' }}>#</th>
-                            <th style={{ width: '80px' }}>Image</th>
                             <th style={{ width: '20%' }}>Title</th>
                             <th style={{ width: '10%' }}>Author</th>
                             <th style={{ width: '10%' }}>Category</th>
@@ -548,12 +536,6 @@ export default function AdminBlogIndex({ posts, filters }) {
                         {posts?.data?.length > 0 ? posts.data.map((post, i) => (
                             <tr key={post.id}>
                                 <td className="row-num" style={{ width: '60px' }}>{(posts.from ?? 0) + i}</td>
-                                <td style={{ width: '80px' }}>
-                                    {post.image
-                                        ? <img src={post.image} alt={post.image_alt || post.title} className="thumb" onError={e => { e.target.style.display='none'; }} />
-                                        : <div className="thumb-placeholder">📝</div>
-                                    }
-                                </td>
                                 <td style={{ width: '20%' }}>
                                     <div style={{ fontWeight: 600, color: '#1e293b', fontSize: '0.875rem' }}>
                                         {post.title}
@@ -590,8 +572,7 @@ export default function AdminBlogIndex({ posts, filters }) {
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan={8} className="empty">
-                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📭</div>
+                                <td colSpan={7} className="empty">
                                     <div style={{ fontSize: '1rem', fontWeight: 600, color: '#64748b', marginBottom: '0.25rem' }}>No blog posts found</div>
                                     <div style={{ fontSize: '0.875rem', color: '#94a3b8' }}>Get started by creating your first blog post</div>
                                 </td>
@@ -753,7 +734,6 @@ export default function AdminBlogIndex({ posts, filters }) {
                 <div className="modal-overlay" onClick={e => e.target === e.currentTarget && setDeleteModal(false)}>
                     <div className="delete-modal-box">
                         <div className="modal-body" style={{ padding: '2.5rem 2rem 1.5rem' }}>
-                            <div className="delete-icon">🗑️</div>
                             <div className="delete-title">Delete Blog Post?</div>
                             <div className="delete-desc">
                                 Are you sure you want to delete{' '}
