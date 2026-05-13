@@ -5,7 +5,7 @@ import './index.css';
 import SEO from '../../components/SEO';
 import OptimizedImage from '../../components/OptimizedImage';
 
-export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPortfolios }) {
+export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPortfolios, services: dbServices = [], setting }) {
   const [totalPosts] = useState(0);
 
   function stripHtml(html) {
@@ -196,40 +196,68 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
     }
   }, [isLoading]);
 
-  // Sample data for various sections (replace with real data from your backend)
-  const services = [
-    {
-      id: 1,
-      title: 'Web Development',
-      icon: 'M19.5,1H4.5C2.019,1,0,3.019,0,5.5V14.5c0,2.481,2.019,4.5,4.5,4.5h7v3H7c-.276,0-.5,.224-.5,.5s.224,.5,.5,.5h10c.276,0,.5-.224,.5-.5s-.224-.5-.5-.5h-4.5v-3h7c2.481,0,4.5-2.019,4.5-4.5V5.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,13.5c0,1.93-1.57,3.5-3.5,3.5H4.5c-1.93,0-3.5-1.57-3.5-3.5V5.5c0-1.93,1.57-3.5,3.5-3.5h15c1.93,0,3.5,1.57,3.5,3.5V14.5Zm-4.732-6.266c.975,.975,.975,2.562,0,3.536l-3.083,3.083c-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146c-.195-.195-.195-.512,0-.707l3.083-3.083c.585-.585,.585-1.537,0-2.122l-3.088-3.088c-.195-.195-.195-.512,0-.707s.512-.195,.707,0l3.088,3.088Zm-11.828,.707c-.585,.585-.585,1.537,0,2.122l3.083,3.083c.195,.195,.195,.512,0,.707-.098,.098-.226,.146-.354,.146s-.256-.049-.354-.146l-3.083-3.083c-.975-.975-.975-2.562,0-3.536l3.088-3.088c.195-.195,.512-.195,.707,0s.195,.512,0,.707l-3.088,3.088Z',
-      description: 'I build fast, secure, and scalable websites tailored to your business goals. Using modern technologies like React, Laravel, and PHP, I deliver clean code and pixel-perfect designs that perform well on every device. From simple landing pages to complex multi-page web applications, every project is built with SEO best practices, accessibility standards, and performance optimisation in mind. I work closely with clients to understand their audience, map out user journeys, and create digital experiences that convert visitors into customers. Whether you need a new website from scratch, a redesign of an existing site, or a custom web application with a database backend, I have the skills and experience to deliver on time and within budget.'
-    },
-    {
-      id: 2,
-      title: 'App Development',
-      icon: 'M16.5,0H7.5C5.019,0,3,2.019,3,4.5v15c0,2.481,2.019,4.5,4.5,4.5h9c2.481,0,4.5-2.019,4.5-4.5V4.5c0-2.481-2.019-4.5-4.5-4.5Zm3.5,19.5c0,1.93-1.57,3.5-3.5,3.5H7.5c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5h9c1.93,0,3.5,1.57,3.5,3.5v15Zm-6,1c0,.276-.224.5-.5.5h-3c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3c.276,0,.5.224.5.5Z',
-      description: 'I develop cross-platform mobile applications using Flutter and React Native that run natively on both iOS and Android from a single codebase. This approach dramatically reduces development time and cost without sacrificing performance or user experience. My app development process covers everything from initial wireframing and UI/UX design through to backend API integration, testing, and deployment to the App Store and Google Play. I have built apps for e-commerce, logistics, healthcare, and service-based businesses. Each app is designed with intuitive navigation, smooth animations, and offline capability where needed. I also provide post-launch support and iterative updates to keep your app current with the latest OS versions and user feedback.'
-    },
-    {
-      id: 3,
-      title: 'UI/UX Design',
-      icon: 'M24,8.5v7c0,2.481-2.019,4.5-4.5,4.5h-7v3h3.5c.276,0,.5.224.5.5s-.224.5-.5.5h-8c-.276,0-.5-.224-.5-.5s.224-.5.5-.5h3.5v-3h-7c-2.481,0-4.5-2.019-4.5-4.5V6.5C0,4.019,2.019,2,4.5,2h10c.276,0,.5.224.5.5s-.224.5-.5.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v9c0,1.93,1.57,3.5,3.5,3.5h15c1.93,0,3.5-1.57,3.5-3.5v-7c0-.276.224-.5.5-.5s.5.224.5.5Zm-12.758,1.529C19.095.891,19.129.855,19.146.838c1.119-1.116,2.937-1.116,4.052.002,1.114,1.117,1.114,2.936,0,4.052l-8.221,8.826c-.048.796-.348,1.545-.897,2.145-.661.723-1.603,1.138-2.582,1.138h-4c-.485,0-.928-.224-1.214-.612-.287-.39-.369-.879-.225-1.343.5-1.61,2.039-4.469,4.632-4.97.182-.035.366-.039.549-.046Zm1.19.15c.421.126.826.311,1.186.581.578.436.986,1.011,1.202,1.658l2.065-2.216c-.328-1.184-1.369-2.066-2.596-2.184-.655.763-1.291,1.502-1.857,2.161Zm1.557,3.09c-.06-.674-.405-1.281-.974-1.71-.613-.463-1.391-.647-2.133-.502-2.13.411-3.433,2.886-3.867,4.284-.049.157-.021.322.075.453.096.13.246.205.409.205h4c.7,0,1.372-.296,1.845-.812.479-.523.708-1.205.645-1.918Zm1.05-6.124c1.156.316,2.12,1.143,2.61,2.237l4.829-5.184c.737-.74.737-1.924.012-2.652-.727-.727-1.91-.728-2.637,0-.069.079-2.444,2.842-4.814,5.6Z',
-      description: 'Good design is invisible — it guides users effortlessly toward their goals without friction or confusion. I create UI/UX designs in Figma that are visually compelling, brand-consistent, and grounded in user research. My design process starts with understanding your target audience and business objectives, then moves through wireframing, prototyping, and iterative user testing before a single line of code is written. I design responsive layouts that adapt beautifully from mobile to desktop, with careful attention to typography, colour contrast, spacing, and accessibility (WCAG 2.1 AA). Whether you need a full product design from scratch or a redesign of an existing interface, I deliver design systems and component libraries that make development faster and keep your product consistent as it grows.'
+  // SVG icons for service cards (mapped by index)
+  const SERVICE_ICONS_SVG = [
+    // Web Development
+    <svg key="web" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+      <polyline points="8 9 10 11 8 13" />
+      <line x1="12" y1="13" x2="15" y2="13" />
+    </svg>,
+    // App Development
+    <svg key="app" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
+      <rect x="5" y="2" width="14" height="20" rx="2" />
+      <line x1="12" y1="18" x2="12.01" y2="18" strokeWidth="2.5" />
+    </svg>,
+    // UI/UX Design
+    <svg key="design" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+      <path d="M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1" />
+    </svg>,
+    // SEO / Digital Marketing
+    <svg key="seo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
+      <line x1="11" y1="8" x2="11" y2="14" />
+      <line x1="8" y1="11" x2="14" y2="11" />
+    </svg>,
+    // Cloud / Other
+    <svg key="cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28">
+      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+    </svg>,
+  ];
+
+  // Services from DB (passed via Inertia), fallback to static if empty
+  const services = (dbServices && dbServices.length > 0) ? dbServices : [
+    { id: 1, title: 'Web Development', slug: 'web-development', description: 'I build fast, secure, and scalable websites tailored to your business goals using React, Laravel, and PHP.' },
+    { id: 2, title: 'App Development', slug: 'app-development', description: 'Cross-platform mobile apps using Flutter and React Native for iOS and Android.' },
+    { id: 3, title: 'UI/UX Design', slug: 'ui-ux-design', description: 'Visually compelling, brand-consistent designs in Figma grounded in user research.' },
+  ];
+
+  // Keywords from Setting.strating_keyword (comma-separated) — fallback to static
+  const keywordHighlights = (() => {
+    if (setting && setting.strating_keyword) {
+      return setting.strating_keyword.split(',').map(k => k.trim()).filter(Boolean);
     }
-  ];
+    return [
+      'Best Software Developer in Jaipur',
+      'Best Software Developer in Kalwar Road',
+      'Best Software Developer in Jagatpura',
+      'Best Software Developer in Civil Lines',
+    ];
+  })();
 
-  const keywordHighlights = [
-    'Best Software Developer in Jaipur',
-    'Best Software Developer in Kalwar Road',
-    'Best Software Developer in Jagatpura',
-    'Best Software Developer in Civil Lines',
-  ];
-
-  const serviceHighlights = [
-    'Best Website Design Near Me',
-    'Best WEBSITE DEVELOPER FOR HIRE',
-    'Best Data-Driven Decision Making is Critical to Create Business Value',
-  ];
+  // Service highlights from DB service titles — fallback to static
+  const serviceHighlights = (dbServices && dbServices.length > 0)
+    ? dbServices.map(s => s.title)
+    : [
+      'Best Website Design Near Me',
+      'Best WEBSITE DEVELOPER FOR HIRE',
+      'Best Data-Driven Decision Making is Critical to Create Business Value',
+    ];
 
   const experiences = [
     { id: 1, company: 'Apple', title: 'UX / UI Designer', duration: 'Jan 2023 – May 2024', description: 'Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget gravida cum sociis natoque penatibus', logo: 'M19.665 16.811a10.316 10.316 0 0 1-1.021 1.837c-.537.767-.978 1.297-1.316 1.592-.525.482-1.089.73-1.692.744-.432 0-.954-.123-1.562-.373-.61-.249-1.17-.371-1.683-.371-.537 0-1.113.122-1.73.371-.616.25-1.114.381-1.495.393-.577.025-1.154-.229-1.729-.764-.367-.32-.826-.87-1.377-1.648-.59-.829-1.075-1.794-1.455-2.891-.407-1.187-.611-2.335-.611-3.447 0-1.273.275-2.372.826-3.292a4.857 4.857 0 0 1 1.73-1.751 4.65 4.65 0 0 1 2.34-.662c.46 0 1.063.142 1.81.422s1.227.422 1.436.422c.158 0 .689-.167 1.593-.498.853-.307 1.573-.434 2.163-.384 1.6.129 2.801.759 3.6 1.895-1.43.867-2.137 2.08-2.123 3.637.012 1.213.453 2.222 1.317 3.023a4.33 4.33 0 0 0 1.315.863c-.106.307-.218.6-.336.882zM15.998 2.38c0 .95-.348 1.838-1.039 2.659-.836.976-1.846 1.541-2.941 1.452a2.955 2.955 0 0 1-.021-.36c0-.913.396-1.889 1.103-2.688.352-.404.8-.741 1.343-1.009.542-.264 1.054-.41 1.536-.435.013.128.019.255.019.381z' },
@@ -279,24 +307,41 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
   const skillsRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setSkillsVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (skillsRef.current) {
-      observer.observe(skillsRef.current);
-      // Page refresh ke baad agar section already viewport mein ho
+    if (isLoading) return; // wait for preloader to finish
+
+    const checkAndObserve = () => {
+      if (!skillsRef.current) return;
+
+      // If already in viewport, trigger immediately
       const rect = skillsRef.current.getBoundingClientRect();
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         setSkillsVisible(true);
+        return;
       }
-    }
-    return () => observer.disconnect();
-  }, []);
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setSkillsVisible(true);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
+      );
+      observer.observe(skillsRef.current);
+      return () => observer.disconnect();
+    };
+
+    // Small delay to let Lenis initialise
+    const t = setTimeout(checkAndObserve, 100);
+    return () => clearTimeout(t);
+  }, [isLoading]);
 
   // Services section animation
   const [svcVisible, setSvcVisible] = useState(false);
   const svcRef = useRef(null);
+  const [svcPage, setSvcPage] = useState(0);
+  const SVC_PER_PAGE = 3;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -665,27 +710,72 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
               </h2>
             </div>
           </div>
+
+          {/* Cards grid — only show current page slice */}
           <div className="svc-cards-grid">
-            {services.map((service, index) => (
+            {services.slice(svcPage * SVC_PER_PAGE, (svcPage + 1) * SVC_PER_PAGE).map((service, index) => (
               <div
                 key={service.id}
                 className={`svc-card ${svcVisible ? 'svc-card-visible' : ''}`}
                 style={{ transitionDelay: `${0.1 + index * 0.15}s` }}
-                data-aos="fade-up"
-                data-aos-delay={100 + index * 150}
-                data-aos-duration="800"
               >
                 <div className="svc-card-icon">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d={service.icon} />
-                  </svg>
+                  {SERVICE_ICONS_SVG[(svcPage * SVC_PER_PAGE + index) % SERVICE_ICONS_SVG.length]}
                 </div>
                 <h3 className="svc-card-title">{service.title}</h3>
-                <p className="svc-card-desc">{service.description}</p>
-                <a href="/services" className="svc-card-link">Learn more →</a>
+                <p className="svc-card-desc">
+                  {service.description
+                    ? service.description.replace(/<[^>]*>/g, '').slice(0, 160) + (service.description.replace(/<[^>]*>/g, '').length > 160 ? '…' : '')
+                    : ''}
+                </p>
+                <a
+                  href={service.slug ? `/services/${service.slug}` : '/services'}
+                  className="svc-card-link"
+                >
+                  Learn more →
+                </a>
               </div>
             ))}
           </div>
+
+          {/* Pagination — only show if more than one page */}
+          {services.length > SVC_PER_PAGE && (
+            <div className="svc-pagination">
+              <button
+                className="svc-pg-btn svc-pg-prev"
+                onClick={() => setSvcPage(p => Math.max(0, p - 1))}
+                disabled={svcPage === 0}
+                aria-label="Previous page"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+
+              {Array.from({ length: Math.ceil(services.length / SVC_PER_PAGE) }, (_, i) => (
+                <button
+                  key={i}
+                  className={`svc-pg-dot${svcPage === i ? ' svc-pg-dot-active' : ''}`}
+                  onClick={() => setSvcPage(i)}
+                  aria-label={`Page ${i + 1}`}
+                  aria-current={svcPage === i ? 'page' : undefined}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                className="svc-pg-btn svc-pg-next"
+                onClick={() => setSvcPage(p => Math.min(Math.ceil(services.length / SVC_PER_PAGE) - 1, p + 1))}
+                disabled={svcPage === Math.ceil(services.length / SVC_PER_PAGE) - 1}
+                aria-label="Next page"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -883,10 +973,10 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
                   <div className="skill-name">{skill.name}</div>
                   <div className="skill-track">
                     <div
-                      className="skill-bar"
+                      className={`skill-bar${skillsVisible ? ' skill-bar-animate' : ''}`}
                       style={{
-                        width: skillsVisible ? `${skill.percent}%` : '0%',
-                        transitionDelay: `${i * 0.15}s`,
+                        '--skill-width': `${skill.percent}%`,
+                        animationDelay: `${i * 0.18}s`,
                       }}
                     >
                       <span className="skill-badge">{skill.percent}%</span>
@@ -1224,14 +1314,12 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
             {/* Keywords Column */}
             <div className="keywords-content">
               <p className="keywords-title">#KEYWORD</p>
-              <div className="keywords-chips">
+              <div className="keywords-chips" data-lenis-prevent>
                 {keywordHighlights.map((label, idx) => (
                   <a
                     key={idx}
                     href="/web-developer-jaipur"
                     className="keyword-chip"
-                    data-aos="fade-up"
-                    data-aos-delay={150 + idx * 50}
                     style={{ textDecoration: 'none', cursor: 'pointer' }}
                   >
                     {label}
@@ -1243,19 +1331,21 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
             {/* Services Column */}
             <div className="keywords-content">
               <p className="keywords-title">#SERVICES</p>
-              <div className="keywords-chips">
-                {serviceHighlights.map((label, idx) => (
-                  <a
-                    key={idx}
-                    href="/services"
-                    className="keyword-chip"
-                    data-aos="fade-up"
-                    data-aos-delay={200 + idx * 50}
-                    style={{ textDecoration: 'none', cursor: 'pointer' }}
-                  >
-                    {label}
-                  </a>
-                ))}
+              <div className="keywords-chips" data-lenis-prevent>
+                {serviceHighlights.map((label, idx) => {
+                  const svc = (dbServices && dbServices.length > 0) ? dbServices[idx] : null;
+                  const href = svc && svc.slug ? `/services/${svc.slug}` : '/services';
+                  return (
+                    <a
+                      key={idx}
+                      href={href}
+                      className="keyword-chip"
+                      style={{ textDecoration: 'none', cursor: 'pointer' }}
+                    >
+                      {label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -1718,6 +1808,65 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
           transition: color 0.2s ease, border-color 0.2s ease;
         }
         .svc-card-link:hover { color: #0A3981; border-color: #0A3981; }
+
+        /* ---------- SERVICES PAGINATION ---------- */
+        .svc-pagination {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 2rem;
+          padding-top: 1.5rem;
+          border-top: 1.5px solid #e5e7eb;
+        }
+
+        .svc-pg-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 36px;
+          height: 36px;
+          border: 1.5px solid #2d2d2d;
+          background: #ffffff;
+          color: #2d2d2d;
+          cursor: pointer;
+          transition: background 0.2s ease, color 0.2s ease;
+          flex-shrink: 0;
+        }
+        .svc-pg-btn:hover:not(:disabled) {
+          background: #131313;
+          color: #ffffff;
+        }
+        .svc-pg-btn:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+
+        .svc-pg-dot {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 36px;
+          height: 36px;
+          padding: 0 0.5rem;
+          border: 1.5px solid #d1d5db;
+          background: #ffffff;
+          color: #6b7280;
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 0.82rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .svc-pg-dot:hover {
+          border-color: #2d2d2d;
+          color: #131313;
+        }
+        .svc-pg-dot-active {
+          background: #131313;
+          border-color: #131313;
+          color: #ffffff;
+        }
 
         @media (max-width: 900px) {
           .svc-header {
@@ -2249,8 +2398,16 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
           height: 100%;
           background: #131313;
           width: 0%;
-          transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
+        }
+
+        .skill-bar-animate {
+          animation: skillBarGrow 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes skillBarGrow {
+          from { width: 0%; }
+          to   { width: var(--skill-width); }
         }
 
         .skill-badge {
@@ -3025,6 +3182,9 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
           padding: 1rem 1.5rem;
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
           border: 1px solid #e5e7eb;
+          max-height: 160px;
+          display: flex;
+          flex-direction: column;
         }
 
         .keywords-title {
@@ -3035,12 +3195,21 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
           margin: 0 0 0.5rem 0;
           letter-spacing: 0.1em;
           text-transform: uppercase;
+          flex-shrink: 0;
         }
 
         .keywords-chips {
           display: flex;
           flex-wrap: wrap;
           gap: 0.5rem;
+          overflow-y: scroll;
+          flex: 1;
+          overscroll-behavior: contain;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .keywords-chips::-webkit-scrollbar {
+          display: none;
         }
 
         .keyword-chip {
@@ -3078,8 +3247,9 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
           }
 
           .keywords-content {
-            padding: 1.5rem 1.25rem;
+            padding: 1rem 1.25rem;
             border-radius: 1.5rem;
+            max-height: 160px;
           }
 
           .keyword-chip {

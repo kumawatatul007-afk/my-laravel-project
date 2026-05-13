@@ -11,7 +11,7 @@ use Inertia\Inertia;
 class PublicController extends Controller
 {
     /**
-     * Home page — latest blogs + featured portfolio
+     * Home page — latest blogs + featured portfolio + services + settings
      */
     public function home()
     {
@@ -31,9 +31,19 @@ class PublicController extends Controller
                 ->get(['id', 'title', 'category', 'image_url', 'project_url', 'type']);
         }
 
+        // Services for home page cards + keyword/service chips
+        $services = \App\Models\Service::where('is_active', true)
+            ->orderBy('sort_order')
+            ->get(['id', 'title', 'subtitle', 'slug', 'description', 'features', 'cta_text']);
+
+        // Site settings for keyword highlights
+        $setting = \App\Models\Setting::first();
+
         return Inertia::render('home/index', [
             'blogPosts'  => $blogPosts,
             'portfolios' => $portfolios,
+            'services'   => $services,
+            'setting'    => $setting,
         ]);
     }
 
@@ -136,6 +146,28 @@ class PublicController extends Controller
 
         return Inertia::render('Services/index', [
             'services' => $services,
+        ]);
+    }
+
+    /**
+     * Single service detail page
+     */
+    public function serviceDetail($slug)
+    {
+        $service = Service::where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        // Related services (other active services, excluding current)
+        $related = Service::where('is_active', true)
+            ->where('id', '!=', $service->id)
+            ->orderBy('sort_order')
+            ->take(3)
+            ->get(['id', 'title', 'subtitle', 'slug', 'price_range', 'cta_text']);
+
+        return Inertia::render('Services/Detail/index', [
+            'service' => $service,
+            'related' => $related,
         ]);
     }
 }

@@ -60,8 +60,9 @@
     <link rel="preload" as="image" href="https://www.thenikhilsharma.in/public/profile/images/n2.png" fetchpriority="high">
 
     <!-- Favicon -->
-    <link rel="icon" href="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23131313'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='18' fill='%23ffffff'>N</text></svg>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23131313'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='18' fill='%23ffffff'>N</text></svg>">
 
     @if(isset($seo['structured_data']))
         <script type="application/ld+json">

@@ -36,6 +36,7 @@ Route::get('/portfolio/list', [PublicController::class, 'portfolioList']);
 Route::get('/portfolio/{id}', [PublicController::class, 'portfolioDetail']);
 Route::get('/portfolio', [PublicController::class, 'portfolio']);
 Route::get('/services', [PublicController::class, 'services']);
+Route::get('/services/{slug}', [PublicController::class, 'serviceDetail']);
 Route::get('/web-developer-jaipur', fn () => Inertia::render('LocalLanding/WebDeveloperJaipur'));
 
 // Contact form submission

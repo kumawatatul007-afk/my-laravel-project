@@ -74,6 +74,50 @@ export default function AboutPage() {
         title="About Nikhil Sharma | Full Stack Developer & UI/UX Designer — Jaipur"
         description="8+ years building PHP, React & Flutter apps. Nikhil Sharma is a Jaipur-based Full Stack Developer specialising in web apps, mobile apps, and UI/UX design for startups and SMEs."
         keywords="About Nikhil Sharma, Full Stack Developer Jaipur, PHP React Flutter Developer, Software Architect Jaipur, Web Development Expert India"
+        structuredData={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Nikhil Sharma",
+            "url": "https://thenikhilsharma.in",
+            "image": "https://thenikhilsharma.in/images/Gemini_Generated_Image_ca27fpca27fpca27.png",
+            "jobTitle": "Full Stack Developer & UI/UX Designer",
+            "description": "Jaipur-based Full Stack Developer with 8+ years of experience in PHP, React, Laravel, Flutter, and UI/UX design. Helping startups and SMEs build fast, SEO-optimised digital products.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Jaipur",
+              "addressRegion": "Rajasthan",
+              "addressCountry": "IN"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/in/nikhil-sharma-jaipur",
+              "https://github.com/nikhilsharma",
+              "https://www.upwork.com/freelancers/nikhilsharma"
+            ],
+            "knowsAbout": [
+              "PHP Development", "React.js", "Laravel", "Flutter", "UI/UX Design",
+              "MySQL", "Full Stack Development", "Web Development", "Mobile App Development"
+            ],
+            "hasOccupation": {
+              "@type": "Occupation",
+              "name": "Full Stack Developer",
+              "occupationLocation": {
+                "@type": "City",
+                "name": "Jaipur"
+              },
+              "skills": "PHP, React, Laravel, Flutter, MySQL, Figma, JavaScript, Node.js"
+            }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            "mainEntity": {
+              "@type": "Person",
+              "name": "Nikhil Sharma",
+              "url": "https://thenikhilsharma.in/about"
+            }
+          }
+        ]}
       />
 
       {/* ══════════════════════════════════════
@@ -309,40 +353,6 @@ export default function AboutPage() {
               </div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          SECTION 4 — CERTIFICATIONS & BADGES
-      ══════════════════════════════════════ */}
-      <section className="ap-certs-section">
-        <div className="ap-container">
-          <span className="ap-about-label" data-aos="fade-right" data-aos-duration="800">
-            Credentials
-          </span>
-          <h2 className="ap-certs-heading" data-aos="zoom-out-down" data-aos-duration="900" data-aos-delay="100">
-            Certifications &amp; Expertise
-          </h2>
-          <div className="ap-certs-grid" data-aos="fade-up" data-aos-delay="150">
-            {[
-              { title: 'PHP Development',        issuer: 'Self-certified · 8+ yrs',   icon: '🐘' },
-              { title: 'React.js Development',   issuer: 'Self-certified · 6+ yrs',   icon: '⚛️' },
-              { title: 'Laravel Framework',      issuer: 'Self-certified · 7+ yrs',   icon: '🔴' },
-              { title: 'Flutter & Dart',         issuer: 'Self-certified · 4+ yrs',   icon: '💙' },
-              { title: 'UI/UX Design (Figma)',   issuer: 'Self-certified · 5+ yrs',   icon: '🎨' },
-              { title: 'MySQL & Database Design',issuer: 'Self-certified · 8+ yrs',   icon: '🗄️' },
-              { title: 'Google Analytics',       issuer: 'Google · Verified',          icon: '📊' },
-              { title: 'Technical SEO',          issuer: 'Self-certified · 5+ yrs',   icon: '🔍' },
-            ].map((cert) => (
-              <div key={cert.title} className="ap-cert-card">
-                <span className="ap-cert-icon" aria-hidden="true">{cert.icon}</span>
-                <div>
-                  <p className="ap-cert-title">{cert.title}</p>
-                  <p className="ap-cert-issuer">{cert.issuer}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
