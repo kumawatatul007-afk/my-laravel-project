@@ -32,7 +32,7 @@ class AdminDashboardController extends Controller
 
         $recent_blogs = BlogPost::latest()
             ->take(5)
-            ->get(['id', 'title', 'created_by', 'created_at']);
+            ->get(['id', 'title', 'created_at']);
 
         return Inertia::render('Admin/Dashboard/index', [
             'stats'            => $stats,

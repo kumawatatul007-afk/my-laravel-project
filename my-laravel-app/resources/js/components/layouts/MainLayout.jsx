@@ -88,20 +88,27 @@ export default function MainLayout({ children }) {
           border-radius: 8px;
           transition: background-color 0.3s ease;
         }
-        .mora-logo-img {
-          height: 65px; width: auto;
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          /* Making the white logo dark for light navbar and adding sharp visibility */
-          filter: brightness(0) drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        .mora-logo-svg {
+          height: 44px; width: auto;
         }
-        .mora-brand:hover {
-          background-color: rgba(0,0,0,0.02);
+        /* Header logo — force black */
+        .mora-logo-img {
+          height: 52px; width: auto;
+          filter: brightness(0);
+          transition: transform 0.3s ease, filter 0.3s ease;
         }
         .mora-brand:hover .mora-logo-img {
-          transform: scale(1.1) translateY(-2px);
-          filter: brightness(0) drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+          transform: scale(1.05);
+          filter: brightness(0) opacity(0.75);
         }
-        .mora-links {
+        /* Footer logo — force white */
+        .mora-footer-logo {
+          height: 36px; width: auto;
+          filter: brightness(0) invert(1);
+          opacity: 0.85;
+          transition: opacity 0.2s ease;
+        }
+        .mora-footer-logo:hover { opacity: 1; }        .mora-links {
           display: flex; align-items: center; gap: 0;
           flex: 1; justify-content: center;
         }
@@ -248,48 +255,50 @@ export default function MainLayout({ children }) {
         }
         .mora-footer-main {
           max-width: 1200px; margin: 0 auto;
-          padding: 2rem 2rem 1.5rem;
+          padding: 1.25rem 2rem 1rem;
           display: grid;
           grid-template-columns: 2fr 1fr 1fr 1fr;
-          gap: 2rem;
+          gap: 1.5rem;
+          align-items: start;
         }
         /* Brand column */
-        .mora-footer-brand { display: flex; flex-direction: column; gap: 0.6rem; }
+        .mora-footer-brand { display: flex; flex-direction: column; gap: 0.4rem; }
         .mora-footer-logo {
-          height: 38px; width: auto;
+          height: 30px; width: auto;
           filter: brightness(0) invert(1);
           opacity: 0.9;
         }
         .mora-footer-tagline {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.75rem; color: #6b7280;
-          line-height: 1.6; font-weight: 400;
-          max-width: 240px;
+          font-size: 0.7rem; color: #6b7280;
+          line-height: 1.5; font-weight: 400;
+          max-width: 220px;
         }
         .mora-footer-contact-list {
-          display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.1rem;
+          display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.05rem;
         }
         .mora-footer-contact-item {
-          display: flex; align-items: center; gap: 7px;
+          display: flex; align-items: center; gap: 6px;
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.72rem; color: #6b7280; font-weight: 400;
+          font-size: 0.68rem; color: #6b7280; font-weight: 400;
           text-decoration: none; transition: color 0.2s;
         }
         .mora-footer-contact-item:hover { color: #e5e7eb; }
         .mora-footer-contact-item svg { flex-shrink: 0; color: #6366f1; }
         /* Footer columns */
-        .mora-footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
+        .mora-footer-col { display: flex; flex-direction: column; gap: 0.3rem; }
         .mora-footer-col-title {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.62rem; font-weight: 700;
+          font-size: 0.58rem; font-weight: 700;
           letter-spacing: 0.18em; text-transform: uppercase;
-          color: #ffffff; margin-bottom: 0.2rem;
+          color: #ffffff; margin-bottom: 0.15rem;
         }
         .mora-footer-col-link {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.75rem; color: #6b7280; font-weight: 400;
+          font-size: 0.7rem; color: #6b7280; font-weight: 400;
           text-decoration: none; transition: color 0.2s;
           display: flex; align-items: center; gap: 5px;
+          line-height: 1.4;
         }
         .mora-footer-col-link:hover { color: #e5e7eb; }
         .mora-footer-col-link::before {
@@ -306,44 +315,44 @@ export default function MainLayout({ children }) {
         /* Bottom bar */
         .mora-footer-bottom {
           max-width: 1200px; margin: 0 auto;
-          padding: 0.85rem 2rem;
+          padding: 0.6rem 2rem;
           display: flex; align-items: center;
           justify-content: space-between; gap: 1rem; flex-wrap: wrap;
         }
         .mora-footer-copy {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.7rem; color: #4b5563; font-weight: 400;
+          font-size: 0.65rem; color: #4b5563; font-weight: 400;
         }
         .mora-footer-copy a { color: #6366f1; text-decoration: none; }
         .mora-footer-copy a:hover { text-decoration: underline; }
         .mora-footer-bottom-links {
-          display: flex; align-items: center; gap: 1.2rem;
+          display: flex; align-items: center; gap: 1rem;
         }
         .mora-footer-bottom-link {
           font-family: 'Space Grotesk', sans-serif;
-          font-size: 0.68rem; color: #4b5563; font-weight: 500;
+          font-size: 0.63rem; color: #4b5563; font-weight: 500;
           text-decoration: none; letter-spacing: 0.04em;
           transition: color 0.2s;
         }
         .mora-footer-bottom-link:hover { color: #9ca3af; }
-        .mora-footer-socials { display: flex; align-items: center; gap: 0.4rem; }
+        .mora-footer-socials { display: flex; align-items: center; gap: 0.3rem; }
         .mora-social-icon {
           display: inline-flex; align-items: center; justify-content: center;
-          width: 1.8rem; height: 1.8rem; border-radius: 5px;
+          width: 1.6rem; height: 1.6rem; border-radius: 4px;
           background: #1a1a1a; border: 1px solid #2a2a2a;
           color: #6b7280; text-decoration: none;
           transition: all 0.2s ease;
         }
-        .mora-social-icon svg { width: 0.75rem; height: 0.75rem; fill: currentColor; }
+        .mora-social-icon svg { width: 0.65rem; height: 0.65rem; fill: currentColor; }
         .mora-social-icon:hover { background: #6366f1; border-color: #6366f1; color: #fff; transform: translateY(-2px); }
 
         @media (max-width: 900px) {
-          .mora-footer-main { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+          .mora-footer-main { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
         }
         @media (max-width: 640px) {
-          .mora-footer-main { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 1.25rem 1.2rem; }
-          .mora-footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 0.75rem 1.25rem; }
-          .mora-footer-bottom-links { flex-wrap: wrap; gap: 0.8rem; }
+          .mora-footer-main { grid-template-columns: 1fr; gap: 1.25rem; padding: 1.25rem 1.25rem 1rem; }
+          .mora-footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.6rem 1.25rem; }
+          .mora-footer-bottom-links { flex-wrap: wrap; gap: 0.75rem; }
         }
       `}</style>
 
@@ -351,11 +360,12 @@ export default function MainLayout({ children }) {
       <nav className="mora-nav">
         <div className="mora-nav-inner">
 
-          <Link href="/" className="mora-brand">
-            <img 
-              src="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png" 
-              alt="Nikhil Sharma Logo" 
-              className="mora-logo-img" 
+          {/* ── LOGO ── */}
+          <Link href="/" className="mora-brand" aria-label="Nikhil Sharma — Home">
+            <img
+              src="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png"
+              alt="Nikhil Sharma Logo"
+              className="mora-logo-img"
             />
           </Link>
 
@@ -421,7 +431,7 @@ export default function MainLayout({ children }) {
 
           {/* Brand + contact */}
           <div className="mora-footer-brand">
-            <Link href="/">
+            <Link href="/" aria-label="Nikhil Sharma — Home">
               <img
                 src="https://www.thenikhilsharma.in/public/admin/images/logo/GUJKF-100621-yYB.png"
                 alt="Nikhil Sharma — Full Stack Developer Jaipur"
