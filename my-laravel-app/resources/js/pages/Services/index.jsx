@@ -104,32 +104,43 @@ export default function ServicesPage({ services = [] }) {
           overflow: hidden;
           isolation: isolate;
         }
+        .srv-hero-video {
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          object-fit: cover;
+          z-index: 0;
+          pointer-events: none;
+        }
         .srv-hero-bg {
           position: absolute; inset: 0;
-          background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 40%, #16213e 70%, #0f3460 100%);
-          z-index: 0;
+          background: linear-gradient(135deg,
+            rgba(10,10,20,0.55) 0%,
+            rgba(15,15,35,0.50) 40%,
+            rgba(10,20,50,0.50) 70%,
+            rgba(8,30,70,0.55) 100%);
+          z-index: 1;
         }
         .srv-hero-dots {
-          position: absolute; inset: 0; z-index: 1;
-          background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+          position: absolute; inset: 0; z-index: 2;
+          background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
           background-size: 32px 32px;
         }
         .srv-hero-glow {
-          position: absolute; z-index: 1;
-          width: 600px; height: 600px;
-          background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 65%);
+          position: absolute; z-index: 2;
+          width: 500px; height: 500px;
+          background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 65%);
           top: -100px; right: -100px;
           pointer-events: none;
         }
         .srv-hero-glow2 {
-          position: absolute; z-index: 1;
-          width: 400px; height: 400px;
-          background: radial-gradient(circle, rgba(236,72,153,0.15) 0%, transparent 65%);
+          position: absolute; z-index: 2;
+          width: 350px; height: 350px;
+          background: radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 65%);
           bottom: -80px; left: 10%;
           pointer-events: none;
         }
         .srv-hero-inner {
-          position: relative; z-index: 2;
+          position: relative; z-index: 3;
           text-align: center;
           padding: 5rem 2rem;
           max-width: 860px;
@@ -545,6 +556,14 @@ export default function ServicesPage({ services = [] }) {
 
       {/* ── HERO ── */}
       <section className="srv-hero">
+        <video
+          className="srv-hero-video"
+          src="https://v.ftcdn.net/19/77/69/30/240_F_1977693015_EfB0b5sUA4GStjUV19ondWzMQF0QCpF6_ST.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+        />
         <div className="srv-hero-bg" />
         <div className="srv-hero-dots" />
         <div className="srv-hero-glow" />

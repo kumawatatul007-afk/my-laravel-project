@@ -38,6 +38,8 @@ Route::get('/portfolio', [PublicController::class, 'portfolio']);
 Route::get('/services', [PublicController::class, 'services']);
 Route::get('/services/{slug}', [PublicController::class, 'serviceDetail']);
 Route::get('/web-developer-jaipur', fn () => Inertia::render('LocalLanding/WebDeveloperJaipur'));
+Route::get('/privacy-policy',   fn () => Inertia::render('PrivacyPolicy/index'));
+Route::get('/terms-of-service', fn () => Inertia::render('TermsOfService/index'));
 
 // Contact form submission
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

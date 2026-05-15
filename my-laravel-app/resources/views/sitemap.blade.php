@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
-    {{-- Static pages --}}
+    {{-- ── Static Pages ── --}}
     <url>
         <loc>{{ url('/') }}</loc>
         <lastmod>{{ now()->toAtomString() }}</lastmod>
@@ -47,18 +47,44 @@
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
-
-    {{-- Blog posts --}}
-    @foreach ($posts as $post)
     <url>
-        <loc>{{ url('/blog/' . $post->id) }}</loc>
+        <loc>{{ url('/privacy-policy') }}</loc>
+        <lastmod>{{ now()->toAtomString() }}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    <url>
+        <loc>{{ url('/terms-of-service') }}</loc>
+        <lastmod>{{ now()->toAtomString() }}</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    {{-- ── Service Pages ── --}}
+    @foreach ($services as $service)
+    @if ($service->slug)
+    <url>
+        <loc>{{ url('/services/' . $service->slug) }}</loc>
+        <lastmod>{{ $service->updated_at->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    @endif
+    @endforeach
+
+    {{-- ── Blog Posts ── --}}
+    @foreach ($posts as $post)
+    @if ($post->slug)
+    <url>
+        <loc>{{ url('/blog/' . $post->slug) }}</loc>
         <lastmod>{{ $post->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
+    @endif
     @endforeach
 
-    {{-- Portfolio items --}}
+    {{-- ── Portfolio Items ── --}}
     @foreach ($portfolios as $portfolio)
     <url>
         <loc>{{ url('/portfolio/' . $portfolio->id) }}</loc>

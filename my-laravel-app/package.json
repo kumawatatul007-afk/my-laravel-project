@@ -27,6 +27,7 @@
         "react-chartjs-2": "^5.3.1",
         "react-dom": "^19.2.5",
         "react-helmet-async": "^3.0.0",
+        "react-icons": "^5.6.0",
         "splitting": "^1.1.0",
         "swiper": "^12.1.4"
     }

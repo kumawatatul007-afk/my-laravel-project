@@ -252,6 +252,7 @@ export default function MainLayout({ children }) {
           background: #0f0f0f;
           border-top: 1px solid #1e1e1e;
           padding: 0;
+          margin-top: 3rem;
         }
         .mora-footer-main {
           max-width: 1200px; margin: 0 auto;
@@ -500,9 +501,9 @@ export default function MainLayout({ children }) {
             © {new Date().getFullYear()} <a href="https://thenikhilsharma.in">Nikhil Sharma</a>. All Rights Reserved. | Jaipur, Rajasthan, India
           </p>
           <div className="mora-footer-bottom-links">
-            <Link href="/sitemap.xml" className="mora-footer-bottom-link">Sitemap</Link>
-            <Link href="/contact"     className="mora-footer-bottom-link">Privacy</Link>
-            <Link href="/contact"     className="mora-footer-bottom-link">Terms</Link>
+            <a href="/sitemap.xml"       className="mora-footer-bottom-link" target="_blank" rel="noopener noreferrer">Sitemap</a>
+            <Link href="/privacy-policy"   className="mora-footer-bottom-link">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="mora-footer-bottom-link">Terms of Service</Link>
           </div>
           <div className="mora-footer-socials">
             <a href="https://www.facebook.com/nikhilsharma" target="_blank" rel="noopener noreferrer" className="mora-social-icon" aria-label="Facebook">
