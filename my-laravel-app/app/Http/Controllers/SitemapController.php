@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\BlogPost;
 use App\Models\PortfolioItem;
 use App\Models\Service;
+use App\Models\Setting;
+use App\Http\Controllers\PublicController;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -15,10 +17,20 @@ class SitemapController extends Controller
         $portfolios = PortfolioItem::latest()->get();
         $services   = Service::where('is_active', true)->whereNotNull('slug')->where('slug', '!=', '')->latest()->get();
 
+        // Keywords from settings
+        $setting  = Setting::first();
+        $keywords = $setting && $setting->strating_keyword
+            ? array_filter(array_map('trim', explode(',', $setting->strating_keyword)))
+            : [];
+
+        // Build keyword URLs using the same logic as PublicController
+        $keywordUrls = array_map(fn($kw) => PublicController::keywordToUrl($kw), $keywords);
+
         $xml = view('sitemap', [
-            'posts'      => $posts,
-            'portfolios' => $portfolios,
-            'services'   => $services,
+            'posts'       => $posts,
+            'portfolios'  => $portfolios,
+            'services'    => $services,
+            'keywordUrls' => $keywordUrls,
         ])->render();
 
         return response($xml, 200)

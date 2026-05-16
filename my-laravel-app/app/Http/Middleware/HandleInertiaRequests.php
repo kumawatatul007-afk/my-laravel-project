@@ -40,10 +40,12 @@ class HandleInertiaRequests extends Middleware
         
         $seo = null;
         try {
-            $seo = SeoPage::where('route', $currentRoute)->first();
+            $seoModel = SeoPage::where('route', $currentRoute)->first();
             
-            // Default SEO data if not found in database
-            if (!$seo) {
+            if ($seoModel) {
+                // Convert model to plain array so blade can access it with ['key']
+                $seo = $seoModel->toArray();
+            } else {
                 if ($currentRoute === 'home' || $currentRoute === '/') {
                     $seo = [
                         'title' => 'Best Web Developer & Digital Marketer in Jaipur | Nikhil Sharma',

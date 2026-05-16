@@ -6,15 +6,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
-        $seo        = $page['props']['seo'] ?? null;
-        $title      = $seo['title']       ?? 'Nikhil Sharma | Freelance PHP, React & Flutter Developer — Jaipur, India';
-        $description= $seo['description'] ?? 'Hire Nikhil Sharma, a Jaipur-based Full Stack Developer with 8+ years building websites, apps & digital solutions. Fast delivery, affordable rates, real results.';
-        $keywords   = $seo['keywords']    ?? 'Web Developer Jaipur, PHP Developer Jaipur, React Developer India, Full Stack Developer Jaipur, Nikhil Sharma';
-        $author     = $seo['author']      ?? 'Nikhil Sharma';
-        $robots     = $seo['robots']      ?? 'index, follow';
-        // Use a proper 1200×630 OG social card image
-        $og_image   = $seo['og_image']    ?? asset('images/og-social-card.jpg');
-        $canonical  = $seo['canonical']   ?? url()->current();
+        // Page-specific seo (from controller) takes priority over shared seo (from middleware/SeoPage)
+        $rawSeo = $page['props']['seo'] ?? null;
+
+        // Normalize: SeoPage model object → array, or plain array as-is
+        if (is_object($rawSeo)) {
+            $seoArr = method_exists($rawSeo, 'toArray') ? $rawSeo->toArray() : (array)$rawSeo;
+        } elseif (is_array($rawSeo)) {
+            $seoArr = $rawSeo;
+        } else {
+            $seoArr = [];
+        }
+
+        $title       = $seoArr['title']       ?? 'Nikhil Sharma | Freelance PHP, React & Flutter Developer — Jaipur, India';
+        $description = $seoArr['description'] ?? 'Hire Nikhil Sharma, a Jaipur-based Full Stack Developer with 8+ years building websites, apps & digital solutions. Fast delivery, affordable rates, real results.';
+        $keywords    = $seoArr['keywords']    ?? 'Web Developer Jaipur, PHP Developer Jaipur, React Developer India, Full Stack Developer Jaipur, Nikhil Sharma';
+        $author      = $seoArr['author']      ?? 'Nikhil Sharma';
+        $robots      = $seoArr['robots']      ?? 'index, follow';
+        $og_image    = $seoArr['og_image']    ?? asset('images/og-social-card.jpg');
+        $canonical   = $seoArr['canonical']   ?? url()->current();
     @endphp
 
     <title>{{ $title }}</title>

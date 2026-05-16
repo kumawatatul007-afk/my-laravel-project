@@ -11,6 +11,7 @@ class Setting extends Model
     protected $fillable = [
         'website_title',
         'strating_keyword',
+        'service_keyword',
         'locations',
         'email',
         'phone',

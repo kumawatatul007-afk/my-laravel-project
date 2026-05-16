@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import SEO from '../../components/SEO'
 
 export default function PrivacyPolicy() {
   const siteUrl = 'https://thenikhilsharma.in'
@@ -6,21 +6,13 @@ export default function PrivacyPolicy() {
 
   return (
     <>
-      <Helmet>
-        <title>Privacy Policy — Nikhil Sharma | Full Stack Developer Jaipur</title>
-        <meta name="description" content="Privacy Policy for Nikhil Sharma's freelance web development services. Learn how we collect, use, and protect your personal information." />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`${siteUrl}/privacy-policy`} />
-
-        {/* Open Graph */}
-        <meta property="og:type"        content="website" />
-        <meta property="og:url"         content={`${siteUrl}/privacy-policy`} />
-        <meta property="og:title"       content="Privacy Policy — Nikhil Sharma" />
-        <meta property="og:description" content="Privacy Policy for Nikhil Sharma's freelance web development services." />
-        <meta property="og:site_name"   content="Nikhil Sharma — Full Stack Developer" />
-
-        {/* JSON-LD */}
-        <script type="application/ld+json">{JSON.stringify({
+      <SEO
+        title="Privacy Policy | Nikhil Sharma — Full Stack Developer Jaipur"
+        description="Privacy Policy for Nikhil Sharma's freelance web development services. Learn how we collect, use, and protect your personal information."
+        canonical={`${siteUrl}/privacy-policy`}
+        robots="noindex, follow"
+        ogType="website"
+        structuredData={[{
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Privacy Policy",
@@ -38,8 +30,8 @@ export default function PrivacyPolicy() {
               "addressCountry": "IN"
             }
           }
-        })}</script>
-      </Helmet>
+        }]}
+      />
 
       <div style={{ background: '#f8fafc', minHeight: '100vh' }}>
         {/* Hero */}

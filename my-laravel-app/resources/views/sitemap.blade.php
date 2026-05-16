@@ -63,8 +63,14 @@
     {{-- ── Service Pages ── --}}
     @foreach ($services as $service)
     @if ($service->slug)
+    @php
+        $slugParts = explode('-', $service->slug, 2);
+        $svcPrefix = ucfirst($slugParts[0] ?? $service->slug);
+        $svcRest   = $slugParts[1] ?? '';
+        $svcUrl    = $svcRest ? "/service/{$svcPrefix}/{$svcRest}" : "/service/{$svcPrefix}";
+    @endphp
     <url>
-        <loc>{{ url('/services/' . $service->slug) }}</loc>
+        <loc>{{ url($svcUrl) }}</loc>
         <lastmod>{{ $service->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.75</priority>
@@ -76,7 +82,7 @@
     @foreach ($posts as $post)
     @if ($post->slug)
     <url>
-        <loc>{{ url('/blog/' . $post->slug) }}</loc>
+        <loc>{{ url('/' . $post->slug) }}</loc>
         <lastmod>{{ $post->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -91,6 +97,16 @@
         <lastmod>{{ $portfolio->updated_at->toAtomString() }}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
+    </url>
+    @endforeach
+
+    {{-- ── Keyword Pages ── --}}
+    @foreach ($keywordUrls as $kwUrl)
+    <url>
+        <loc>{{ url($kwUrl) }}</loc>
+        <lastmod>{{ now()->toAtomString() }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
     </url>
     @endforeach
 

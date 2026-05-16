@@ -1,12 +1,19 @@
 import AdminLayout from '../layouts/AdminLayout';
 import { router } from '@inertiajs/react';
 import Pagination from '../../components/admin/Pagination';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { ShimmerTableRows } from '../../components/ShimmerLoader';
 
 export default function AdminCommentsIndex({ comments, blogs, filters }) {
     const [search, setSearch] = useState(filters?.search ?? '');
     const [blogId, setBlogId] = useState(filters?.blog_id ?? '');
     const [perPage, setPerPage] = useState(10);
+    const [shimmer, setShimmer] = useState(true);
+
+    useEffect(() => {
+        const t = setTimeout(() => setShimmer(false), 650);
+        return () => clearTimeout(t);
+    }, []);
 
     // Delete modal
     const [deleteModal, setDeleteModal] = useState(false);
@@ -251,7 +258,9 @@ export default function AdminCommentsIndex({ comments, blogs, filters }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {displayData.length > 0 ? displayData.map((comment) => (
+                            {shimmer ? (
+                                <ShimmerTableRows count={6} cols={7} />
+                            ) : displayData.length > 0 ? displayData.map((comment) => (
                                 <tr key={comment.id}>
                                     <td className="col-blog">
                                         <div className="cell-blog">

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import SEO from '../../components/SEO';
+import { ShimmerPortfolioCard } from '../../components/ShimmerLoader';
 
 export default function PortfolioPage({ items: dbItems }) {
   const [portfolios, setPortfolios] = useState(dbItems || []);
@@ -64,10 +65,12 @@ export default function PortfolioPage({ items: dbItems }) {
           </h1>
         </div>
 
-        {/* Loading state */}
+        {/* Loading shimmer state */}
         {loading && (
-          <div style={{ textAlign: 'center', padding: '3rem', color: '#9ca3af', fontFamily: "'Space Grotesk', sans-serif" }}>
-            Loading portfolio...
+          <div className="port-grid" style={{ opacity: 1 }}>
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ShimmerPortfolioCard key={i} />
+            ))}
           </div>
         )}
 

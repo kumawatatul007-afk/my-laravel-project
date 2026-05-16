@@ -4,6 +4,7 @@ import AOS from 'aos'
 import 'aos/dist/aos.css'
 import './index.css'
 import SEO from '../../components/SEO'
+import { ShimmerBlogCard } from '../../components/ShimmerLoader'
 
 const POSTS_PER_PAGE = 6
 
@@ -11,6 +12,13 @@ export default function BlogPage({ posts }) {
 
   const allPosts = posts ?? []
   const [currentPage, setCurrentPage] = useState(1)
+  const [shimmer, setShimmer] = useState(true)
+
+  // Shimmer: brief mount delay so skeleton is visible on first render
+  useEffect(() => {
+    const t = setTimeout(() => setShimmer(false), 600)
+    return () => clearTimeout(t)
+  }, [])
 
   // AOS init
   useEffect(() => {
@@ -74,20 +82,29 @@ export default function BlogPage({ posts }) {
         </div>
 
         {/* Empty state */}
-        {allPosts.length === 0 && (
+        {!shimmer && allPosts.length === 0 && (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#9ca3af', fontFamily: "'Space Grotesk', sans-serif" }}>
             No blog posts published yet.
           </div>
         )}
 
+        {/* Shimmer skeleton */}
+        {shimmer && (
+          <div className="blog-grid">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ShimmerBlogCard key={i} />
+            ))}
+          </div>
+        )}
+
         {/* Blog Cards Grid */}
-        {allPosts.length > 0 && (
+        {!shimmer && allPosts.length > 0 && (
           <>
             <div className="blog-grid">
               {paginatedPosts.map((post, index) => (
                 <Link
                   key={post.id}
-                  href={`/blog/${post.slug}`}
+                  href={`/${post.slug}`}
                   style={{ textDecoration: 'none', color: 'inherit' }}
                   data-aos="fade-up"
                   data-aos-delay={index * 100}

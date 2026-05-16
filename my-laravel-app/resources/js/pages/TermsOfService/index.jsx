@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import SEO from '../../components/SEO'
 
 export default function TermsOfService() {
   const siteUrl = 'https://thenikhilsharma.in'
@@ -6,21 +6,13 @@ export default function TermsOfService() {
 
   return (
     <>
-      <Helmet>
-        <title>Terms of Service — Nikhil Sharma | Full Stack Developer Jaipur</title>
-        <meta name="description" content="Terms of Service for Nikhil Sharma's freelance web development services. Read the terms governing use of this website and engagement of services." />
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`${siteUrl}/terms-of-service`} />
-
-        {/* Open Graph */}
-        <meta property="og:type"        content="website" />
-        <meta property="og:url"         content={`${siteUrl}/terms-of-service`} />
-        <meta property="og:title"       content="Terms of Service — Nikhil Sharma" />
-        <meta property="og:description" content="Terms of Service for Nikhil Sharma's freelance web development services." />
-        <meta property="og:site_name"   content="Nikhil Sharma — Full Stack Developer" />
-
-        {/* JSON-LD */}
-        <script type="application/ld+json">{JSON.stringify({
+      <SEO
+        title="Terms of Service | Nikhil Sharma — Full Stack Developer Jaipur"
+        description="Terms of Service for Nikhil Sharma's freelance web development services. Read the terms governing use of this website and engagement of services."
+        canonical={`${siteUrl}/terms-of-service`}
+        robots="noindex, follow"
+        ogType="website"
+        structuredData={[{
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Terms of Service",
@@ -38,8 +30,8 @@ export default function TermsOfService() {
               "addressCountry": "IN"
             }
           }
-        })}</script>
-      </Helmet>
+        }]}
+      />
 
       <div style={{ background: '#f8fafc', minHeight: '100vh' }}>
         {/* Hero */}

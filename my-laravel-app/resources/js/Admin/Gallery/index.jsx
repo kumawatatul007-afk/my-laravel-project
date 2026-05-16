@@ -1,13 +1,20 @@
 import AdminLayout from '../layouts/AdminLayout';
 import { router } from '@inertiajs/react';
 import Pagination from '../../components/admin/Pagination';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { ShimmerPortfolioCard } from '../../components/ShimmerLoader';
 
 export default function AdminGalleryIndex({ items, filters }) {
     const [file, setFile] = useState(null);
     const [uploadError, setUploadError] = useState('');
     const [uploadLoading, setUploadLoading] = useState(false);
     const fileInputRef = useRef(null);
+    const [shimmer, setShimmer] = useState(true);
+
+    useEffect(() => {
+        const t = setTimeout(() => setShimmer(false), 650);
+        return () => clearTimeout(t);
+    }, []);
 
     // Delete modal
     const [deleteModal, setDeleteModal] = useState(false);
@@ -330,7 +337,15 @@ export default function AdminGalleryIndex({ items, filters }) {
                     <span className="dark">List</span>
                 </div>
 
-                {items?.data?.length > 0 ? (
+                {shimmer ? (
+                    <div className="gallery-grid">
+                        {Array.from({ length: 8 }).map((_, i) => (
+                            <div key={i} style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                                <ShimmerPortfolioCard />
+                            </div>
+                        ))}
+                    </div>
+                ) : items?.data?.length > 0 ? (
                     <>
                         <div className="gallery-grid">
                             {items.data.map((item) => (

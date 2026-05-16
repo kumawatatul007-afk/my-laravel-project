@@ -3,8 +3,9 @@ import { Link } from '@inertiajs/react';
 import './index.css'
 
 export default function BlogDetailPage({ post: serverPost }) {
-  // Slug URL se extract karo (e.g. /blog/my-post-slug)
-  const pathSlug = window.location.pathname.split('/blog/')[1]?.split('/')[0] || '';
+  // Slug URL se extract karo — new format: /{slug}, old: /blog/{slug}
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  const pathSlug = pathParts[pathParts.length - 1] || '';
 
   const [post, setPost] = useState(serverPost || null);
   const [loading, setLoading] = useState(!serverPost);
@@ -116,7 +117,7 @@ export default function BlogDetailPage({ post: serverPost }) {
           <nav className="bd-post-nav">
             <div className="bd-post-nav-prev">
               {prevPost ? (
-                <Link href={`/blog/${prevPost.slug || prevPost.id}`}>
+                <Link href={`/${prevPost.slug || prevPost.id}`}>
                   <span className="bd-nav-label">← Previous Post</span>
                   <span className="bd-nav-title">{prevPost.title}</span>
                 </Link>
@@ -124,7 +125,7 @@ export default function BlogDetailPage({ post: serverPost }) {
             </div>
             <div className="bd-post-nav-next">
               {nextPost ? (
-                <Link href={`/blog/${nextPost.slug || nextPost.id}`}>
+                <Link href={`/${nextPost.slug || nextPost.id}`}>
                   <span className="bd-nav-label">Next Post →</span>
                   <span className="bd-nav-title">{nextPost.title}</span>
                 </Link>

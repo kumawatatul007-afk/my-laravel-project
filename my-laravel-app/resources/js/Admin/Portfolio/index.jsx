@@ -1,10 +1,17 @@
 import AdminLayout from '../layouts/AdminLayout';
 import { Link, router } from '@inertiajs/react';
 import Pagination from '../../components/admin/Pagination';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { ShimmerTableRows } from '../../components/ShimmerLoader';
 
 export default function AdminPortfolioIndex({ items, filters, hasSearched }) {
     const [search, setSearch] = useState(filters?.search ?? '');
+    const [shimmer, setShimmer] = useState(true);
+
+    useEffect(() => {
+        const t = setTimeout(() => setShimmer(false), 650);
+        return () => clearTimeout(t);
+    }, []);
 
     const applyFilters = () => {
         router.get('/admin/portfolio', { search, searched: 1 }, { preserveState: true, replace: true });
@@ -165,7 +172,9 @@ export default function AdminPortfolioIndex({ items, filters, hasSearched }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {items?.data?.length > 0 ? items.data.map(item => (
+                        {shimmer ? (
+                            <ShimmerTableRows count={5} cols={7} />
+                        ) : items?.data?.length > 0 ? items.data.map(item => (
                             <tr key={item.id}>
                                 <td>
                                     {item.image_url

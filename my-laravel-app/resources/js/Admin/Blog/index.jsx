@@ -1,10 +1,17 @@
 import AdminLayout from '../layouts/AdminLayout';
 import { Link, router } from '@inertiajs/react';
 import Pagination from '../../components/admin/Pagination';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { ShimmerTableRows } from '../../components/ShimmerLoader';
 
 export default function AdminBlogIndex({ posts, filters }) {
     const [search, setSearch] = useState(filters?.search ?? '');
+    const [shimmer, setShimmer] = useState(true);
+
+    useEffect(() => {
+        const t = setTimeout(() => setShimmer(false), 650);
+        return () => clearTimeout(t);
+    }, []);
 
     const [editModal, setEditModal] = useState(false);
     const [editPost, setEditPost] = useState(null);
@@ -533,7 +540,9 @@ export default function AdminBlogIndex({ posts, filters }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {posts?.data?.length > 0 ? posts.data.map((post, i) => (
+                        {shimmer ? (
+                            <ShimmerTableRows count={6} cols={7} />
+                        ) : posts?.data?.length > 0 ? posts.data.map((post, i) => (
                             <tr key={post.id}>
                                 <td className="row-num" style={{ width: '60px' }}>{(posts.from ?? 0) + i}</td>
                                 <td style={{ width: '20%' }}>

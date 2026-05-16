@@ -3,7 +3,12 @@ import { Link } from '@inertiajs/react'
 import './index.css'
 
 export default function BlogDetailSidebarPage({ post: serverPost, recentPosts: serverRecentPosts }) {
-  const pathSlug = window.location.pathname.split('/blog/')[1]?.split('/')[0] || '';
+  // New URL format: /{slug}/sidebar — extract slug from path
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  // Remove 'sidebar' suffix if present
+  const pathSlug = pathParts[pathParts.length - 1] === 'sidebar'
+    ? pathParts[pathParts.length - 2] || ''
+    : pathParts[pathParts.length - 1] || '';
 
   const [post, setPost] = useState(serverPost || null);
   const [recentPosts, setRecentPosts] = useState(serverRecentPosts || []);
@@ -124,7 +129,7 @@ export default function BlogDetailSidebarPage({ post: serverPost, recentPosts: s
               <nav className="bds-post-nav">
                 <div className="bds-post-nav-prev">
                   {prevPost ? (
-                    <Link href={`/blog/${prevPost.slug || prevPost.id}/sidebar`}>
+                    <Link href={`/${prevPost.slug || prevPost.id}/sidebar`}>
                       <span className="bds-nav-label">← Previous Post</span>
                       <span className="bds-nav-title">{prevPost.title}</span>
                     </Link>
@@ -132,7 +137,7 @@ export default function BlogDetailSidebarPage({ post: serverPost, recentPosts: s
                 </div>
                 <div className="bds-post-nav-next">
                   {nextPost ? (
-                    <Link href={`/blog/${nextPost.slug || nextPost.id}/sidebar`}>
+                    <Link href={`/${nextPost.slug || nextPost.id}/sidebar`}>
                       <span className="bds-nav-label">Next Post →</span>
                       <span className="bds-nav-title">{nextPost.title}</span>
                     </Link>
@@ -223,7 +228,7 @@ export default function BlogDetailSidebarPage({ post: serverPost, recentPosts: s
                     <ul className="bds-recent-posts">
                       {recentPosts.map((rp) => (
                         <li key={rp.id}>
-                          <Link href={`/blog/${rp.slug || rp.id}/sidebar`} className="bds-recent-link">
+                          <Link href={`/${rp.slug || rp.id}/sidebar`} className="bds-recent-link">
                             <div className="bds-recent-img">
                               <img
                                 src={rp.image_url || 'https://wpdemo.ajufbox.com/mora/wp-content/uploads/2024/11/blog-fi-1.jpg'}
