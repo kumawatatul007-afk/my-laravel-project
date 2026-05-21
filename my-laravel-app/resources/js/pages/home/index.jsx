@@ -212,28 +212,49 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
     { id: 3, title: 'UI/UX Design', slug: 'ui-ux-design', description: 'Visually compelling, brand-consistent designs in Figma grounded in user research.' },
   ];
 
-  // Keywords from Setting.strating_keyword (comma-separated) — no dummy fallback
+  // Keywords from Setting.strating_keyword (comma-separated)
   const keywordHighlights = (() => {
     if (setting && setting.strating_keyword) {
-      return setting.strating_keyword.split(',').map(k => k.trim()).filter(Boolean);
+      const parsed = setting.strating_keyword.split(',').map(k => k.trim()).filter(Boolean);
+      if (parsed.length > 0) return parsed;
     }
-    return [];
+    // Static fallback so section is never empty
+    return [
+      'Best Software Developer in Jaipur',
+      'Best Website Developer in Jaipur',
+      'Best PHP Developer in Jaipur',
+      'Best React Developer in Jaipur',
+      'Best Mobile App Developer in Jaipur',
+      'Best Full Stack Developer in Jaipur',
+      'Best IT Freelancer in Jaipur',
+      'Best Front-End Developer in Jaipur',
+    ];
   })();
 
   // Service highlights from DB setting.service_keyword — format: "title|slug,title|slug"
   // Each entry is clickable and links to /services/{slug}
   const serviceHighlights = (() => {
+    // Priority 1: service_keyword from settings
     if (setting && setting.service_keyword) {
-      return setting.service_keyword.split(',').map(entry => {
+      const parsed = setting.service_keyword.split(',').map(entry => {
         const parts = entry.trim().split('|');
         return { title: parts[0] ? parts[0].trim() : '', slug: parts[1] ? parts[1].trim() : '', isFallback: false };
       }).filter(s => s.title);
+      if (parsed.length > 0) return parsed;
     }
-    // Fallback: use DB service titles with their slugs
+    // Priority 2: use DB service titles with their slugs
     if (dbServices && dbServices.length > 0) {
       return dbServices.map(s => ({ title: s.title, slug: s.slug, isFallback: true }));
     }
-    return [];
+    // Priority 3: static fallback so section is never empty
+    return [
+      { title: 'Web Development',    slug: 'web-development',    isFallback: true },
+      { title: 'App Development',    slug: 'app-development',    isFallback: true },
+      { title: 'UI/UX Design',       slug: 'ui-ux-design',       isFallback: true },
+      { title: 'PHP Laravel',        slug: 'php-laravel',        isFallback: true },
+      { title: 'React.js',           slug: 'react-js',           isFallback: true },
+      { title: 'Flutter Apps',       slug: 'flutter-apps',       isFallback: true },
+    ];
   })();
 
   const experiences = [
@@ -1293,13 +1314,21 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
               <p className="keywords-title">#KEYWORD</p>
               <div className="keywords-chips" data-lenis-prevent>
                 {keywordHighlights.map((label, idx) => {
-                  // New URL format: "Best Software Developer in Jaipur" → "/Best/software-developer/Jaipur"
+                  // URL format: "Best Software Developer in Jaipur" → "/Best/software-developer/Jaipur"
+                  // "Top 10 Website Design Near Me" → "/Top10/website-design-near-me"
                   const inParts = label.split(' in ');
                   const servicePart = (inParts[0] || label).trim();
                   const location = (inParts[1] || '').trim();
                   const words = servicePart.split(/\s+/);
-                  const prefix = words[0] || 'Best';
-                  const rest = words.slice(1).join(' ');
+                  let prefix = words[0] || 'Best';
+                  let restWords;
+                  if (words[1] && /^\d+$/.test(words[1])) {
+                    prefix = prefix + words[1];
+                    restWords = words.slice(2);
+                  } else {
+                    restWords = words.slice(1);
+                  }
+                  const rest = restWords.join(' ');
                   const serviceSlug = rest.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                   const href = location ? `/${prefix}/${serviceSlug}/${location}` : `/${prefix}/${serviceSlug}`;
                   return (
@@ -1330,15 +1359,24 @@ export default function DashboardPage({ blogPosts: dbBlogPosts, portfolios: dbPo
                       href = rest ? `/${prefix}/${rest}` : `/${prefix}`;
                     }
                   } else {
-                    // Service chips use keyword-style URL from title
+                    // Build keyword-style URL from title
+                    // "Top 10 Website Design Near Me" → "/Top10/website-design-near-me"
                     // "Best Website Design Near Me" → "/Best/website-design-near-me"
                     const title = svc.title || '';
                     const inParts = title.split(' in ');
                     const servicePart = (inParts[0] || title).trim();
                     const location = (inParts[1] || '').trim();
                     const words = servicePart.split(/\s+/);
-                    const prefix = words[0] || 'Best';
-                    const rest = words.slice(1).join(' ');
+                    let prefix = words[0] || 'Best';
+                    let restWords;
+                    // If second word is a number (e.g. "Top 10", "Top 5"), merge into prefix
+                    if (words[1] && /^\d+$/.test(words[1])) {
+                      prefix = prefix + words[1];
+                      restWords = words.slice(2);
+                    } else {
+                      restWords = words.slice(1);
+                    }
+                    const rest = restWords.join(' ');
                     const serviceSlug = rest.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                     href = location
                       ? `/${prefix}/${serviceSlug}/${location}`
