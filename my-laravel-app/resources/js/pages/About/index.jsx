@@ -11,10 +11,11 @@ import SEO from '../../components/SEO'
 import OptimizedImage from '../../components/OptimizedImage'
 
 const SKILLS = [
-  { label: 'HTML',       pct: 85 },
-  { label: 'CSS',        pct: 90 },
-  { label: 'JAVASCRIPT', pct: 85 },
-  { label: 'FIGMA',      pct: 80 },
+  { label: 'Laravel',    pct: 92 },
+  { label: 'PHP',        pct: 90 },
+  { label: 'JavaScript', pct: 85 },
+  { label: 'React',      pct: 88 },
+  { label: 'Flutter',    pct: 80 },
 ]
 
 const FALLBACK_TESTIMONIALS = [
@@ -47,6 +48,29 @@ const FALLBACK_TESTIMONIALS = [
   },
 ]
 
+function TAvatar({ name, image, size = 80, className = '' }) {
+  const [broken, setBroken] = useState(false);
+  const initials = name ? name.trim().split(/\s+/).map(n => n[0]).join('').toUpperCase().slice(0, 2) : '?';
+  if (!image || broken) {
+    return (
+      <div className={`testi-avatar-initials ${className}`} style={{ width: size, height: size }} aria-label={name}>
+        {initials}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={image}
+      alt={name}
+      className={className}
+      loading="lazy"
+      width={size}
+      height={size}
+      onError={() => setBroken(true)}
+    />
+  );
+}
+
 export default function AboutPage() {
   const prevRef = useRef(null)
   const nextRef = useRef(null)
@@ -72,7 +96,7 @@ export default function AboutPage() {
     <main className="ap-root">
       <SEO 
         title="About Nikhil Sharma | Full Stack Developer & UI/UX Designer — Jaipur"
-        description="8+ years building PHP, React & Flutter apps. Nikhil Sharma is a Jaipur-based Full Stack Developer specialising in web apps, mobile apps, and UI/UX design for startups and SMEs."
+        description="9+ years building PHP, React & Flutter apps. Nikhil Sharma is a Jaipur-based Full Stack Developer specialising in web apps, mobile apps, and UI/UX design for startups and SMEs."
         keywords="About Nikhil Sharma, Full Stack Developer Jaipur, PHP React Flutter Developer, Software Architect Jaipur, Web Development Expert India"
         structuredData={[
           {
@@ -82,7 +106,7 @@ export default function AboutPage() {
             "url": "https://thenikhilsharma.in",
             "image": "https://thenikhilsharma.in/images/Gemini_Generated_Image_ca27fpca27fpca27.png",
             "jobTitle": "Full Stack Developer & UI/UX Designer",
-            "description": "Jaipur-based Full Stack Developer with 8+ years of experience in PHP, React, Laravel, Flutter, and UI/UX design. Helping startups and SMEs build fast, SEO-optimised digital products.",
+            "description": "Jaipur-based Full Stack Developer with 9+ years of experience in PHP, React, Laravel, Flutter, and UI/UX design. Helping startups and SMEs build fast, SEO-optimised digital products.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Jaipur",
@@ -153,7 +177,7 @@ export default function AboutPage() {
                 data-aos-duration="800"
                 data-aos-delay="200"
               >
-                Web Developer.
+               Web Developer.
               </h3>
 
               <p
@@ -186,7 +210,7 @@ export default function AboutPage() {
               {/* <div className="ap-img-circle-bg" /> */}
               <div className="ap-img-blob">
                 <OptimizedImage
-                  src="/images/Gemini_Generated_Image_ca27fpca27fpca27.png"
+                  src="/images/ankit.png"
                   alt="Nikhil Sharma - Full Stack Developer in Jaipur"
                   priority={true}
                   width={480}
@@ -247,7 +271,7 @@ export default function AboutPage() {
                   data-aos="fade-up"
                   data-aos-duration="700"
                   data-aos-delay={idx * 100}
-                >
+                > 
                   <h6 className="title">{skill.label}</h6>
                   <div className="progress" role="progressbar" aria-label={skill.label}>
                     <div
@@ -267,7 +291,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
       {/* ══════════════════════════════════════
           SECTION 3 — TESTIMONIALS
       ══════════════════════════════════════ */}
@@ -317,7 +340,7 @@ export default function AboutPage() {
                   <SwiperSlide key={t.id}>
                     <div className="testimonial-item">
                       <div className="testimonial-item__client-img">
-                        <img src={t.image} alt={t.name} loading="lazy" width="64" height="64" />
+                        <TAvatar name={t.name} image={t.image} size={80} />
                       </div>
                       <div className="ap-testi-body">
                         <div className="ap-testi-stars" aria-label={`${t.rating || 5} out of 5 stars`}>
@@ -373,14 +396,10 @@ export default function AboutPage() {
           </p>
           <div className="ap-dirs-grid" data-aos="fade-up" data-aos-delay="200">
             {[
-              { name: 'Upwork',     href: 'https://www.upwork.com/freelancers/nikhilsharma',         desc: 'Freelance marketplace — verified profile & client reviews' },
-              { name: 'Clutch',     href: 'https://clutch.co/profile/nikhil-sharma-developer',       desc: 'B2B ratings platform — portfolio & verified client feedback' },
-              { name: 'GoodFirms', href: 'https://www.goodfirms.co/company/nikhil-sharma',           desc: 'Software company directory — listed & reviewed' },
-              { name: 'Sulekha',   href: 'https://www.sulekha.com/nikhilsharma',                     desc: 'India local services — web developer Jaipur listing' },
-              { name: 'Justdial',  href: 'https://www.justdial.com/nikhilsharma',                    desc: 'India business directory — local SEO presence' },
-              { name: 'LinkedIn',  href: 'https://www.linkedin.com/in/nikhil-sharma-jaipur',         desc: '8+ years experience, endorsements & recommendations' },
-              { name: 'GitHub',    href: 'https://github.com/nikhilsharma',                          desc: 'Open source contributions & public repositories' },
-              { name: 'Toptal',    href: 'https://www.toptal.com/resume/nikhil-sharma',              desc: 'Top 3% freelancer network — screened & verified' },
+              { name: 'Upwork',   href: 'https://www.upwork.com/freelancers/nikhilsharma',    desc: 'Freelance marketplace — verified profile & client reviews' },
+              { name: 'Fiverr',   href: 'https://www.fiverr.com/technikhil7/',                  desc: 'Freelance services marketplace — hire me for your project' },
+              { name: 'LinkedIn', href: 'https://www.linkedin.com/in/nikhil-sharma-jaipur',   desc: '9+ years experience, endorsements & recommendations' },
+              { name: 'GitHub',   href: 'https://github.com/technikhilsharma7',               desc: 'Open source contributions & public repositories' },
             ].map((d) => (
               <a
                 key={d.name}

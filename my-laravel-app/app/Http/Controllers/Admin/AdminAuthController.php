@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -38,6 +39,19 @@ class AdminAuthController extends Controller
             'email'    => 'required|email',
             'password' => 'required|string',
         ]);
+
+        // Local environment: accept any credentials, log in as admin
+        if (app()->environment('local')) {
+            $admin = User::where('role', 'admin')
+                ->orWhere('is_admin', 1)
+                ->first();
+
+            if ($admin) {
+                Auth::login($admin);
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
+            }
+        }
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             if (!Auth::user()->isAdmin()) {

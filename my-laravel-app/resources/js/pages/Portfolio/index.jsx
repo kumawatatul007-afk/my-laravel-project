@@ -78,9 +78,9 @@ export default function PortfolioPage({ items: dbItems }) {
         {!loading && (
           <div className="port-grid" ref={gridRef}>
             {portfolios.map((project, i) => (
-              <Link
+              <a
                 key={project.id}
-                href={`/portfolio/${project.id}`}
+                href={`/portfolio/${project.slug || project.id}`}
                 style={{ textDecoration: 'none' }}
               >
                 <div
@@ -105,22 +105,12 @@ export default function PortfolioPage({ items: dbItems }) {
                         {project.short_description && (
                           <p className="port-overlay-cat">{project.short_description.slice(0, 80)}</p>
                         )}
-                        {project.website_link && (
-                          <a
-                            className="port-link"
-                            href={project.website_link}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            View Project →
-                          </a>
-                        )}
+                        <span className="port-link">View Details →</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
         )}
@@ -211,25 +201,21 @@ export default function PortfolioPage({ items: dbItems }) {
         .port-img-wrap {
           position: relative;
           overflow: hidden;
+          height: 280px;
           background: #e5e7eb;
-          clip-path: inset(0px);
-          transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .port-item:hover .port-img-wrap {
-          clip-path: inset(10px);
         }
 
         .port-img {
           width: 100%;
-          height: 260px;
-          object-fit: cover;
+          height: auto;
           display: block;
-          transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+          object-fit: unset;
+          transform: translateY(0);
+          transition: transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .port-item:hover .port-img {
-          transform: scale(1.06) rotate(0.001deg);
+          transform: translateY(calc(-100% + 280px));
         }
 
         .port-overlay {
@@ -321,8 +307,11 @@ export default function PortfolioPage({ items: dbItems }) {
           .port-big-title {
             font-size: 2rem;
           }
-          .port-img {
+          .port-img-wrap {
             height: 220px;
+          }
+          .port-item:hover .port-img {
+            transform: translateY(calc(-100% + 220px));
           }
         }
       `}</style>
